@@ -4,6 +4,10 @@
  */
 package App;
 
+import javax.swing.JOptionPane;
+import DatabaseConnection.ConnectionProvider;
+import java.sql.*;
+
 /**
  *
  * @author asus
@@ -14,7 +18,8 @@ public class loginPage extends javax.swing.JFrame {
      * Creates new form loginPage
      */
     public loginPage() {
-        initComponents();
+        initComponents();hidePassword.setVisible(false);
+        password.setEchoChar('*');
     }
 
     /**
@@ -26,21 +31,255 @@ public class loginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        backButton = new App.buttonCustom();
+        jLabel2 = new javax.swing.JLabel();
+        username = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        showPassword = new App.buttonCustom();
+        hidePassword = new App.buttonCustom();
+        password = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
+        studentRole = new javax.swing.JRadioButton();
+        teacherRole = new javax.swing.JRadioButton();
+        submitButton = new App.buttonCustom();
+        jLabel6 = new javax.swing.JLabel();
+        signupButton = new App.buttonCustom();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        backButton.setForeground(new java.awt.Color(57, 129, 247));
+        backButton.setText("< Back");
+        backButton.setBorderColor(new java.awt.Color(102, 102, 102));
+        backButton.setColorClick(new java.awt.Color(235, 235, 235));
+        backButton.setColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
+        backButton.setRadius(50);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 650, 130, 50));
+
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel2.setText("Username");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, -1));
+
+        username.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        username.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 610, 40));
+
+        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel3.setText("Password");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, -1, -1));
+
+        showPassword.setForeground(new java.awt.Color(46, 92, 175));
+        showPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/show_password.png"))); // NOI18N
+        showPassword.setToolTipText("");
+        showPassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        showPassword.setColorClick(new java.awt.Color(255, 255, 255));
+        showPassword.setColorOver(new java.awt.Color(255, 255, 255));
+        showPassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        showPassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        showPassword.setRadius(30);
+        showPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 380, 30, 20));
+
+        hidePassword.setForeground(new java.awt.Color(46, 92, 175));
+        hidePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
+        hidePassword.setToolTipText("");
+        hidePassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorClick(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorOver(new java.awt.Color(255, 255, 255));
+        hidePassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        hidePassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        hidePassword.setRadius(30);
+        hidePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hidePasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(hidePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 380, 30, 20));
+
+        password.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 610, 40));
+
+        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel5.setText("Role");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, -1, -1));
+
+        studentRole.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        studentRole.setText("Student");
+        studentRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentRoleActionPerformed(evt);
+            }
+        });
+        getContentPane().add(studentRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 480, -1, -1));
+
+        teacherRole.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        teacherRole.setText("Teacher");
+        teacherRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherRoleActionPerformed(evt);
+            }
+        });
+        getContentPane().add(teacherRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, -1, -1));
+
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
+        submitButton.setText("Submit");
+        submitButton.setBorderColor(new java.awt.Color(0, 0, 0));
+        submitButton.setColor(new java.awt.Color(0, 0, 0));
+        submitButton.setColorClick(new java.awt.Color(72, 72, 72));
+        submitButton.setColorOver(new java.awt.Color(72, 72, 72));
+        submitButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
+        submitButton.setRadius(50);
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 490, 130, 50));
+
+        jLabel6.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Don’t have an account?");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 580, -1, -1));
+
+        signupButton.setBackground(new java.awt.Color(237, 242, 248));
+        signupButton.setForeground(new java.awt.Color(46, 92, 175));
+        signupButton.setText("Sign Up");
+        signupButton.setBorderColor(new java.awt.Color(237, 242, 248));
+        signupButton.setColor(new java.awt.Color(237, 242, 248));
+        signupButton.setColorClick(new java.awt.Color(255, 255, 255));
+        signupButton.setColorOver(new java.awt.Color(255, 255, 255));
+        signupButton.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        signupButton.setRadius(30);
+        signupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signupButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(signupButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 580, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_login.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        setVisible(false);
+        new WelcomePage().setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
+        showPassword.setVisible(false);
+        hidePassword.setVisible(true);
+        password.setEchoChar((char)0);
+    }//GEN-LAST:event_showPasswordActionPerformed
+
+    private void hidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePasswordActionPerformed
+        showPassword.setVisible(true);
+        hidePassword.setVisible(false);
+        password.setEchoChar('*');
+    }//GEN-LAST:event_hidePasswordActionPerformed
+
+    private void studentRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRoleActionPerformed
+        if(studentRole.isSelected()){
+            teacherRole.setSelected(false);
+        }
+    }//GEN-LAST:event_studentRoleActionPerformed
+
+    private void teacherRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherRoleActionPerformed
+        if(teacherRole.isSelected()){
+            studentRole.setSelected(false);
+        }
+    }//GEN-LAST:event_teacherRoleActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        String usernameStr = username.getText();
+        String passwordStr = password.getText();
+        String role = "";
+
+        if(studentRole.isSelected()){
+            role="Student";
+        }
+        else if(teacherRole.isSelected()){
+            role="Teacher";
+        }
+
+        if(usernameStr.equals("")){
+            JOptionPane.showMessageDialog(null, "Username is still empty.");
+        }
+        else if(passwordStr.equals("")){
+            JOptionPane.showMessageDialog(null, "Password is still empty.");
+        }
+        else if(role.equals("")){
+            JOptionPane.showMessageDialog(null, "Please select a role.");
+        }
+        else{
+            if(role.equals("Student")){
+                String passwordConfirmation ="";
+                try{
+                    Connection con = ConnectionProvider.getCon();
+                    Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs = st.executeQuery("select * from student where username='"+usernameStr+"'");
+                    while(rs.next()){
+                        passwordConfirmation = rs.getString(3);
+                    }
+                    
+                    if(passwordConfirmation.equals(passwordStr)){
+                        setVisible(false);
+                        new StudentHome().setVisible(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Password is incorrect");
+                    }
+   
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+
+            if(role.equals("Teacher")){
+                String passwordConfirmation ="";
+                try{
+                    Connection con = ConnectionProvider.getCon();
+                    Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs = st.executeQuery("select * from admin where username='"+usernameStr+"'");
+                    while(rs.next()){
+                        passwordConfirmation = rs.getString(3);
+                    }
+                    
+                    if(passwordConfirmation.equals(passwordStr)){
+                        setVisible(false);
+                        new AdminHome().setVisible(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Username or password is incorrect");
+                    }
+   
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+
+        }
+
+    }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
+        setVisible(false);
+        new SignUpPage().setVisible(true);
+    }//GEN-LAST:event_signupButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +317,19 @@ public class loginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private App.buttonCustom backButton;
+    private App.buttonCustom hidePassword;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPasswordField password;
+    private App.buttonCustom showPassword;
+    private App.buttonCustom signupButton;
+    private javax.swing.JRadioButton studentRole;
+    private App.buttonCustom submitButton;
+    private javax.swing.JRadioButton teacherRole;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

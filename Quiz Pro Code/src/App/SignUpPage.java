@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package App;
+import java.sql.*;
+import DatabaseConnection.ConnectionProvider;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,19 @@ public class SignUpPage extends javax.swing.JFrame {
      */
     public SignUpPage() {
         initComponents();
+        hidePassword.setVisible(false);
+        hidePassword1.setVisible(false);
+        password.setEchoChar('*');
+        passwordConfirm.setEchoChar('*');
+        
+    }
+    
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.matches();
     }
 
     /**
@@ -33,12 +51,18 @@ public class SignUpPage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
-        confirmPassword = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         studentRole = new javax.swing.JRadioButton();
         teacherRole = new javax.swing.JRadioButton();
         submitButton = new App.buttonCustom();
+        jLabel6 = new javax.swing.JLabel();
+        showPassword = new App.buttonCustom();
+        loginButton2 = new App.buttonCustom();
+        hidePassword = new App.buttonCustom();
+        showPassword1 = new App.buttonCustom();
+        hidePassword1 = new App.buttonCustom();
+        passwordConfirm = new javax.swing.JPasswordField();
+        password = new javax.swing.JPasswordField();
         bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,6 +75,11 @@ public class SignUpPage extends javax.swing.JFrame {
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
         backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         backButton.setRadius(50);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 650, 130, 50));
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
@@ -70,25 +99,12 @@ public class SignUpPage extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
 
         username.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        username.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 8, 1, 1));
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
+        username.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 610, 40));
 
         email.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 8, 1, 1));
+        email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
         getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 610, 40));
-
-        password.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 8, 1, 1));
-        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 610, 40));
-
-        confirmPassword.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        confirmPassword.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 8, 1, 1));
-        getContentPane().add(confirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, 610, 40));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel5.setText("Role");
@@ -96,10 +112,20 @@ public class SignUpPage extends javax.swing.JFrame {
 
         studentRole.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         studentRole.setText("Student");
+        studentRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentRoleActionPerformed(evt);
+            }
+        });
         getContentPane().add(studentRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 540, -1, -1));
 
         teacherRole.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         teacherRole.setText("Teacher");
+        teacherRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherRoleActionPerformed(evt);
+            }
+        });
         getContentPane().add(teacherRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 540, -1, -1));
 
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,22 +136,255 @@ public class SignUpPage extends javax.swing.JFrame {
         submitButton.setColorOver(new java.awt.Color(72, 72, 72));
         submitButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         submitButton.setRadius(50);
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 560, 130, 50));
 
+        jLabel6.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Already have an account?");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 640, -1, -1));
+
+        showPassword.setForeground(new java.awt.Color(46, 92, 175));
+        showPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/show_password.png"))); // NOI18N
+        showPassword.setToolTipText("");
+        showPassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        showPassword.setColorClick(new java.awt.Color(255, 255, 255));
+        showPassword.setColorOver(new java.awt.Color(255, 255, 255));
+        showPassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        showPassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        showPassword.setRadius(30);
+        showPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 360, 30, 20));
+
+        loginButton2.setBackground(new java.awt.Color(237, 242, 248));
+        loginButton2.setForeground(new java.awt.Color(46, 92, 175));
+        loginButton2.setText("Login");
+        loginButton2.setBorderColor(new java.awt.Color(237, 242, 248));
+        loginButton2.setColor(new java.awt.Color(237, 242, 248));
+        loginButton2.setColorClick(new java.awt.Color(255, 255, 255));
+        loginButton2.setColorOver(new java.awt.Color(255, 255, 255));
+        loginButton2.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        loginButton2.setRadius(30);
+        loginButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(loginButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 640, -1, -1));
+
+        hidePassword.setForeground(new java.awt.Color(46, 92, 175));
+        hidePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
+        hidePassword.setToolTipText("");
+        hidePassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorClick(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorOver(new java.awt.Color(255, 255, 255));
+        hidePassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        hidePassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        hidePassword.setRadius(30);
+        hidePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hidePasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(hidePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 360, 30, 20));
+
+        showPassword1.setForeground(new java.awt.Color(46, 92, 175));
+        showPassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/show_password.png"))); // NOI18N
+        showPassword1.setToolTipText("");
+        showPassword1.setBorderColor(new java.awt.Color(255, 255, 255));
+        showPassword1.setColorClick(new java.awt.Color(255, 255, 255));
+        showPassword1.setColorOver(new java.awt.Color(255, 255, 255));
+        showPassword1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        showPassword1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        showPassword1.setRadius(30);
+        showPassword1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPassword1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(showPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 450, 30, 20));
+
+        hidePassword1.setForeground(new java.awt.Color(46, 92, 175));
+        hidePassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
+        hidePassword1.setToolTipText("");
+        hidePassword1.setBorderColor(new java.awt.Color(255, 255, 255));
+        hidePassword1.setColorClick(new java.awt.Color(255, 255, 255));
+        hidePassword1.setColorOver(new java.awt.Color(255, 255, 255));
+        hidePassword1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        hidePassword1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        hidePassword1.setRadius(30);
+        hidePassword1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hidePassword1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(hidePassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 450, 30, 20));
+
+        passwordConfirm.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        passwordConfirm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+        getContentPane().add(passwordConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, 610, 40));
+
+        password.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 610, 40));
+
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_signup.png"))); // NOI18N
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, 720));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+    private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
+        showPassword.setVisible(false);
+        hidePassword.setVisible(true);
+        password.setEchoChar((char)0);
+    }//GEN-LAST:event_showPasswordActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        setVisible(false);
+        new WelcomePage().setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
+    }//GEN-LAST:event_passwordActionPerformed
+
+    private void loginButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButton2ActionPerformed
+        setVisible(false);
+        new loginPage().setVisible(true);
+    }//GEN-LAST:event_loginButton2ActionPerformed
+
+    private void hidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePasswordActionPerformed
+        showPassword.setVisible(true);
+        hidePassword.setVisible(false);
+        password.setEchoChar('*');
+    }//GEN-LAST:event_hidePasswordActionPerformed
+
+    private void showPassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassword1ActionPerformed
+        showPassword1.setVisible(false);
+        hidePassword1.setVisible(true);
+        passwordConfirm.setEchoChar((char)0);
+    }//GEN-LAST:event_showPassword1ActionPerformed
+
+    private void hidePassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePassword1ActionPerformed
+        showPassword1.setVisible(true);
+        hidePassword1.setVisible(false);
+        passwordConfirm.setEchoChar('*');
+    }//GEN-LAST:event_hidePassword1ActionPerformed
+
+    private void studentRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRoleActionPerformed
+       if(studentRole.isSelected()){
+           teacherRole.setSelected(false);
+       }
+    }//GEN-LAST:event_studentRoleActionPerformed
+
+    private void teacherRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherRoleActionPerformed
+        if(teacherRole.isSelected()){
+           studentRole.setSelected(false);
+       }
+    }//GEN-LAST:event_teacherRoleActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        String usernameStr = username.getText();
+        String emailStr = email.getText();
+        String passwordStr = password.getText();
+        String passwordConfirmStr = passwordConfirm.getText();
+        String role = "";
+        
+        if(studentRole.isSelected()){
+            role="Student";
+        }
+        else if(teacherRole.isSelected()){
+            role="Teacher";
+        }
+        
+        
+        if(usernameStr.equals("")){
+            JOptionPane.showMessageDialog(null, "Username is still empty.");
+        }
+        else if(emailStr.equals("")){
+            JOptionPane.showMessageDialog(null, "Email is still empty.");
+        }
+        else if(passwordStr.equals("")){
+            JOptionPane.showMessageDialog(null, "Password is still empty.");
+        }
+        else if(passwordConfirmStr.equals("")){
+            JOptionPane.showMessageDialog(null, "Confirm Password is still empty.");
+        }
+        else if(role.equals("")){
+            JOptionPane.showMessageDialog(null, "Please select a role.");
+        }
+        else{
+           if(!(validate(emailStr))){
+                JOptionPane.showMessageDialog(null, "Please input a correct email.");
+           }
+           
+           if(!(passwordStr.equals(passwordConfirmStr))){
+               JOptionPane.showMessageDialog(null, "Password and Confirm Password is not the same.");
+           }
+           
+           
+           if(role.equals("Student") && passwordStr.equals(passwordConfirmStr) && validate(emailStr)){
+               try{
+                    Connection con = ConnectionProvider.getCon();
+                    PreparedStatement ps = con.prepareStatement("insert into student values(?,?,?)");
+                    ps.setString(1, usernameStr);
+                    ps.setString(2, emailStr);
+                    ps.setString(3, passwordStr);
+                    ps.executeUpdate();
+                    setVisible(false);
+                    new StudentHome().setVisible(true);
+                    
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+           }
+           
+           if(role.equals("Teacher") && passwordStr.equals(passwordConfirmStr) && validate(emailStr)){
+               try{
+                    Connection con = ConnectionProvider.getCon();
+                    PreparedStatement ps = con.prepareStatement("insert into admin values(?,?,?)");
+                    ps.setString(1, usernameStr);
+                    ps.setString(2, emailStr);
+                    ps.setString(3, passwordStr);
+                    ps.executeUpdate();
+                    setVisible(false);
+                    new AdminHome().setVisible(true);
+                    
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+           }
+           
+        }
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        //System.out.println(new java.io.File("src/App/img/background_welcome.png").exists());
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -160,14 +419,20 @@ public class SignUpPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private App.buttonCustom backButton;
     private javax.swing.JLabel bg;
-    private javax.swing.JTextField confirmPassword;
     private javax.swing.JTextField email;
+    private App.buttonCustom hidePassword;
+    private App.buttonCustom hidePassword1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField password;
+    private javax.swing.JLabel jLabel6;
+    private App.buttonCustom loginButton2;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JPasswordField passwordConfirm;
+    private App.buttonCustom showPassword;
+    private App.buttonCustom showPassword1;
     private javax.swing.JRadioButton studentRole;
     private App.buttonCustom submitButton;
     private javax.swing.JRadioButton teacherRole;

@@ -4,12 +4,14 @@
  */
 package App;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author asus
  */
 public class EditQuiz extends javax.swing.JFrame {
-
+    public static int open = 0;
     /**
      * Creates new form WelcomePage
      */
@@ -295,7 +297,8 @@ public class EditQuiz extends javax.swing.JFrame {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        new AdminHome().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeOrderButtonActionPerformed
@@ -319,7 +322,11 @@ public class EditQuiz extends javax.swing.JFrame {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
-        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
+        if(a==0){
+            setVisible(false);
+            new WelcomePage().setVisible(true);
+        }
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
     /**

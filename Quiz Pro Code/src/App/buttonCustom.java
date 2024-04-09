@@ -43,10 +43,46 @@ public class buttonCustom extends JButton {
         this.colorClick = colorClick;
     }
 
-    public Color getBorderColor() {
-        return borderColor;
+    public Color getBorderColorNotOver() {
+        return borderColorNotOver;
     }
 
+    public Color getColor2() {
+        return color2;
+    }
+
+    public void setColor2(Color color2) {
+        this.color2 = color2;
+    }
+
+    public Color getColorOver2() {
+        return colorOver2;
+    }
+
+    public void setColorOver2(Color colorOver2) {
+        this.colorOver2 = colorOver2;
+    }
+
+    public Color getColorClick2() {
+        return colorClick2;
+    }
+
+    public void setColorClick2(Color colorClick2) {
+        this.colorClick2 = colorClick2;
+    }
+
+    public Color getBorderColorOver() {
+        return borderColorOver;
+    }
+
+    public void setBorderColorOver(Color borderColorOver) {
+        this.borderColorOver = borderColorOver;
+    }
+
+    public void setBorderColorNotOver(Color borderColor) {
+        this.borderColorNotOver = borderColor;
+    }
+    
     public void setBorderColor(Color borderColor) {
         this.borderColor = borderColor;
     }
@@ -63,37 +99,52 @@ public class buttonCustom extends JButton {
     public buttonCustom() {
         //  Init Color
 
-        setColor(Color.WHITE);
-        colorOver = new Color(179, 250, 160);
-        colorClick = new Color(152, 184, 144);
-        borderColor = new Color(30, 136, 56);
+        setColor(null);
+        colorOver = null;
+        colorClick = null;
+        borderColorNotOver = null;
+        color2 = null;
+        colorOver2 = null;
+        colorClick2 = null;
+        borderColorOver = null;
         setContentAreaFilled(false);
+        
+        
         //  Add event mouse
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
                 setBackground(colorOver);
+                setForeground(colorOver2);
+                setBorderColor(borderColorOver);
                 over = true;
             }
 
             @Override
             public void mouseExited(MouseEvent me) {
                 setBackground(color);
+                setForeground(color2);
+                setBorderColor(borderColorNotOver);
                 over = false;
-
             }
 
             @Override
             public void mousePressed(MouseEvent me) {
                 setBackground(colorClick);
+                setForeground(colorClick2);
+                setBorderColor(borderColorOver);
             }
 
             @Override
             public void mouseReleased(MouseEvent me) {
                 if (over) {
                     setBackground(colorOver);
+                    setForeground(colorOver2);
+                    setBorderColor(borderColorOver);
                 } else {
                     setBackground(color);
+                    setForeground(color2);
+                    setBorderColor(borderColorNotOver);
                 }
             }
         });
@@ -103,7 +154,12 @@ public class buttonCustom extends JButton {
     private Color color;
     private Color colorOver;
     private Color colorClick;
-    private Color borderColor;
+    private Color color2;
+    private Color colorOver2;
+    private Color colorClick2;
+    private Color borderColorOver;
+    private Color borderColorNotOver;
+    private Color borderColor;    
     private int radius = 0;
 
     @Override

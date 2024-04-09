@@ -16,6 +16,11 @@ public class EditQuiz extends javax.swing.JFrame {
     public EditQuiz() {
         initComponents();
     }
+    
+    public EditQuiz(String quizId){
+        initComponents();
+        System.out.println(quizId);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,8 +33,8 @@ public class EditQuiz extends javax.swing.JFrame {
 
         backButton = new App.buttonCustom();
         changeOrder_icon = new javax.swing.JLabel();
-        changeOrderButton = new App.buttonCustom();
         result_icon = new javax.swing.JLabel();
+        changeOrderButton = new App.buttonCustom();
         resultButton = new App.buttonCustom();
         LogoutButton = new App.buttonCustom();
         search_icon = new javax.swing.JLabel();
@@ -46,10 +51,17 @@ public class EditQuiz extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
-        backButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        backButton.setBorderColor(new java.awt.Color(248, 248, 248));
+        backButton.setBorderColorNotOver(java.awt.Color.white);
+        backButton.setBorderColorOver(new java.awt.Color(242, 242, 242));
+        backButton.setColor(java.awt.Color.white);
+        backButton.setColor2(new java.awt.Color(57, 129, 247));
         backButton.setColorClick(new java.awt.Color(235, 235, 235));
+        backButton.setColorClick2(new java.awt.Color(41, 103, 197));
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColorOver2(new java.awt.Color(41, 103, 197));
         backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 32)); // NOI18N
         backButton.setLabel("< Back");
         backButton.setMaximumSize(new java.awt.Dimension(143, 68));
@@ -68,13 +80,23 @@ public class EditQuiz extends javax.swing.JFrame {
         changeOrder_icon.setIcon(new javax.swing.ImageIcon("src/App/img/change_order.png"));
         getContentPane().add(changeOrder_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 30, 40));
 
+        result_icon.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
+        result_icon.setForeground(new java.awt.Color(255, 255, 255));
+        result_icon.setIcon(new javax.swing.ImageIcon("src/App/img/result.png"));
+        getContentPane().add(result_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 170, -1, 40));
+
         changeOrderButton.setBackground(new java.awt.Color(57, 129, 247));
         changeOrderButton.setForeground(new java.awt.Color(255, 255, 255));
         changeOrderButton.setText("Change Order");
-        changeOrderButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        changeOrderButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        changeOrderButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        changeOrderButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         changeOrderButton.setColor(new java.awt.Color(57, 129, 247));
+        changeOrderButton.setColor2(java.awt.Color.white);
         changeOrderButton.setColorClick(new java.awt.Color(57, 158, 255));
+        changeOrderButton.setColorClick2(java.awt.Color.white);
         changeOrderButton.setColorOver(new java.awt.Color(57, 158, 255));
+        changeOrderButton.setColorOver2(java.awt.Color.white);
         changeOrderButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         changeOrderButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         changeOrderButton.setMaximumSize(new java.awt.Dimension(143, 68));
@@ -88,16 +110,18 @@ public class EditQuiz extends javax.swing.JFrame {
         });
         getContentPane().add(changeOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 240, 60));
 
-        result_icon.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
-        result_icon.setForeground(new java.awt.Color(255, 255, 255));
-        result_icon.setIcon(new javax.swing.ImageIcon("src/App/img/result.png"));
-        getContentPane().add(result_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 170, -1, 40));
-
+        resultButton.setBackground(new java.awt.Color(255, 255, 255));
         resultButton.setForeground(new java.awt.Color(57, 129, 247));
         resultButton.setText("Result");
-        resultButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        resultButton.setBorderColor(new java.awt.Color(255, 255, 255));
+        resultButton.setBorderColorNotOver(java.awt.Color.white);
+        resultButton.setBorderColorOver(new java.awt.Color(235, 235, 235));
+        resultButton.setColor(java.awt.Color.white);
+        resultButton.setColor2(new java.awt.Color(57, 129, 247));
         resultButton.setColorClick(new java.awt.Color(235, 235, 235));
+        resultButton.setColorClick2(new java.awt.Color(54, 96, 160));
         resultButton.setColorOver(new java.awt.Color(235, 235, 235));
+        resultButton.setColorOver2(new java.awt.Color(54, 96, 160));
         resultButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         resultButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         resultButton.setMaximumSize(new java.awt.Dimension(143, 68));
@@ -114,10 +138,15 @@ public class EditQuiz extends javax.swing.JFrame {
         LogoutButton.setBackground(new java.awt.Color(57, 129, 247));
         LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
         LogoutButton.setText("Log Out");
-        LogoutButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        LogoutButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        LogoutButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        LogoutButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         LogoutButton.setColor(new java.awt.Color(57, 129, 247));
+        LogoutButton.setColor2(java.awt.Color.white);
         LogoutButton.setColorClick(new java.awt.Color(57, 158, 255));
+        LogoutButton.setColorClick2(java.awt.Color.white);
         LogoutButton.setColorOver(new java.awt.Color(57, 158, 255));
+        LogoutButton.setColorOver2(java.awt.Color.white);
         LogoutButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 30)); // NOI18N
         LogoutButton.setMaximumSize(new java.awt.Dimension(143, 68));
         LogoutButton.setMinimumSize(new java.awt.Dimension(143, 68));
@@ -138,10 +167,15 @@ public class EditQuiz extends javax.swing.JFrame {
         searchButton.setBackground(new java.awt.Color(57, 129, 247));
         searchButton.setForeground(new java.awt.Color(255, 255, 255));
         searchButton.setText("Search");
-        searchButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        searchButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        searchButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        searchButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         searchButton.setColor(new java.awt.Color(57, 129, 247));
+        searchButton.setColor2(java.awt.Color.white);
         searchButton.setColorClick(new java.awt.Color(57, 158, 255));
+        searchButton.setColorClick2(java.awt.Color.white);
         searchButton.setColorOver(new java.awt.Color(57, 158, 255));
+        searchButton.setColorOver2(java.awt.Color.white);
         searchButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         searchButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         searchButton.setMaximumSize(new java.awt.Dimension(143, 68));
@@ -164,10 +198,15 @@ public class EditQuiz extends javax.swing.JFrame {
         editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit");
         editButton.setToolTipText("");
-        editButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        editButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        editButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        editButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         editButton.setColor(new java.awt.Color(57, 129, 247));
+        editButton.setColor2(java.awt.Color.white);
         editButton.setColorClick(new java.awt.Color(57, 158, 255));
+        editButton.setColorClick2(java.awt.Color.white);
         editButton.setColorOver(new java.awt.Color(57, 158, 255));
+        editButton.setColorOver2(java.awt.Color.white);
         editButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         editButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         editButton.setMaximumSize(new java.awt.Dimension(143, 68));
@@ -189,10 +228,15 @@ public class EditQuiz extends javax.swing.JFrame {
         deleteButton.setBackground(new java.awt.Color(57, 129, 247));
         deleteButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteButton.setText("Delete");
-        deleteButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        deleteButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        deleteButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        deleteButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         deleteButton.setColor(new java.awt.Color(57, 129, 247));
+        deleteButton.setColor2(java.awt.Color.white);
         deleteButton.setColorClick(new java.awt.Color(57, 158, 255));
+        deleteButton.setColorClick2(java.awt.Color.white);
         deleteButton.setColorOver(new java.awt.Color(57, 158, 255));
+        deleteButton.setColorOver2(java.awt.Color.white);
         deleteButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         deleteButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         deleteButton.setMaximumSize(new java.awt.Dimension(143, 68));
@@ -214,10 +258,15 @@ public class EditQuiz extends javax.swing.JFrame {
         addButton.setBackground(new java.awt.Color(57, 129, 247));
         addButton.setForeground(new java.awt.Color(255, 255, 255));
         addButton.setText("Add");
-        addButton.setBorderColor(new java.awt.Color(224, 237, 255));
+        addButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        addButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        addButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         addButton.setColor(new java.awt.Color(57, 129, 247));
+        addButton.setColor2(java.awt.Color.white);
         addButton.setColorClick(new java.awt.Color(57, 158, 255));
+        addButton.setColorClick2(java.awt.Color.white);
         addButton.setColorOver(new java.awt.Color(57, 158, 255));
+        addButton.setColorOver2(java.awt.Color.white);
         addButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         addButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         addButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);

@@ -49,11 +49,18 @@ public class loginPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
         backButton.setText("< Back");
-        backButton.setBorderColor(new java.awt.Color(102, 102, 102));
+        backButton.setBorderColor(new java.awt.Color(255, 255, 255));
+        backButton.setBorderColorNotOver(java.awt.Color.white);
+        backButton.setBorderColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColor(java.awt.Color.white);
+        backButton.setColor2(new java.awt.Color(57, 129, 247));
         backButton.setColorClick(new java.awt.Color(235, 235, 235));
+        backButton.setColorClick2(new java.awt.Color(54, 96, 160));
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColorOver2(new java.awt.Color(54, 96, 160));
         backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         backButton.setRadius(50);
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -79,8 +86,14 @@ public class loginPage extends javax.swing.JFrame {
         showPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/show_password.png"))); // NOI18N
         showPassword.setToolTipText("");
         showPassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        showPassword.setBorderColorNotOver(java.awt.Color.white);
+        showPassword.setBorderColorOver(java.awt.Color.white);
+        showPassword.setColor(java.awt.Color.white);
+        showPassword.setColor2(java.awt.Color.white);
         showPassword.setColorClick(new java.awt.Color(255, 255, 255));
+        showPassword.setColorClick2(java.awt.Color.white);
         showPassword.setColorOver(new java.awt.Color(255, 255, 255));
+        showPassword.setColorOver2(java.awt.Color.white);
         showPassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         showPassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
         showPassword.setRadius(30);
@@ -95,8 +108,14 @@ public class loginPage extends javax.swing.JFrame {
         hidePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
         hidePassword.setToolTipText("");
         hidePassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        hidePassword.setBorderColorNotOver(java.awt.Color.white);
+        hidePassword.setBorderColorOver(java.awt.Color.white);
+        hidePassword.setColor(java.awt.Color.white);
+        hidePassword.setColor2(java.awt.Color.white);
         hidePassword.setColorClick(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorClick2(java.awt.Color.white);
         hidePassword.setColorOver(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorOver2(java.awt.Color.white);
         hidePassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         hidePassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
         hidePassword.setRadius(30);
@@ -136,9 +155,14 @@ public class loginPage extends javax.swing.JFrame {
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.setBorderColor(new java.awt.Color(0, 0, 0));
+        submitButton.setBorderColorNotOver(java.awt.Color.black);
+        submitButton.setBorderColorOver(new java.awt.Color(72, 72, 72));
         submitButton.setColor(new java.awt.Color(0, 0, 0));
+        submitButton.setColor2(java.awt.Color.white);
         submitButton.setColorClick(new java.awt.Color(72, 72, 72));
+        submitButton.setColorClick2(java.awt.Color.white);
         submitButton.setColorOver(new java.awt.Color(72, 72, 72));
+        submitButton.setColorOver2(java.awt.Color.white);
         submitButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         submitButton.setRadius(50);
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -157,9 +181,14 @@ public class loginPage extends javax.swing.JFrame {
         signupButton.setForeground(new java.awt.Color(46, 92, 175));
         signupButton.setText("Sign Up");
         signupButton.setBorderColor(new java.awt.Color(237, 242, 248));
+        signupButton.setBorderColorNotOver(new java.awt.Color(237, 242, 248));
+        signupButton.setBorderColorOver(java.awt.Color.white);
         signupButton.setColor(new java.awt.Color(237, 242, 248));
+        signupButton.setColor2(new java.awt.Color(46, 92, 175));
         signupButton.setColorClick(new java.awt.Color(255, 255, 255));
+        signupButton.setColorClick2(new java.awt.Color(100, 140, 211));
         signupButton.setColorOver(new java.awt.Color(255, 255, 255));
+        signupButton.setColorOver2(new java.awt.Color(100, 140, 211));
         signupButton.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         signupButton.setRadius(30);
         signupButton.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +262,7 @@ public class loginPage extends javax.swing.JFrame {
                     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                     ResultSet rs = st.executeQuery("select * from student where username='"+usernameStr+"'");
                     while(rs.next()){
-                        passwordConfirmation = rs.getString(3);
+                        passwordConfirmation = rs.getString(4);
                     }
                     
                     if(passwordConfirmation.equals(passwordStr)){
@@ -256,7 +285,7 @@ public class loginPage extends javax.swing.JFrame {
                     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                     ResultSet rs = st.executeQuery("select * from admin where username='"+usernameStr+"'");
                     while(rs.next()){
-                        passwordConfirmation = rs.getString(3);
+                        passwordConfirmation = rs.getString(4);
                     }
                     
                     if(passwordConfirmation.equals(passwordStr)){

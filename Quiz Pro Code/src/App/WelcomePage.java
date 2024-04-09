@@ -34,10 +34,17 @@ public class WelcomePage extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        signUpButton.setBackground(new java.awt.Color(255, 255, 255));
         signUpButton.setText("Sign Up");
-        signUpButton.setBorderColor(new java.awt.Color(0, 0, 0));
+        signUpButton.setBorderColor(new java.awt.Color(102, 102, 102));
+        signUpButton.setBorderColorNotOver(new java.awt.Color(102, 102, 102));
+        signUpButton.setBorderColorOver(new java.awt.Color(0, 0, 0));
+        signUpButton.setColor(java.awt.Color.white);
+        signUpButton.setColor2(new java.awt.Color(0, 0, 0));
         signUpButton.setColorClick(new java.awt.Color(235, 235, 235));
+        signUpButton.setColorClick2(java.awt.Color.black);
         signUpButton.setColorOver(new java.awt.Color(235, 235, 235));
+        signUpButton.setColorOver2(java.awt.Color.black);
         signUpButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
         signUpButton.setRadius(80);
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -47,10 +54,17 @@ public class WelcomePage extends javax.swing.JFrame {
         });
         getContentPane().add(signUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 710, 100));
 
+        logInButton.setBackground(new java.awt.Color(255, 255, 255));
         logInButton.setText("Login");
-        logInButton.setBorderColor(new java.awt.Color(0, 0, 0));
+        logInButton.setBorderColor(new java.awt.Color(102, 102, 102));
+        logInButton.setBorderColorNotOver(new java.awt.Color(102, 102, 102));
+        logInButton.setBorderColorOver(new java.awt.Color(0, 0, 0));
+        logInButton.setColor(java.awt.Color.white);
+        logInButton.setColor2(java.awt.Color.black);
         logInButton.setColorClick(new java.awt.Color(235, 235, 235));
+        logInButton.setColorClick2(java.awt.Color.black);
         logInButton.setColorOver(new java.awt.Color(235, 235, 235));
+        logInButton.setColorOver2(java.awt.Color.black);
         logInButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
         logInButton.setRadius(80);
         logInButton.addActionListener(new java.awt.event.ActionListener() {

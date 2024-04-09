@@ -70,9 +70,15 @@ public class SignUpPage extends javax.swing.JFrame {
 
         backButton.setForeground(new java.awt.Color(57, 129, 247));
         backButton.setText("< Back");
-        backButton.setBorderColor(new java.awt.Color(102, 102, 102));
+        backButton.setBorderColor(new java.awt.Color(255, 255, 255));
+        backButton.setBorderColorNotOver(new java.awt.Color(255, 255, 255));
+        backButton.setBorderColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColor(java.awt.Color.white);
+        backButton.setColor2(new java.awt.Color(57, 129, 247));
         backButton.setColorClick(new java.awt.Color(235, 235, 235));
+        backButton.setColorClick2(new java.awt.Color(54, 96, 160));
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColorOver2(new java.awt.Color(54, 96, 160));
         backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         backButton.setRadius(50);
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -131,9 +137,14 @@ public class SignUpPage extends javax.swing.JFrame {
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.setBorderColor(new java.awt.Color(0, 0, 0));
+        submitButton.setBorderColorNotOver(java.awt.Color.black);
+        submitButton.setBorderColorOver(new java.awt.Color(72, 72, 72));
         submitButton.setColor(new java.awt.Color(0, 0, 0));
+        submitButton.setColor2(java.awt.Color.white);
         submitButton.setColorClick(new java.awt.Color(72, 72, 72));
+        submitButton.setColorClick2(new java.awt.Color(255, 255, 255));
         submitButton.setColorOver(new java.awt.Color(72, 72, 72));
+        submitButton.setColorOver2(java.awt.Color.white);
         submitButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         submitButton.setRadius(50);
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -148,12 +159,19 @@ public class SignUpPage extends javax.swing.JFrame {
         jLabel6.setText("Already have an account?");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 640, -1, -1));
 
+        showPassword.setBackground(new java.awt.Color(255, 255, 255));
         showPassword.setForeground(new java.awt.Color(46, 92, 175));
         showPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/show_password.png"))); // NOI18N
         showPassword.setToolTipText("");
         showPassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        showPassword.setBorderColorNotOver(java.awt.Color.white);
+        showPassword.setBorderColorOver(java.awt.Color.white);
+        showPassword.setColor(java.awt.Color.white);
+        showPassword.setColor2(java.awt.Color.white);
         showPassword.setColorClick(new java.awt.Color(255, 255, 255));
+        showPassword.setColorClick2(java.awt.Color.white);
         showPassword.setColorOver(new java.awt.Color(255, 255, 255));
+        showPassword.setColorOver2(java.awt.Color.white);
         showPassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         showPassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
         showPassword.setRadius(30);
@@ -168,9 +186,14 @@ public class SignUpPage extends javax.swing.JFrame {
         loginButton2.setForeground(new java.awt.Color(46, 92, 175));
         loginButton2.setText("Login");
         loginButton2.setBorderColor(new java.awt.Color(237, 242, 248));
+        loginButton2.setBorderColorNotOver(new java.awt.Color(237, 242, 248));
+        loginButton2.setBorderColorOver(java.awt.Color.white);
         loginButton2.setColor(new java.awt.Color(237, 242, 248));
+        loginButton2.setColor2(new java.awt.Color(46, 92, 175));
         loginButton2.setColorClick(new java.awt.Color(255, 255, 255));
+        loginButton2.setColorClick2(new java.awt.Color(100, 140, 211));
         loginButton2.setColorOver(new java.awt.Color(255, 255, 255));
+        loginButton2.setColorOver2(new java.awt.Color(100, 140, 211));
         loginButton2.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         loginButton2.setRadius(30);
         loginButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -180,12 +203,19 @@ public class SignUpPage extends javax.swing.JFrame {
         });
         getContentPane().add(loginButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 640, -1, -1));
 
+        hidePassword.setBackground(new java.awt.Color(255, 255, 255));
         hidePassword.setForeground(new java.awt.Color(46, 92, 175));
         hidePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
         hidePassword.setToolTipText("");
         hidePassword.setBorderColor(new java.awt.Color(255, 255, 255));
+        hidePassword.setBorderColorNotOver(java.awt.Color.white);
+        hidePassword.setBorderColorOver(java.awt.Color.white);
+        hidePassword.setColor(java.awt.Color.white);
+        hidePassword.setColor2(java.awt.Color.white);
         hidePassword.setColorClick(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorClick2(java.awt.Color.white);
         hidePassword.setColorOver(new java.awt.Color(255, 255, 255));
+        hidePassword.setColorOver2(java.awt.Color.white);
         hidePassword.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         hidePassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
         hidePassword.setRadius(30);
@@ -196,12 +226,19 @@ public class SignUpPage extends javax.swing.JFrame {
         });
         getContentPane().add(hidePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 360, 30, 20));
 
+        showPassword1.setBackground(new java.awt.Color(255, 255, 255));
         showPassword1.setForeground(new java.awt.Color(46, 92, 175));
         showPassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/show_password.png"))); // NOI18N
         showPassword1.setToolTipText("");
         showPassword1.setBorderColor(new java.awt.Color(255, 255, 255));
+        showPassword1.setBorderColorNotOver(java.awt.Color.white);
+        showPassword1.setBorderColorOver(java.awt.Color.white);
+        showPassword1.setColor(java.awt.Color.white);
+        showPassword1.setColor2(java.awt.Color.white);
         showPassword1.setColorClick(new java.awt.Color(255, 255, 255));
+        showPassword1.setColorClick2(java.awt.Color.white);
         showPassword1.setColorOver(new java.awt.Color(255, 255, 255));
+        showPassword1.setColorOver2(java.awt.Color.white);
         showPassword1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         showPassword1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         showPassword1.setRadius(30);
@@ -212,11 +249,17 @@ public class SignUpPage extends javax.swing.JFrame {
         });
         getContentPane().add(showPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 450, 30, 20));
 
+        hidePassword1.setBackground(new java.awt.Color(255, 255, 255));
         hidePassword1.setForeground(new java.awt.Color(46, 92, 175));
         hidePassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
         hidePassword1.setToolTipText("");
         hidePassword1.setBorderColor(new java.awt.Color(255, 255, 255));
+        hidePassword1.setBorderColorNotOver(java.awt.Color.white);
+        hidePassword1.setBorderColorOver(java.awt.Color.white);
+        hidePassword1.setColor(java.awt.Color.white);
+        hidePassword1.setColor2(java.awt.Color.white);
         hidePassword1.setColorClick(new java.awt.Color(255, 255, 255));
+        hidePassword1.setColorClick2(java.awt.Color.white);
         hidePassword1.setColorOver(new java.awt.Color(255, 255, 255));
         hidePassword1.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         hidePassword1.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -341,10 +384,24 @@ public class SignUpPage extends javax.swing.JFrame {
            if(role.equals("Student") && passwordStr.equals(passwordConfirmStr) && validate(emailStr)){
                try{
                     Connection con = ConnectionProvider.getCon();
-                    PreparedStatement ps = con.prepareStatement("insert into student values(?,?,?)");
-                    ps.setString(1, usernameStr);
-                    ps.setString(2, emailStr);
-                    ps.setString(3, passwordStr);
+                    Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs = st.executeQuery("select count(id) from student");
+                    String idStr ="";
+                    if(rs.first()){
+                        String id = rs.getString(1);
+                        int idInt = Integer.parseInt(id);
+                        idInt = idInt+1;
+                        idStr = String.valueOf(idInt);
+                    }
+                    else{
+                        idStr = "1";
+                    }
+                    
+                    PreparedStatement ps = con.prepareStatement("insert into student values(?,?,?,?)");
+                    ps.setString(1, idStr);
+                    ps.setString(2, usernameStr);
+                    ps.setString(3, emailStr);
+                    ps.setString(4, passwordStr);
                     ps.executeUpdate();
                     setVisible(false);
                     new StudentHome().setVisible(true);
@@ -357,10 +414,25 @@ public class SignUpPage extends javax.swing.JFrame {
            if(role.equals("Teacher") && passwordStr.equals(passwordConfirmStr) && validate(emailStr)){
                try{
                     Connection con = ConnectionProvider.getCon();
-                    PreparedStatement ps = con.prepareStatement("insert into admin values(?,?,?)");
-                    ps.setString(1, usernameStr);
-                    ps.setString(2, emailStr);
-                    ps.setString(3, passwordStr);
+                    Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs = st.executeQuery("select count(id) from admin");
+                    String idStr ="";
+                    if(rs.first()){
+                        String id = rs.getString(1);
+                        int idInt = Integer.parseInt(id);
+                        idInt = idInt+1;
+                        idStr = String.valueOf(idInt);
+                    }
+                    else{
+                        idStr = "1";
+                    }
+                        
+                    
+                    PreparedStatement ps = con.prepareStatement("insert into admin values(?,?,?,?)");
+                    ps.setString(1, idStr);
+                    ps.setString(2, usernameStr);
+                    ps.setString(3, emailStr);
+                    ps.setString(4, passwordStr);
                     ps.executeUpdate();
                     setVisible(false);
                     new AdminHome().setVisible(true);

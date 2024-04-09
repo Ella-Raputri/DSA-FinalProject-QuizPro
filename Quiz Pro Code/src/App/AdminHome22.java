@@ -36,11 +36,28 @@ public class AdminHome22 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setFont(new java.awt.Font("Montserrat Black", 1, 36)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(57, 129, 247));
+        jButton1.setText("-");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     private void myinit(){
@@ -61,20 +78,20 @@ public class AdminHome22 extends javax.swing.JFrame {
         setContentPane(contentPane);
         
                
-        int x = 100;
-        int y = 100;
-        for(int i=1; i<=10; i++){
-            CloneablePanel clonedPanel = new CloneablePanel();
-            // Set bounds for the cloned panel
-            clonedPanel.setBounds(x*i, y*i, clonedPanel.getPreferredSize().width, clonedPanel.getPreferredSize().height);
-            // Add the cloned panel to the content pane
-            contentPane.add(clonedPanel);
-            // Ensure panel visibility
-            clonedPanel.setVisible(true);
-            // Revalidate and repaint to update the layout
-            contentPane.revalidate();
-            contentPane.repaint();
-        }
+//        int x = 100;
+//        int y = 100;
+//        for(int i=1; i<=10; i++){
+//            CloneablePanel clonedPanel = new CloneablePanel(40, Color.white,2);
+//            // Set bounds for the cloned panel
+//            clonedPanel.setBounds(x*i, y*i, clonedPanel.getPreferredSize().width, clonedPanel.getPreferredSize().height);
+//            // Add the cloned panel to the content pane
+//            contentPane.add(clonedPanel);
+//            // Ensure panel visibility
+//            clonedPanel.setVisible(true);
+//            // Revalidate and repaint to update the layout
+//            contentPane.revalidate();
+//            contentPane.repaint();
+//        }
             
 
 //        // Create the button
@@ -177,5 +194,6 @@ public class AdminHome22 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

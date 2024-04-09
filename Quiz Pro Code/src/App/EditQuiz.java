@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author asus
  */
 public class EditQuiz extends javax.swing.JFrame {
-
+    public static int open = 0;
     /**
      * Creates new form WelcomePage
      */

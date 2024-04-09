@@ -4,13 +4,7 @@
  */
 package App;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -57,35 +51,33 @@ public class AddQuest extends javax.swing.JFrame {
         getContentPane().setBackground(Color.white);
         
         jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtnum = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtID = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        opt4Field = new javax.swing.JTextField();
+        opt4Field = new RoundJTextField(15);
         jLabel7 = new javax.swing.JLabel();
         rad1 = new javax.swing.JRadioButton();
         rad2 = new javax.swing.JRadioButton();
         rad3 = new javax.swing.JRadioButton();
         rad4 = new javax.swing.JRadioButton();
-        questionField = new javax.swing.JTextField();
-        opt2Field = new javax.swing.JTextField();
-        opt1Field = new javax.swing.JTextField();
-        opt3Field = new javax.swing.JTextField();
+        buttonGroup = new javax.swing.ButtonGroup();
+        questionField = new RoundJTextField(15);
+        opt2Field = new RoundJTextField(15);
+        opt1Field = new RoundJTextField(15);
+        opt3Field = new RoundJTextField(15);
         backButton = new App.buttonCustom();
         OKbutton = new App.buttonCustom();
 
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel4.setText("Question");
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
+       buttonGroup.add(rad1);       
+       buttonGroup.add(rad2);
+       buttonGroup.add(rad3);
+       buttonGroup.add(rad4);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 540, 600));
         setFocusable(false);
@@ -340,21 +332,18 @@ public class AddQuest extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                         
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
     private void opt3FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
     }                                         
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         setVisible(false);
-        new AdminHome().setVisible(true);
+        EditQuiz.open = 0;
     }                                          
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        setVisible(false);
+        EditQuiz.open = 0;
     }
     
     
@@ -400,7 +389,6 @@ public class AddQuest extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField opt1Field;
     private javax.swing.JTextField opt2Field;
     private javax.swing.JTextField opt3Field;
@@ -412,6 +400,7 @@ public class AddQuest extends javax.swing.JFrame {
     private javax.swing.JRadioButton rad4;
     private javax.swing.JLabel txtID;
     private javax.swing.JLabel txtnum;
+    private javax.swing.ButtonGroup buttonGroup;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

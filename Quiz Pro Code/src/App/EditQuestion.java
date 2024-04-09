@@ -4,32 +4,20 @@
  */
 package App;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JScrollPane;
 
 /**
  *
  * @author Asus
  */
-public class addNewQuestion extends javax.swing.JFrame {
+public class EditQuestion extends javax.swing.JFrame {
 
     /**
-     * Creates new form addNewQuestion
+     * Creates new form AddQuest
      */
-    public addNewQuestion() {
+    public EditQuestion() {
         initComponents();
-        
-        //set background color
-        getContentPane().setBackground(Color.white);
-        
-//        RoundedTextArea textArea = new RoundedTextArea();
-//        textArea.setPreferredSize(new Dimension(300, 200));
-//        textArea.setText("This is a rounded edge text area.\nYou can type here.");
-//        JScrollPane scrollPane = new JScrollPane(textArea);
-//
-//        getContentPane().add(scrollPane, BorderLayout.CENTER);
+        myinit();
     }
 
     /**
@@ -41,22 +29,43 @@ public class addNewQuestion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void myinit(){
+        getContentPane().setBackground(Color.white);
+        
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        opt4Field = new javax.swing.JTextField();
+        opt4Field = new RoundJTextField(15);
         jLabel7 = new javax.swing.JLabel();
         rad1 = new javax.swing.JRadioButton();
         rad2 = new javax.swing.JRadioButton();
         rad3 = new javax.swing.JRadioButton();
         rad4 = new javax.swing.JRadioButton();
-        questionField = new javax.swing.JTextField();
-        opt2Field = new javax.swing.JTextField();
-        opt1Field = new javax.swing.JTextField();
-        opt3Field = new javax.swing.JTextField();
+        questionField = new RoundJTextField(15);
+        opt2Field = new RoundJTextField(15);
+        opt1Field = new RoundJTextField(15);
+        opt3Field = new RoundJTextField(15);
         backButton = new App.buttonCustom();
         OKbutton = new App.buttonCustom();
-        idField = new javax.swing.JTextField();
+        idField = new RoundJTextField(15);
         search_id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtnum = new javax.swing.JLabel();
@@ -294,57 +303,61 @@ public class addNewQuestion extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt4FieldActionPerformed
+        
+    }
+    
+    
+    private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_opt4FieldActionPerformed
+    }                                         
 
-    private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad1ActionPerformed
+    private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad1ActionPerformed
+    }                                    
 
-    private void rad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad2ActionPerformed
+    private void rad2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad2ActionPerformed
+    }                                    
 
-    private void rad3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad3ActionPerformed
+    private void rad3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad3ActionPerformed
+    }                                    
 
-    private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad4ActionPerformed
+    private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad4ActionPerformed
+    }                                    
 
-    private void questionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questionFieldActionPerformed
+    private void questionFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-    }//GEN-LAST:event_questionFieldActionPerformed
+    }                                             
 
-    private void opt2FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt2FieldActionPerformed
+    private void opt2FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_opt2FieldActionPerformed
+    }                                         
 
-    private void opt1FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt1FieldActionPerformed
+    private void opt1FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_opt1FieldActionPerformed
+    }                                         
 
-    private void opt3FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt3FieldActionPerformed
+    private void opt3FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_opt3FieldActionPerformed
+    }                                         
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         setVisible(false);
-        new AdminHome().setVisible(true);
-    }//GEN-LAST:event_backButtonActionPerformed
+        EditQuiz.open = 0;
+    }                                          
 
-    private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbuttonActionPerformed
+    private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        setVisible(false);
+        EditQuiz.open = 0;
+    }
+    
+    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_OKbuttonActionPerformed
-
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idFieldActionPerformed
-
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -362,31 +375,29 @@ public class addNewQuestion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addNewQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addNewQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addNewQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addNewQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addNewQuestion().setVisible(true);
+                new EditQuestion().setVisible(true);
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private App.buttonCustom OKbutton;
     private App.buttonCustom backButton;
-    private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField opt1Field;
@@ -398,7 +409,10 @@ public class addNewQuestion extends javax.swing.JFrame {
     private javax.swing.JRadioButton rad2;
     private javax.swing.JRadioButton rad3;
     private javax.swing.JRadioButton rad4;
+    private javax.swing.JTextField idField;
     private javax.swing.JLabel search_id;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel txtnum;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

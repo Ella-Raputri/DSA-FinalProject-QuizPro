@@ -21,7 +21,6 @@ public class EditQuiz extends javax.swing.JFrame {
     
     public EditQuiz(String quizId){
         initComponents();
-        System.out.println(quizId);
     }
 
     /**

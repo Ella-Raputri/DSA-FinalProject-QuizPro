@@ -4,6 +4,14 @@
  */
 package App;
 
+import java.awt.Color;
+import java.sql.*;
+import DatabaseConnection.ConnectionProvider;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author asus
@@ -15,6 +23,7 @@ public class AddQuiz extends javax.swing.JFrame {
      */
     public AddQuiz() {
         initComponents();
+        myinit();
     }
 
     /**
@@ -27,6 +36,7 @@ public class AddQuiz extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -42,6 +52,199 @@ public class AddQuiz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void myinit(){
+        getContentPane().setBackground(Color.white);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBounds(new java.awt.Rectangle(0, 0, 540, 570));
+        setFocusable(false);
+        setForeground(java.awt.Color.white);
+        setMinimumSize(new java.awt.Dimension(540, 570));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        backButton = new App.buttonCustom();
+        OKbutton = new App.buttonCustom();
+        jLabel2 = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        titleField = new JTextField(17);
+        durationField = new JTextField(4);
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("SELECT max(id) FROM quiz;");
+            if(rs.first()){
+                String lastId = rs.getString(1);
+                char[] arr = lastId.toCharArray();
+                String temp = "";
+                for(int i=1; i<arr.length; i++){
+                    temp += arr[i];
+                }
+                int idnow = Integer.parseInt(temp);
+                idnow = idnow+1;
+                String str = "z" + String.valueOf(idnow);
+                id.setText(str);
+            }
+            else{
+                id.setText("z1");
+            }
+        }
+        catch(Exception e){
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf, e);
+        }
+        
+        
+        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
+        jLabel1.setText("<html><u>ADD QUIZ</u></html>");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 28)); // NOI18N
+        jLabel3.setText("ID:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        
+        backButton.setText("Back");
+        backButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        backButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        backButton.setBorderColorOver(new java.awt.Color(57, 129, 247));
+        backButton.setColorClick(new java.awt.Color(235, 235, 235));
+        backButton.setColorClick2(new java.awt.Color(57, 129, 247));
+        backButton.setColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColorOver2(new java.awt.Color(57, 129, 247));
+        backButton.setColor2(new java.awt.Color(57, 129, 247));
+        backButton.setForeground(new java.awt.Color(57, 129, 247));
+        backButton.setColor(new java.awt.Color(255,255,255));
+        backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        backButton.setMaximumSize(new java.awt.Dimension(143, 68));
+        backButton.setMinimumSize(new java.awt.Dimension(143, 68));
+        backButton.setPreferredSize(new java.awt.Dimension(143, 68));
+        backButton.setRadius(10);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 84, 50));
+
+        OKbutton.setForeground(new java.awt.Color(255, 255, 255));
+        OKbutton.setColor(new java.awt.Color(57, 129, 247));
+        OKbutton.setColor2(new java.awt.Color(255, 255, 255));
+        OKbutton.setText("OK");
+        OKbutton.setBorderColor(new java.awt.Color(255, 255, 255));
+        OKbutton.setBorderColorNotOver(new java.awt.Color(255, 255, 255));
+        OKbutton.setBorderColorOver(new java.awt.Color(255, 255, 255));
+        OKbutton.setColorClick(new java.awt.Color(57, 158, 255));
+        OKbutton.setColorClick2(new java.awt.Color(255, 255, 255));
+        OKbutton.setColorOver(new java.awt.Color(57, 158, 255));
+        OKbutton.setColorOver2(new java.awt.Color(255, 255, 255));
+        OKbutton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        OKbutton.setMaximumSize(new java.awt.Dimension(143, 68));
+        OKbutton.setMinimumSize(new java.awt.Dimension(143, 68));
+        OKbutton.setPreferredSize(new java.awt.Dimension(143, 68));
+        OKbutton.setRadius(10);
+        OKbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKbuttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(OKbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 80, 50));
+
+        jLabel2.setFont(new java.awt.Font("Montserrat SemiBold", 0, 28)); // NOI18N
+        jLabel2.setText("Duration");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        id.setFont(new java.awt.Font("Montserrat SemiBold", 0, 28)); // NOI18N
+        getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 28)); // NOI18N
+        jLabel4.setText("Title");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+        
+        jLabel6.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel6.setText("(Maximum characters: 40)");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 193, -1, -1));
+        
+        titleField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        getContentPane().add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 225, -1, -1));
+        
+        durationField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        getContentPane().add(durationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 335, -1, -1));
+        
+        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        jLabel5.setText("minutes");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 340, -1, -1));
+
+        pack();
+        setLocationRelativeTo(null);
+    }                                   
+                                                                                  
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        int a = JOptionPane.showConfirmDialog(null, "Do you really want to go back?", "SELECT", JOptionPane.YES_OPTION);
+        if(a==0){
+            setVisible(false);
+            new SignUpPage().setVisible(true);
+        }
+    }
+    
+    private static boolean checkInt(String str){
+        try{
+            Integer.parseInt(str);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {
+        String idInput = id.getText();
+        String titleInput = titleField.getText();
+        String durationInput = durationField.getText();
+        
+        if(titleInput.equals("")){
+            JOptionPane.showMessageDialog(null, "Your title is still empty");
+        }
+        else if(durationInput.equals("")){
+            JOptionPane.showMessageDialog(null, "Your duration field is still empty");
+        }
+        else if(titleInput.length() > 40){
+            JOptionPane.showMessageDialog(null, "Your title has exceeded 40 characters.");            
+        }
+        else if(checkInt(durationInput) == false){
+            JOptionPane.showMessageDialog(null, "Duration input must be a number");
+        }
+        else{
+            try{
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                PreparedStatement ps = con.prepareStatement("insert into quiz values(?,?,?)");
+                ps.setString(1, idInput);
+                ps.setString(2, titleInput);
+                ps.setString(3, durationInput);
+                ps.executeUpdate();
+                setVisible(false);
+                AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
+                home.goToEdit(idInput);
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -76,6 +279,19 @@ public class AddQuiz extends javax.swing.JFrame {
             }
         });
     }
+    
+    private App.buttonCustom OKbutton;
+    private App.buttonCustom backButton;
+    private javax.swing.JLabel id;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private JTextField titleField;
+    private JTextField durationField;
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

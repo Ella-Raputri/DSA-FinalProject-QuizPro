@@ -34,13 +34,13 @@ public class CloneablePanel extends JPanel{
         // Example content - you can add whatever components you need
         JLabel title = new JLabel();
         title.setFont(new Font("Montserrat SemiBold", 0, 30));
-        setLabelTextWithLineBreaks(title, titleInput, 280);
+        int titleHeight = setLabelTextWithLineBreaks(title, titleInput, 280);
         add(title);
         
         JLabel duration = new JLabel();
         duration.setFont(new Font("Montserrat", 0, 24));
         duration.setText(durationInput + " minutes");
-        setComponentBounds(duration, 40, title.getY()+70, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
+        setComponentBounds(duration, 40, titleHeight+90, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
         add(duration);
         
         buttonCustom deleteButton = new App.buttonCustom();
@@ -91,7 +91,7 @@ public class CloneablePanel extends JPanel{
     }
     
     
-    public void setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
+    public int setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
         // Split the text into words
         String[] words = text.split(" ");
         StringBuilder newText = new StringBuilder();
@@ -121,6 +121,7 @@ public class CloneablePanel extends JPanel{
         int labelWidth = Math.min(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
         int labelHeight = (int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight; // Adjust height to fit lines
         setComponentBounds(label, 40, 70, labelWidth, labelHeight); // Set new bounds for the label
+        return labelHeight;
     }
     
     public void setComponentBounds(Component component, int x, int y, int width, int height) {

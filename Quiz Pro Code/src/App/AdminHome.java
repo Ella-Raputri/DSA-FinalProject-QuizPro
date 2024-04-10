@@ -219,8 +219,17 @@ public class AdminHome extends javax.swing.JFrame {
         }
     }
     
+    public static int open = 0;
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        new AddQuiz().setVisible(true);
+        if(open==0){
+            new AddQuiz().setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
     }
     
     public void reloadSelf(){

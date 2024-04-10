@@ -62,7 +62,7 @@ public class AdminHome extends javax.swing.JFrame {
             }
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
         JRootPane frame = this.rootPane;
@@ -114,10 +114,10 @@ public class AdminHome extends javax.swing.JFrame {
                     duration = rs1.getString(3);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "null");
+                    JOptionPane.showMessageDialog(getContentPane(), "null");
                 }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(getContentPane(), e);
             }
             
             
@@ -212,7 +212,7 @@ public class AdminHome extends javax.swing.JFrame {
     }
     
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
+        int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             setVisible(false);
             new WelcomePage().setVisible(true);
@@ -220,9 +220,11 @@ public class AdminHome extends javax.swing.JFrame {
     }
     
     public static int open = 0;
+    AdminHome home = (AdminHome) SwingUtilities.getRoot(this);
+    
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         if(open==0){
-            new AddQuiz().setVisible(true);
+            new AddQuiz(home).setVisible(true);
             open=1;
         }
         else{

@@ -7,21 +7,32 @@ package App;
 import java.awt.Color;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
+import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
  * @author asus
  */
 public class AddQuiz extends javax.swing.JFrame {
-
+    private AdminHome home;
+   
     /**
      * Creates new form AddQuiz
      */
     public AddQuiz() {
+        initComponents();
+        myinit();
+    }
+    
+    public AddQuiz(AdminHome home) {
+        this.home = home;
         initComponents();
         myinit();
     }
@@ -54,6 +65,7 @@ public class AddQuiz extends javax.swing.JFrame {
 
     
     private void myinit(){
+        
         getContentPane().setBackground(Color.white);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -70,10 +82,12 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        titleField = new JTextField(17);
-        durationField = new JTextField(4);
+        titleField = new RoundJTextField(16);
+        durationField = new RoundJTextField(4);
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         
         try{
             Connection con = ConnectionProvider.getCon();
@@ -114,11 +128,11 @@ public class AddQuiz extends javax.swing.JFrame {
         backButton.setText("Back");
         backButton.setBorderColor(new java.awt.Color(57, 129, 247));
         backButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
-        backButton.setBorderColorOver(new java.awt.Color(57, 129, 247));
+        backButton.setBorderColorOver(new java.awt.Color(13, 72, 170));
         backButton.setColorClick(new java.awt.Color(235, 235, 235));
-        backButton.setColorClick2(new java.awt.Color(57, 129, 247));
+        backButton.setColorClick2(new java.awt.Color(13, 72, 170));
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
-        backButton.setColorOver2(new java.awt.Color(57, 129, 247));
+        backButton.setColorOver2(new java.awt.Color(13, 72, 170));
         backButton.setColor2(new java.awt.Color(57, 129, 247));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
         backButton.setColor(new java.awt.Color(255,255,255));
@@ -168,30 +182,115 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel4.setText("Title");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
         
-        jLabel6.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        jLabel6.setText("(Maximum characters: 40)");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 193, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
+        jLabel6.setText("(0 / 40)");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 193, -1, -1));
+        
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.jpg"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
+        jLabel7.setVisible(false);
         
         titleField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         getContentPane().add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 225, -1, -1));
+        titleField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                titleFieldFocusLost(evt);
+            }
+        });
+        titleField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCharacterCount();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCharacterCount();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCharacterCount();
+            }
+        });
+        
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.jpg"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 343, -1, -1));
+        jLabel8.setVisible(false);
         
         durationField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         getContentPane().add(durationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 335, -1, -1));
+        durationField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCheckDigit();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCheckDigit();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCheckDigit();
+            }
+        });
+        durationField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                durationFieldFocusLost(evt);
+            }
+        });
         
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel5.setText("minutes");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 340, -1, -1));
+        
+        
 
         pack();
         setLocationRelativeTo(null);
-    }                                   
+    }
+    
+    private void updateCharacterCount() {
+        String text = titleField.getText();
+        int length = text.length();
+        jLabel6.setText("(" + length + " / 40)");
+        
+        if(length > 40 || length==0){
+            jLabel7.setVisible(true);
+            titleField.setForeground(Color.red);
+            jLabel6.setForeground(Color.red);
+        }
+        else{
+            jLabel7.setVisible(false);
+            titleField.setForeground(Color.black);
+            jLabel6.setForeground(Color.black);
+        }
+    }
+       
+
+    private void titleFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String title = titleField.getText();
+        
+        if(title.equals("")){
+            jLabel7.setVisible(true);
+            titleField.setForeground(Color.red);
+            jLabel6.setForeground(Color.red);
+        }
+        else{
+            jLabel7.setVisible(false);
+            titleField.setForeground(Color.black);
+            jLabel6.setForeground(Color.black);
+        }
+    }
                                                                                   
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        int a = JOptionPane.showConfirmDialog(null, "Do you really want to go back?", "SELECT", JOptionPane.YES_OPTION);
+        int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to go back?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             setVisible(false);
-            new SignUpPage().setVisible(true);
+            AdminHome.open=0;
         }
     }
     
@@ -204,6 +303,36 @@ public class AddQuiz extends javax.swing.JFrame {
             return false;
         }
     }
+    
+    private void updateCheckDigit(){
+        String text = durationField.getText();
+        boolean check = checkInt(text);
+        if(check){
+            jLabel8.setVisible(false);
+            durationField.setForeground(Color.black);
+            jLabel5.setForeground(Color.black);
+        }
+        else{
+            jLabel8.setVisible(true);
+            durationField.setForeground(Color.red);
+            jLabel5.setForeground(Color.red);
+        }
+    }
+    
+    private void durationFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String duration = durationField.getText();
+        
+        if(duration.equals("")){
+            jLabel8.setVisible(true);
+            durationField.setForeground(Color.red);
+            jLabel5.setForeground(Color.red);
+        }
+        else{
+            jLabel8.setVisible(false);
+            durationField.setForeground(Color.black);
+            jLabel5.setForeground(Color.black);
+        }
+    }
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {
         String idInput = id.getText();
@@ -211,16 +340,16 @@ public class AddQuiz extends javax.swing.JFrame {
         String durationInput = durationField.getText();
         
         if(titleInput.equals("")){
-            JOptionPane.showMessageDialog(null, "Your title is still empty");
+            JOptionPane.showMessageDialog(getContentPane(), "Your title is still empty");
         }
         else if(durationInput.equals("")){
-            JOptionPane.showMessageDialog(null, "Your duration field is still empty");
+            JOptionPane.showMessageDialog(getContentPane(), "Your duration field is still empty");
         }
         else if(titleInput.length() > 40){
-            JOptionPane.showMessageDialog(null, "Your title has exceeded 40 characters.");            
+            JOptionPane.showMessageDialog(getContentPane(), "Your title has exceeded 40 characters.");            
         }
         else if(checkInt(durationInput) == false){
-            JOptionPane.showMessageDialog(null, "Duration input must be a number");
+            JOptionPane.showMessageDialog(getContentPane(), "Duration input must be a number");
         }
         else{
             try{
@@ -233,11 +362,10 @@ public class AddQuiz extends javax.swing.JFrame {
                 ps.setString(3, durationInput);
                 ps.executeUpdate();
                 setVisible(false);
-                AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
                 home.goToEdit(idInput);
 
             }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(getContentPane(), e);
             }
         }
         
@@ -271,6 +399,9 @@ public class AddQuiz extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AddQuiz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -289,8 +420,10 @@ public class AddQuiz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private JTextField titleField;
-    private JTextField durationField;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private RoundJTextField titleField;
+    private RoundJTextField durationField;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

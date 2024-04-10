@@ -15,11 +15,19 @@ import javax.swing.JOptionPane;
  * @author Asus
  */
 public class DeleteQuestion extends javax.swing.JFrame {
-
+    private LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
+    private String quizid;
     /**
      * Creates new form DeleteQuestion
      */
     public DeleteQuestion() {
+        initComponents();
+        myinit();
+    }
+    
+    public DeleteQuestion(LinkedlistBenchmark quizList, String quizid) {
+        this.quizlist = quizList;
+        this.quizid = quizid;
         initComponents();
         myinit();
     }

@@ -4,9 +4,12 @@
  */
 package App;
 
+import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,11 +18,20 @@ import javax.swing.JOptionPane;
  * @author Asus
  */
 public class EditQuestion extends javax.swing.JFrame {
-
+    private LinkedlistBenchmark quizList;
+    private String quizid;
+    private static Question current_question;
     /**
      * Creates new form AddQuest
      */
     public EditQuestion() {
+        initComponents();
+        myinit();
+    }
+    
+    public EditQuestion(LinkedlistBenchmark quizList, String quizid) {
+        this.quizList = quizList;
+        this.quizid = quizid;
         initComponents();
         myinit();
     }
@@ -342,6 +354,18 @@ public class EditQuestion extends javax.swing.JFrame {
     }
     
     
+    private void search_idMouseClicked(java.awt.event.MouseEvent evt){
+        String idStr = idField.getText();
+        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
+        
+        if(current_node != null){
+           current_question = current_node.data; 
+        }else{
+            String message = "There is no question with the ID of " + idStr;
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        }        
+    }
+    
     private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
     }                                         
@@ -387,8 +411,74 @@ public class EditQuestion extends javax.swing.JFrame {
     }                                          
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        setVisible(false);
-        EditQuiz.open = 0;
+        String questionStr = questionField.getText();
+        String opt1Str = opt1Field.getText();
+        String opt2Str = opt2Field.getText();
+        String opt3Str = opt3Field.getText();
+        String opt4Str = opt4Field.getText();      
+        String answerStr = "";
+        
+        if (rad1.isSelected()){
+            answerStr = opt1Str;
+        }
+        else if (rad2.isSelected()){
+            answerStr = opt2Str;
+        } 
+        else if (rad3.isSelected()){
+            answerStr = opt3Str;
+        }
+        else if (rad4.isSelected()){
+            answerStr = opt4Str;
+        }
+        else{
+            JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
+        }
+        
+        
+        if(questionStr.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Question is still empty.");
+        }
+        else if (opt1Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 1 is still empty.");
+        }
+        else if (opt2Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 2 is still empty.");
+        }
+        else if (opt3Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 3 is still empty.");
+        }
+        else if (opt4Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 4 is still empty.");
+        }
+        else{
+            try{
+                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid);
+                                
+                Connection con = ConnectionProvider.getCon();
+    
+                Linkedlist.Node tail_node = quizList.quiz.tail;
+                Question new_question = tail_node.data;
+                
+                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?)");
+                ps.setString(1, new_question.getQuestionID());
+                ps.setString(2, new_question.getQuestion());
+                ps.setString(3, new_question.getCorrectAnswer());
+                ps.setString(4, opt1Str);
+                ps.setString(5, opt2Str);
+                ps.setString(6, opt3Str);
+                ps.setString(7, opt4Str);
+                ps.setString(8, this.quizid);
+                ps.executeUpdate();
+                
+                setVisible(false);
+                EditQuiz.open = 0;
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            }                 
+            
+        }
+        
     }
     
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                          

@@ -92,6 +92,55 @@ public class AddQuestion extends javax.swing.JFrame {
        buttonGroup.add(rad2);
        buttonGroup.add(rad3);
        buttonGroup.add(rad4);
+       
+       
+//       try{
+//            Connection con = ConnectionProvider.getCon();
+//            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            ResultSet rs = st.executeQuery("SELECT max(id) FROM question;");
+//            if(rs.first()){
+//                String lastId = rs.getString(1);
+//                char[] arr = lastId.toCharArray();
+//                String temp = "";
+//                for(int i=1; i<arr.length; i++){
+//                    temp += arr[i];
+//                }
+//                int idnow = Integer.parseInt(temp);
+//                idnow = idnow+1;
+//                String str = "q" + String.valueOf(idnow);
+//                txtID.setText(str);
+//            }
+//            else{
+//                txtID.setText("q1");
+//            }
+//        }
+//        catch(Exception e){
+//            JFrame jf = new JFrame();
+//            jf.setAlwaysOnTop(true);
+//            JOptionPane.showMessageDialog(jf, e+"hey ini di id");
+//        }
+       
+       
+       try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("SELECT count(*) FROM question;");
+            if(rs.first()){
+                int lastnum = rs.getInt(1);
+                txtnum.setText(Integer.toString(lastnum+1));
+                txtnum.setVisible(true);
+            }
+            else{
+                txtnum.setText("1");
+                txtnum.setVisible(true);
+            }
+        }
+        catch(SQLException e){
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf, e);
+        }
+       
 
        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {

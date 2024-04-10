@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class EditQuiz extends javax.swing.JFrame {
     public static int open = 0;
     public static LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
-    public String quizID;
+    public static String quizID;
     /**
      * Creates new form WelcomePage
      */
@@ -351,7 +351,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if(open==0){
-            new DeleteQuestion().setVisible(true);
+            new DeleteQuestion(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{
@@ -371,7 +371,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         if(open==0){
-            new EditQuestion().setVisible(true);
+            new EditQuestion(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{

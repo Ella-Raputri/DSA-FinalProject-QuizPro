@@ -17,11 +17,20 @@ import DatabaseConnection.ConnectionProvider;
  * @author Asus
  */
 public class AddQuestion extends javax.swing.JFrame {
-
+    private LinkedlistBenchmark quizList;
+    private String quizid; 
+    
     /**
      * Creates new form AddQuest
      */
-    public AddQuestion() {
+    public AddQuestion(){
+        initComponents();
+        myinit();
+    }
+    
+    public AddQuestion(LinkedlistBenchmark quizList, String quizid) {
+        this.quizList = quizList;
+        this.quizid = quizid;
         initComponents();
         myinit();
     }
@@ -396,13 +405,55 @@ public class AddQuestion extends javax.swing.JFrame {
             answerStr = opt4Str;
         }
         else{
-            JOptionPane.showMessageDialog(getContentPane(),"Please choose your correct answer.");
+            JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
         }
         
-        System.out.print(answerStr);
         
-        setVisible(false);
-        EditQuiz.open = 0;
+        if(questionStr.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Question is still empty.");
+        }
+        else if (opt1Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 1 is still empty.");
+        }
+        else if (opt2Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 2 is still empty.");
+        }
+        else if (opt3Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 3 is still empty.");
+        }
+        else if (opt4Str.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(), "Option 4 is still empty.");
+        }
+        else{
+            try{
+                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid);
+                                
+                Connection con = ConnectionProvider.getCon();
+    
+                Linkedlist.Node tail_node = quizList.quiz.tail;
+                Question new_question = tail_node.data;
+                
+                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?)");
+                ps.setString(1, new_question.getQuestionID());
+                ps.setString(2, new_question.getQuestion());
+                ps.setString(3, new_question.getCorrectAnswer());
+                ps.setString(4, opt1Str);
+                ps.setString(5, opt2Str);
+                ps.setString(6, opt3Str);
+                ps.setString(7, opt4Str);
+                ps.setString(8, this.quizid);
+                ps.executeUpdate();
+                
+                setVisible(false);
+                EditQuiz.open = 0;
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            }                 
+            
+        }
+        
+       
     }
     
     

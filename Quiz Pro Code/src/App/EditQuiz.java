@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class EditQuiz extends javax.swing.JFrame {
     public static int open = 0;
+    public static LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
+    public String quizID;
     /**
      * Creates new form WelcomePage
      */
@@ -21,6 +23,7 @@ public class EditQuiz extends javax.swing.JFrame {
     }
     
     public EditQuiz(String quizId){
+        this.quizID = quizId;
         initComponents();
     }
 
@@ -319,7 +322,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         if(open==0){
-            new AddQuestion().setVisible(true);
+            new AddQuestion(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{

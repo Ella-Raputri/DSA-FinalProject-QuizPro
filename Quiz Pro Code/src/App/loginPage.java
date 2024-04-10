@@ -6,7 +6,10 @@ package App;
 
 import javax.swing.JOptionPane;
 import DatabaseConnection.ConnectionProvider;
+import java.awt.Color;
 import java.sql.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -18,8 +21,9 @@ public class loginPage extends javax.swing.JFrame {
      * Creates new form loginPage
      */
     public loginPage() {
-        initComponents();hidePassword.setVisible(false);
-        password.setEchoChar('*');
+        initComponents();
+        myinit();
+        
     }
 
     /**
@@ -44,6 +48,9 @@ public class loginPage extends javax.swing.JFrame {
         submitButton = new App.buttonCustom();
         jLabel6 = new javax.swing.JLabel();
         signupButton = new App.buttonCustom();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,6 +83,11 @@ public class loginPage extends javax.swing.JFrame {
 
         username.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         username.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+        username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                usernameFocusLost(evt);
+            }
+        });
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 610, 40));
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
@@ -128,6 +140,11 @@ public class loginPage extends javax.swing.JFrame {
 
         password.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFocusLost(evt);
+            }
+        });
         getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 610, 40));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
@@ -136,6 +153,11 @@ public class loginPage extends javax.swing.JFrame {
 
         studentRole.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         studentRole.setText("Student");
+        studentRole.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                studentRoleFocusLost(evt);
+            }
+        });
         studentRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentRoleActionPerformed(evt);
@@ -145,6 +167,11 @@ public class loginPage extends javax.swing.JFrame {
 
         teacherRole.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         teacherRole.setText("Teacher");
+        teacherRole.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                teacherRoleFocusLost(evt);
+            }
+        });
         teacherRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teacherRoleActionPerformed(evt);
@@ -198,12 +225,94 @@ public class loginPage extends javax.swing.JFrame {
         });
         getContentPane().add(signupButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 580, -1, -1));
 
+        jLabel8.setBackground(new java.awt.Color(227, 237, 254));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 380, -1, -1));
+
+        jLabel9.setBackground(new java.awt.Color(227, 237, 254));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 270, -1, -1));
+
+        jLabel7.setBackground(new java.awt.Color(227, 237, 254));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon2.png"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 440, -1, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_login.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void myinit(){
+        hidePassword.setVisible(false);
+        password.setEchoChar('*');
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        jLabel9.setVisible(false);
+        
+        username.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateSelfStatusUsername();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateSelfStatusUsername();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateSelfStatusUsername();
+            }
+        });
+        
+        password.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateSelfStatusPassword();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateSelfStatusPassword();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateSelfStatusPassword();
+            }
+        });
+    }
+    
+    private void updateSelfStatusUsername(){
+        String text = username.getText();
+        if(text.equals("")){
+            jLabel9.setVisible(true);
+            username.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
+            username.setForeground(Color.red);
+        }
+        else{
+            jLabel9.setVisible(false);
+            username.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+            username.setForeground(Color.black);
+        }
+    }
+    
+    private void updateSelfStatusPassword(){
+        String text = password.getText();
+        if(text.equals("")){
+            jLabel8.setVisible(true);
+            password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
+            password.setForeground(Color.red);
+        }
+        else{
+            jLabel8.setVisible(false);
+            password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+            password.setForeground(Color.black);
+        }
+    }
+    
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         setVisible(false);
         new WelcomePage().setVisible(true);
@@ -310,6 +419,56 @@ public class loginPage extends javax.swing.JFrame {
         new SignUpPage().setVisible(true);
     }//GEN-LAST:event_signupButtonActionPerformed
 
+    private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
+        String text = username.getText();
+        if(text.equals("")){
+            jLabel9.setVisible(true);
+            username.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
+            username.setForeground(Color.red);
+        }
+        else{
+            jLabel9.setVisible(false);
+            username.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+            username.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_usernameFocusLost
+
+    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
+        String text = password.getText();
+        if(text.equals("")){
+            jLabel8.setVisible(true);
+            password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
+            password.setForeground(Color.red);
+        }
+        else{
+            jLabel8.setVisible(false);
+            password.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 14, 1, 1));
+            password.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_passwordFocusLost
+
+    private void studentRoleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_studentRoleFocusLost
+        if(!(studentRole.isSelected()) && !(teacherRole.isSelected())){
+            jLabel7.setVisible(true);
+            jLabel5.setForeground(Color.red);
+        }
+        else{
+            jLabel7.setVisible(false);
+            jLabel5.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_studentRoleFocusLost
+
+    private void teacherRoleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_teacherRoleFocusLost
+        if(!(studentRole.isSelected()) && !(teacherRole.isSelected())){
+            jLabel7.setVisible(true);
+            jLabel5.setForeground(Color.red);
+        }
+        else{
+            jLabel7.setVisible(false);
+            jLabel5.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_teacherRoleFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -353,6 +512,9 @@ public class loginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField password;
     private App.buttonCustom showPassword;
     private App.buttonCustom signupButton;

@@ -186,7 +186,7 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel6.setText("(0 / 40)");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 193, -1, -1));
         
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.jpg"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
         jLabel7.setVisible(false);
         
@@ -214,7 +214,7 @@ public class AddQuiz extends javax.swing.JFrame {
             }
         });
         
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.jpg"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 343, -1, -1));
         jLabel8.setVisible(false);
         

@@ -83,6 +83,7 @@ public class AddQuizttt extends javax.swing.JFrame {
         getContentPane().add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 150, 50));
 
         titleField1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
+        titleField1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(1, 1, 14, 1)));
         titleField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 titleField1FocusLost(evt);

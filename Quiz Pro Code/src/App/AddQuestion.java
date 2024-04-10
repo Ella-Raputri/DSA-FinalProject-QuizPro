@@ -9,6 +9,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import DatabaseConnection.ConnectionProvider;
 
 /**
  *
@@ -373,7 +375,32 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }                                          
 
-    private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {  
+        String questionStr = questionField.getText();
+        String opt1Str = opt1Field.getText();
+        String opt2Str = opt2Field.getText();
+        String opt3Str = opt3Field.getText();
+        String opt4Str = opt4Field.getText();      
+        String answerStr = "";
+        
+        if (rad1.isSelected()){
+            answerStr = opt1Str;
+        }
+        else if (rad2.isSelected()){
+            answerStr = opt2Str;
+        } 
+        else if (rad3.isSelected()){
+            answerStr = opt3Str;
+        }
+        else if (rad4.isSelected()){
+            answerStr = opt4Str;
+        }
+        else{
+            JOptionPane.showMessageDialog(getContentPane(),"Please choose your correct answer.");
+        }
+        
+        System.out.print(answerStr);
+        
         setVisible(false);
         EditQuiz.open = 0;
     }

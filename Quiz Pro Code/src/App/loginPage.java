@@ -246,13 +246,13 @@ public class loginPage extends javax.swing.JFrame {
         }
 
         if(usernameStr.equals("")){
-            JOptionPane.showMessageDialog(null, "Username is still empty.");
+            JOptionPane.showMessageDialog(getContentPane(), "Username is still empty.");
         }
         else if(passwordStr.equals("")){
-            JOptionPane.showMessageDialog(null, "Password is still empty.");
+            JOptionPane.showMessageDialog(getContentPane(), "Password is still empty.");
         }
         else if(role.equals("")){
-            JOptionPane.showMessageDialog(null, "Please select a role.");
+            JOptionPane.showMessageDialog(getContentPane(), "Please select a role.");
         }
         else{
             if(role.equals("Student")){
@@ -270,11 +270,11 @@ public class loginPage extends javax.swing.JFrame {
                         new StudentHome().setVisible(true);
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Password is incorrect");
+                        JOptionPane.showMessageDialog(getContentPane(), "Password is incorrect");
                     }
    
                 }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, e);
+                    JOptionPane.showMessageDialog(getContentPane(), e);
                 }
             }
 
@@ -293,11 +293,11 @@ public class loginPage extends javax.swing.JFrame {
                         new AdminHome().setVisible(true);
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Username or password is incorrect");
+                        JOptionPane.showMessageDialog(getContentPane(), "Username or password is incorrect");
                     }
    
                 }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, e);
+                    JOptionPane.showMessageDialog(getContentPane(), e);
                 }
             }
 

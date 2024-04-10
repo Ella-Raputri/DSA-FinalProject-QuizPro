@@ -357,27 +357,27 @@ public class SignUpPage extends javax.swing.JFrame {
         
         
         if(usernameStr.equals("")){
-            JOptionPane.showMessageDialog(null, "Username is still empty.");
+            JOptionPane.showMessageDialog(getContentPane(), "Username is still empty.");
         }
         else if(emailStr.equals("")){
-            JOptionPane.showMessageDialog(null, "Email is still empty.");
+            JOptionPane.showMessageDialog(getContentPane(), "Email is still empty.");
         }
         else if(passwordStr.equals("")){
-            JOptionPane.showMessageDialog(null, "Password is still empty.");
+            JOptionPane.showMessageDialog(getContentPane(), "Password is still empty.");
         }
         else if(passwordConfirmStr.equals("")){
-            JOptionPane.showMessageDialog(null, "Confirm Password is still empty.");
+            JOptionPane.showMessageDialog(getContentPane(), "Confirm Password is still empty.");
         }
         else if(role.equals("")){
-            JOptionPane.showMessageDialog(null, "Please select a role.");
+            JOptionPane.showMessageDialog(getContentPane(), "Please select a role.");
         }
         else{
            if(!(validate(emailStr))){
-                JOptionPane.showMessageDialog(null, "Please input a correct email.");
+                JOptionPane.showMessageDialog(getContentPane(), "Please input a correct email.");
            }
            
            if(!(passwordStr.equals(passwordConfirmStr))){
-               JOptionPane.showMessageDialog(null, "Password and Confirm Password is not the same.");
+               JOptionPane.showMessageDialog(getContentPane(), "Password and Confirm Password is not the same.");
            }
            
            
@@ -407,7 +407,7 @@ public class SignUpPage extends javax.swing.JFrame {
                     new StudentHome().setVisible(true);
                     
                 }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, e);
+                    JOptionPane.showMessageDialog(getContentPane(), e);
                 }
            }
            
@@ -438,7 +438,7 @@ public class SignUpPage extends javax.swing.JFrame {
                     new AdminHome().setVisible(true);
                     
                 }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, e);
+                    JOptionPane.showMessageDialog(getContentPane(), e);
                 }
            }
            

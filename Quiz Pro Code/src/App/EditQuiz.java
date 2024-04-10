@@ -4,6 +4,7 @@
  */
 package App;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,6 +47,11 @@ public class EditQuiz extends javax.swing.JFrame {
         deleteButton = new App.buttonCustom();
         add_icon = new javax.swing.JLabel();
         addButton = new App.buttonCustom();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        edit_quiz_title_icon = new javax.swing.JLabel();
+        edit_duration_icon = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         bg1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,12 +85,13 @@ public class EditQuiz extends javax.swing.JFrame {
         changeOrder_icon.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
         changeOrder_icon.setForeground(new java.awt.Color(255, 255, 255));
         changeOrder_icon.setIcon(new javax.swing.ImageIcon("src/App/img/change_order.png"));
-        getContentPane().add(changeOrder_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 30, 40));
+        getContentPane().add(changeOrder_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 40, 40));
 
-        result_icon.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
+        result_icon.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         result_icon.setForeground(new java.awt.Color(255, 255, 255));
         result_icon.setIcon(new javax.swing.ImageIcon("src/App/img/result.png"));
-        getContentPane().add(result_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 170, -1, 40));
+        result_icon.setText("sss");
+        getContentPane().add(result_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 230, 30, 40));
 
         changeOrderButton.setBackground(new java.awt.Color(57, 129, 247));
         changeOrderButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,7 +116,7 @@ public class EditQuiz extends javax.swing.JFrame {
                 changeOrderButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(changeOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 240, 60));
+        getContentPane().add(changeOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 240, 60));
 
         resultButton.setBackground(new java.awt.Color(255, 255, 255));
         resultButton.setForeground(new java.awt.Color(57, 129, 247));
@@ -134,7 +141,7 @@ public class EditQuiz extends javax.swing.JFrame {
                 resultButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(resultButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 160, 150, 60));
+        getContentPane().add(resultButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 220, 150, 60));
 
         LogoutButton.setBackground(new java.awt.Color(57, 129, 247));
         LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,10 +167,10 @@ public class EditQuiz extends javax.swing.JFrame {
         });
         getContentPane().add(LogoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 20, 170, 60));
 
-        search_icon.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
-        search_icon.setForeground(new java.awt.Color(255, 255, 255));
+        search_icon.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
+        search_icon.setForeground(new java.awt.Color(57, 129, 247));
         search_icon.setIcon(new javax.swing.ImageIcon("src/App/img/search.png"));
-        getContentPane().add(search_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, -1, 40));
+        getContentPane().add(search_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 230, -1, 40));
 
         searchButton.setBackground(new java.awt.Color(57, 129, 247));
         searchButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,11 +195,12 @@ public class EditQuiz extends javax.swing.JFrame {
                 searchButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 150, 60));
+        getContentPane().add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 220, 150, 60));
 
         edit_icon.setForeground(new java.awt.Color(57, 129, 247));
         edit_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit.png"));
-        getContentPane().add(edit_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+        edit_icon.setText("ddd");
+        getContentPane().add(edit_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 240, 30, 20));
         edit_icon.getAccessibleContext().setAccessibleDescription("");
 
         editButton.setBackground(new java.awt.Color(57, 129, 247));
@@ -219,12 +227,12 @@ public class EditQuiz extends javax.swing.JFrame {
                 editButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 120, 60));
+        getContentPane().add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 110, 60));
 
         delete_icon.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
         delete_icon.setForeground(new java.awt.Color(255, 255, 255));
         delete_icon.setText("-");
-        getContentPane().add(delete_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, 30));
+        getContentPane().add(delete_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, -1, 30));
 
         deleteButton.setBackground(new java.awt.Color(57, 129, 247));
         deleteButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -249,12 +257,12 @@ public class EditQuiz extends javax.swing.JFrame {
                 deleteButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 150, 60));
+        getContentPane().add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 150, 60));
 
         add_icon.setFont(new java.awt.Font("Montserrat", 1, 40)); // NOI18N
         add_icon.setForeground(new java.awt.Color(255, 255, 255));
         add_icon.setText("+");
-        getContentPane().add(add_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, 30));
+        getContentPane().add(add_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, 40));
 
         addButton.setBackground(new java.awt.Color(57, 129, 247));
         addButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,10 +288,28 @@ public class EditQuiz extends javax.swing.JFrame {
                 addButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 120, 60));
+        getContentPane().add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 120, 60));
+
+        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 42)); // NOI18N
+        jLabel1.setText("[Quiz Title]");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        jLabel3.setText("Duration:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 100, -1));
+
+        edit_quiz_title_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_quiz_title.png"));
+        getContentPane().add(edit_quiz_title_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, 40));
+
+        edit_duration_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration.png"));
+        getContentPane().add(edit_duration_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        jLabel2.setText("[Duration]");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 150, -1));
 
         bg1.setForeground(new java.awt.Color(57, 129, 247));
-        bg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/bg_edit_quiz.png"))); // NOI18N
+        bg1.setIcon(new javax.swing.ImageIcon("src/App/img/background_edit_quiz.png"));
         bg1.setText("jLabel1");
         getContentPane().add(bg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
 
@@ -292,7 +318,15 @@ public class EditQuiz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        //to do
+        if(open==0){
+            new AddQuestion().setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -301,11 +335,27 @@ public class EditQuiz extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeOrderButtonActionPerformed
-        // TODO add your handling code here:
+        if(open==0){
+            new ChangeOrder().setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
     }//GEN-LAST:event_changeOrderButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here:
+        if(open==0){
+            new DeleteQuestion().setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void resultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultButtonActionPerformed
@@ -317,7 +367,15 @@ public class EditQuiz extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
+        if(open==0){
+            new EditQuestion().setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
@@ -375,7 +433,12 @@ public class EditQuiz extends javax.swing.JFrame {
     private App.buttonCustom deleteButton;
     private javax.swing.JLabel delete_icon;
     private App.buttonCustom editButton;
+    private javax.swing.JLabel edit_duration_icon;
     private javax.swing.JLabel edit_icon;
+    private javax.swing.JLabel edit_quiz_title_icon;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private App.buttonCustom resultButton;
     private javax.swing.JLabel result_icon;
     private App.buttonCustom searchButton;

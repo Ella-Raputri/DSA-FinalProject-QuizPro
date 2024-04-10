@@ -5,6 +5,10 @@
 package App;
 
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -68,7 +72,19 @@ public class DeleteQuestion extends javax.swing.JFrame {
         txtopt3 = new javax.swing.JLabel();
         txtopt4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Custom close operation logic
+                int option = JOptionPane.showConfirmDialog(getContentPane(), "Are you sure you want to end editing? Your changes will not be saved.", null, JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    setVisible(false);
+                    EditQuiz.open = 0;
+                } 
+            }
+        });
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 540, 600));
         setFocusable(false);
@@ -112,11 +128,19 @@ public class DeleteQuestion extends javax.swing.JFrame {
             }
         });
 
-        backButton.setForeground(new java.awt.Color(57, 129, 247));
+        
         backButton.setText("Back");
-        backButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        backButton.setBackground(new java.awt.Color(255, 255, 255));
+        backButton.setForeground(new java.awt.Color(57, 129, 247));
+        backButton.setBorderColor(new java.awt.Color(57,129,247));
+        backButton.setBorderColorNotOver(new java.awt.Color(57,129,247));
+        backButton.setBorderColorOver(new java.awt.Color(41, 103, 197));
+        backButton.setColor(java.awt.Color.white);
+        backButton.setColor2(new java.awt.Color(57, 129, 247));
         backButton.setColorClick(new java.awt.Color(235, 235, 235));
+        backButton.setColorClick2(new java.awt.Color(41, 103, 197));
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
+        backButton.setColorOver2(new java.awt.Color(41, 103, 197));
         backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         backButton.setMaximumSize(new java.awt.Dimension(143, 68));
         backButton.setMinimumSize(new java.awt.Dimension(143, 68));
@@ -131,10 +155,15 @@ public class DeleteQuestion extends javax.swing.JFrame {
         OKbutton.setBackground(new java.awt.Color(57, 129, 247));
         OKbutton.setForeground(new java.awt.Color(255, 255, 255));
         OKbutton.setText("OK");
-        OKbutton.setBorderColor(new java.awt.Color(255, 255, 255));
+        OKbutton.setBorderColor(new java.awt.Color(57, 129, 247));
+        OKbutton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        OKbutton.setBorderColorOver(new java.awt.Color(57, 158, 255));
         OKbutton.setColor(new java.awt.Color(57, 129, 247));
+        OKbutton.setColor2(java.awt.Color.white);
         OKbutton.setColorClick(new java.awt.Color(57, 158, 255));
+        OKbutton.setColorClick2(java.awt.Color.white);
         OKbutton.setColorOver(new java.awt.Color(57, 158, 255));
+        OKbutton.setColorOver2(java.awt.Color.white);
         OKbutton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         OKbutton.setMaximumSize(new java.awt.Dimension(143, 68));
         OKbutton.setMinimumSize(new java.awt.Dimension(143, 68));
@@ -298,8 +327,11 @@ public class DeleteQuestion extends javax.swing.JFrame {
     }                                    
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        setVisible(false);
-        new AdminHome().setVisible(true);
+        int option = JOptionPane.showConfirmDialog(getContentPane(), "Are you sure you want to end editing? Your changes will not be saved.", null, JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            setVisible(false);
+            EditQuiz.open = 0;
+        }
     }                                          
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         

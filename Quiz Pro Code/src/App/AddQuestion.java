@@ -18,7 +18,7 @@ import DatabaseConnection.ConnectionProvider;
  */
 public class AddQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
-    private String quizid; 
+    private String quizid = "z3"; 
     
     /**
      * Creates new form AddQuest
@@ -88,57 +88,79 @@ public class AddQuestion extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel4.setText("Question");
 
-       buttonGroup.add(rad1);       
-       buttonGroup.add(rad2);
-       buttonGroup.add(rad3);
-       buttonGroup.add(rad4);
-       
-       
-//       try{
-//            Connection con = ConnectionProvider.getCon();
-//            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-//            ResultSet rs = st.executeQuery("SELECT max(id) FROM question;");
-//            if(rs.first()){
-//                String lastId = rs.getString(1);
-//                char[] arr = lastId.toCharArray();
-//                String temp = "";
-//                for(int i=1; i<arr.length; i++){
-//                    temp += arr[i];
-//                }
-//                int idnow = Integer.parseInt(temp);
-//                idnow = idnow+1;
-//                String str = "q" + String.valueOf(idnow);
-//                txtID.setText(str);
-//            }
-//            else{
-//                txtID.setText("q1");
-//            }
-//        }
-//        catch(Exception e){
-//            JFrame jf = new JFrame();
-//            jf.setAlwaysOnTop(true);
-//            JOptionPane.showMessageDialog(jf, e+"hey ini di id");
-//        }
-       
-       
-       try{
+        buttonGroup.add(rad1);       
+        buttonGroup.add(rad2);
+        buttonGroup.add(rad3);
+        buttonGroup.add(rad4);
+                   
+        try{
             Connection con = ConnectionProvider.getCon();
-            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("SELECT count(*) FROM question;");
-            if(rs.first()){
-                int lastnum = rs.getInt(1);
-                txtnum.setText(Integer.toString(lastnum+1));
-                txtnum.setVisible(true);
+            String query = "SELECT COUNT(*) AS total FROM question WHERE quizID = ?";
+             
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, quizid);
+            
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    // Get the count from the result set
+                    int count = rs.getInt("total");
+                    String countStr = Integer.toString(count+1);
+                    // Set the count in the JLabel
+                    txtnum.setText(countStr);
+                } else {
+                    // No data found, display a message
+                    txtnum.setText("No data found");
+                }
             }
-            else{
-                txtnum.setText("1");
-                txtnum.setVisible(true);
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            txtnum.setText("Error:" + e.getMessage());
         }
-        catch(SQLException e){
-            JFrame jf = new JFrame();
-            jf.setAlwaysOnTop(true);
-            JOptionPane.showMessageDialog(jf, e);
+        
+        
+        try{
+            Connection con = ConnectionProvider.getCon();
+            String query = "SELECT max(id) AS maxid FROM question WHERE quizID = ?";
+             
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, quizid);
+            
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    // Get the count from the result set
+                    String maximum = rs.getString("maxid");
+                    if(maximum != null){
+                        char[] arr = maximum.toCharArray();
+                        String temp = "";                    
+                        int q_index = 0;
+
+                        for(int i=0; i<arr.length; i++){
+                            if(arr[i] == 'q'){
+                                q_index = i+1;
+                                break;
+                            }
+                        }
+                        for(int i= q_index; i<arr.length; i++){
+                            temp += arr[i];
+                        }
+
+                        int idnow = Integer.parseInt(temp)+1;
+                        String str = quizid + "q" + String.valueOf(idnow);
+                        txtID.setText(str);
+                        
+                    }else{
+                        int idnow = 1;
+                        String str = quizid + "q" + String.valueOf(idnow);
+                        txtID.setText(str);
+                    }
+                } else {
+                    // No data found, display a message
+                    txtID.setText("No ID found");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            txtID.setText("Error:" + e.getMessage());
         }
        
 
@@ -167,14 +189,13 @@ public class AddQuestion extends javax.swing.JFrame {
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         txtnum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtnum.setText("[num]");
-
+        
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel3.setText("Question");
 
         txtID.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         txtID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txtID.setText("[ID]");
+        //txtID.setText("[ID]");
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
@@ -482,7 +503,8 @@ public class AddQuestion extends javax.swing.JFrame {
                 Linkedlist.Node tail_node = quizList.quiz.tail;
                 Question new_question = tail_node.data;
                 
-                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?)");
+                int question_num = Integer.parseInt(txtnum.getText());
+                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?,?)");
                 ps.setString(1, new_question.getQuestionID());
                 ps.setString(2, new_question.getQuestion());
                 ps.setString(3, new_question.getCorrectAnswer());
@@ -491,10 +513,12 @@ public class AddQuestion extends javax.swing.JFrame {
                 ps.setString(6, opt3Str);
                 ps.setString(7, opt4Str);
                 ps.setString(8, this.quizid);
+                ps.setInt(9, question_num);
                 ps.executeUpdate();
                 
                 setVisible(false);
                 EditQuiz.open = 0;
+                EditQuiz.quizlist.printQuestions();
 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(getContentPane(), e);

@@ -18,6 +18,19 @@ public class LinkedlistBenchmark {
         quiz.resetNumber();
         tracker++;
     }
+    
+    public void addQuestionUpdate(String question, String correctAnswer, String quizid){   
+        //create a new Question object based on the given question and answer   
+        Question q1 = new Question(correctAnswer, question, quizid);
+        //add the Question object to the linked list
+        quiz.addNode(q1);
+
+        //set the ID number of the Question
+        int tracker = 1;
+        //reset all the question number
+        quiz.resetNumber();
+        tracker++;
+    }
 
 
     public void deleteQuestion(String id){

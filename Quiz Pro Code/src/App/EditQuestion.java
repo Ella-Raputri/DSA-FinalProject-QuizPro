@@ -6,10 +6,14 @@ package App;
 
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -236,15 +240,34 @@ public class EditQuestion extends javax.swing.JFrame {
                 idFieldActionPerformed(evt);
             }
         });
-
-        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
-
+        
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel4.setText("Question");
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
 
+        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
+        search_id.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String idStr = idField.getText();
+                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
+        
+                if(current_node != null){
+                   current_question = current_node.data; 
+                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+                   questionField.setText(current_question.getQuestion());
+                   setOptionsAnswer(idStr);                   
+                
+                }else{
+                    String message = "There is no question with the ID of " + idStr;
+                    JOptionPane.showMessageDialog(getContentPane(), message);
+                }
+            }
+        });    
+       
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -353,17 +376,48 @@ public class EditQuestion extends javax.swing.JFrame {
         
     }
     
-    
-    private void search_idMouseClicked(java.awt.event.MouseEvent evt){
-        String idStr = idField.getText();
-        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
-        
-        if(current_node != null){
-           current_question = current_node.data; 
-        }else{
-            String message = "There is no question with the ID of " + idStr;
-            JOptionPane.showMessageDialog(getContentPane(), message);
-        }        
+    private void setOptionsAnswer(String qid){
+        try {
+            Connection conn = ConnectionProvider.getCon();
+            String sql = "SELECT * FROM question WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            // Set the parameter value for the ID
+            pstmt.setString(1, qid);
+
+            // Execute the query
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Retrieve data from the result set for each column
+                    String option1 = rs.getString("option1");
+                    opt1Field.setText(option1);   
+                    
+                    String option2 = rs.getString("option2");
+                    opt2Field.setText(option2);  
+                    
+                    String option3 = rs.getString("option3");
+                    opt3Field.setText(option3); 
+                    
+                    String option4 = rs.getString("option4");
+                    opt4Field.setText(option4);  
+                    
+                    String answ = rs.getString("answer");
+                    if (option1.equals(answ)){
+                        rad1.setSelected(true);
+                    }
+                    else if (option2.equals(answ)){
+                        rad2.setSelected(true);
+                    }
+                    else if (option3.equals(answ)){
+                        rad3.setSelected(true);
+                    }
+                    else if (option4.equals(answ)){
+                        rad4.setSelected(true);
+                    }                                    
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -452,24 +506,30 @@ public class EditQuestion extends javax.swing.JFrame {
         }
         else{
             try{
-                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid);
-                                
-                Connection con = ConnectionProvider.getCon();
-    
-                Linkedlist.Node tail_node = quizList.quiz.tail;
-                Question new_question = tail_node.data;
+                //edit in linkedlist
+                String idStr = current_question.getQuestionID();
+                EditQuiz.quizlist.editQuestion(idStr, "y", questionStr, "y", answerStr);
                 
-                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?)");
-                ps.setString(1, new_question.getQuestionID());
-                ps.setString(2, new_question.getQuestion());
-                ps.setString(3, new_question.getCorrectAnswer());
-                ps.setString(4, opt1Str);
-                ps.setString(5, opt2Str);
-                ps.setString(6, opt3Str);
-                ps.setString(7, opt4Str);
-                ps.setString(8, this.quizid);
+                //edit in database
+                Connection con = ConnectionProvider.getCon();
+                String query = "UPDATE question SET question = ?, answer = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ? WHERE id = ?";
+                PreparedStatement ps = con.prepareStatement(query);
+                
+                ps.setString(1, questionStr);
+                ps.setString(2, answerStr);
+                ps.setString(3, opt1Str);
+                ps.setString(4, opt2Str);
+                ps.setString(5, opt3Str);
+                ps.setString(6, opt4Str);
+                ps.setString(7, idStr);
+                
                 ps.executeUpdate();
                 
+                //show message and close menu
+                String message = "Question with the ID of "+ idStr +" edited successfully.";
+                JOptionPane.showMessageDialog(getContentPane(), message);
+                
+                current_question = null;
                 setVisible(false);
                 EditQuiz.open = 0;
 

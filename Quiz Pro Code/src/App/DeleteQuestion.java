@@ -4,9 +4,16 @@
  */
 package App;
 
+import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,8 +22,9 @@ import javax.swing.JOptionPane;
  * @author Asus
  */
 public class DeleteQuestion extends javax.swing.JFrame {
-    private LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
-    private String quizid;
+    private LinkedlistBenchmark quizlist;
+    private String quizid = "z3";
+    private static Question current_question;
     /**
      * Creates new form DeleteQuestion
      */
@@ -64,10 +72,10 @@ public class DeleteQuestion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        rad1 = new javax.swing.JRadioButton();
-        rad2 = new javax.swing.JRadioButton();
-        rad3 = new javax.swing.JRadioButton();
-        rad4 = new javax.swing.JRadioButton();
+        radio4 = new javax.swing.JRadioButton();
+        radio3 = new javax.swing.JRadioButton();
+        radio1 = new javax.swing.JRadioButton();
+        radio2 = new javax.swing.JRadioButton();
         backButton = new App.buttonCustom();
         OKbutton = new App.buttonCustom();
         idField = new RoundJTextField(15);
@@ -112,27 +120,27 @@ public class DeleteQuestion extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
 
-        rad1.addActionListener(new java.awt.event.ActionListener() {
+        radio4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad1ActionPerformed(evt);
+                radio4ActionPerformed(evt);
             }
         });
 
-        rad2.addActionListener(new java.awt.event.ActionListener() {
+        radio3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad2ActionPerformed(evt);
+                radio3ActionPerformed(evt);
             }
         });
 
-        rad3.addActionListener(new java.awt.event.ActionListener() {
+        radio1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad3ActionPerformed(evt);
+                radio1ActionPerformed(evt);
             }
         });
 
-        rad4.addActionListener(new java.awt.event.ActionListener() {
+        radio2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad4ActionPerformed(evt);
+                radio2ActionPerformed(evt);
             }
         });
 
@@ -190,8 +198,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
             }
         });
 
-        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
-
+        
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel4.setText("Question");
 
@@ -217,7 +224,28 @@ public class DeleteQuestion extends javax.swing.JFrame {
         txtopt4.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt4.setText("[option 4]");
         txtopt4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
+       
+        
+        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
+        search_id.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String idStr = idField.getText();
+                Linkedlist.Node current_node = quizlist.quiz.getNode(idStr);
+        
+                if(current_node != null){
+                   current_question = current_node.data; 
+                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+                   txtquestion.setText(current_question.getQuestion());
+                   setOptionsAnswer(idStr);                   
+                
+                }else{
+                    String message = "There is no question with the ID of " + idStr;
+                    JOptionPane.showMessageDialog(getContentPane(), message);
+                }
+            }
+        });
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,10 +278,10 @@ public class DeleteQuestion extends javax.swing.JFrame {
                                     .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(rad4)
-                                        .addComponent(rad3)
-                                        .addComponent(rad2)
-                                        .addComponent(rad1))
+                                        .addComponent(radio2)
+                                        .addComponent(radio1)
+                                        .addComponent(radio3)
+                                        .addComponent(radio4))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,22 +319,22 @@ public class DeleteQuestion extends javax.swing.JFrame {
                         .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(rad3)))
+                        .addComponent(radio1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtopt2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(rad4)))
+                        .addComponent(radio2)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtopt3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rad2))
+                    .addComponent(radio3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rad1))
+                    .addComponent(radio4))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,20 +345,64 @@ public class DeleteQuestion extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }
+    
+    private void setOptionsAnswer(String qid){
+        try {
+            Connection conn = ConnectionProvider.getCon();
+            String sql = "SELECT * FROM question WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            // Set the parameter value for the ID
+            pstmt.setString(1, qid);
+
+            // Execute the query
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Retrieve data from the result set for each column
+                    String option1 = rs.getString("option1");
+                    txtopt1.setText(option1);   
+                    
+                    String option2 = rs.getString("option2");
+                    txtopt2.setText(option2);  
+                    
+                    String option3 = rs.getString("option3");
+                    txtopt3.setText(option3); 
+                    
+                    String option4 = rs.getString("option4");
+                    txtopt4.setText(option4);  
+                    
+                    String answ = rs.getString("answer");
+                    if (option1.equals(answ)){
+                        radio1.setSelected(true);
+                    }
+                    else if (option2.equals(answ)){
+                        radio2.setSelected(true);
+                    }
+                    else if (option3.equals(answ)){
+                        radio3.setSelected(true);
+                    }
+                    else if (option4.equals(answ)){
+                        radio4.setSelected(true);
+                    }                                    
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
         
-    private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
-    private void rad2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
-    private void rad3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
-    private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
@@ -340,10 +412,31 @@ public class DeleteQuestion extends javax.swing.JFrame {
             setVisible(false);
             EditQuiz.open = 0;
         }
-    }                                          
-
+    }  
+    
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        if (current_question != null){
+            String id = current_question.getQuestionID();
+            EditQuiz.quizlist.deleteQuestion(id);
+            
+            //delete from database
+            try{
+                Connection conn = ConnectionProvider.getCon();
+                String query = "DELETE FROM question WHERE id = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, id);
+                
+                ps.executeUpdate();
+                current_question = null;
+                String message = "Question with the ID of " + id +" deleted successfully.";
+                JOptionPane.showMessageDialog(getContentPane(), message);
+                setVisible(false);
+                EditQuiz.open = 0;
+                
+            }catch(SQLException se){
+                JOptionPane.showMessageDialog(getContentPane(), se);
+            }
+        } 
     }                                        
 
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -393,10 +486,10 @@ public class DeleteQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton rad1;
-    private javax.swing.JRadioButton rad2;
-    private javax.swing.JRadioButton rad3;
-    private javax.swing.JRadioButton rad4;
+    private javax.swing.JRadioButton radio4;
+    private javax.swing.JRadioButton radio3;
+    private javax.swing.JRadioButton radio1;
+    private javax.swing.JRadioButton radio2;
     private javax.swing.JLabel search_id;
     private javax.swing.JLabel txtnum;
     private javax.swing.JLabel txtopt1;

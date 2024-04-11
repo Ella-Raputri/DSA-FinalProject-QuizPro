@@ -120,7 +120,7 @@ public class AddQuestion extends javax.swing.JFrame {
         
         try{
             Connection con = ConnectionProvider.getCon();
-            String query = "SELECT max(id) AS maxid FROM question WHERE quizID = ?";
+            String query = "SELECT max(id) AS maxid FROM questionID WHERE quizID = ?";
              
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, quizid);
@@ -514,11 +514,13 @@ public class AddQuestion extends javax.swing.JFrame {
                 ps.setString(7, opt4Str);
                 ps.setString(8, this.quizid);
                 ps.setInt(9, question_num);
+                
                 ps.executeUpdate();
+                String message = "Question added successfully.";              
+                JOptionPane.showMessageDialog(getContentPane(), message);
                 
                 setVisible(false);
                 EditQuiz.open = 0;
-                EditQuiz.quizlist.printQuestions();
 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(getContentPane(), e);

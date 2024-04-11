@@ -4,6 +4,9 @@
  */
 package App;
 
+import DatabaseConnection.ConnectionProvider;
+import java.sql.Connection;
+import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,17 +17,44 @@ import javax.swing.JOptionPane;
 public class EditQuiz extends javax.swing.JFrame {
     public static int open = 0;
     public static LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
-    public static String quizID;
+    public static String quizID="z3";
     /**
      * Creates new form WelcomePage
      */
     public EditQuiz() {
-        initComponents();
+        updateLinkedList(EditQuiz.quizlist);
+        initComponents();        
     }
     
     public EditQuiz(String quizId){
         this.quizID = quizId;
+        updateLinkedList(EditQuiz.quizlist);
         initComponents();
+    }
+    
+    private void updateLinkedList(LinkedlistBenchmark list){
+        try{
+            Connection con = ConnectionProvider.getCon();
+            String query = "SELECT * FROM question WHERE quizID = ? ORDER BY number ASC";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, EditQuiz.quizID);
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                String qID = rs.getString("id");
+                String quest = rs.getString("question");
+                String ans = rs.getString("answer");
+                
+                list.addQuestionUpdate(quest, ans, EditQuiz.quizID);
+                Linkedlist.Node tail_node = list.quiz.tail;
+                tail_node.data.setQuestionID(qID);
+            }
+        }
+        catch(Exception e){
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf, e);
+        }
     }
 
     /**
@@ -320,6 +350,7 @@ public class EditQuiz extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         if(open==0){
             new AddQuestion(quizlist, quizID).setVisible(true);

@@ -64,6 +64,7 @@ public class AddQuiz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     int totalElement =0;
+    LinkedList<String> allIdList = new LinkedList<>();
     private void myinit(){
 
         getContentPane().setBackground(Color.white);
@@ -105,19 +106,21 @@ public class AddQuiz extends javax.swing.JFrame {
                 id.setText("z1");
             }
             else{
-                ResultSet rs1 = st.executeQuery("select max(id) from quizID");
-                
-                if(rs1.first()){
-                    String lastId = rs1.getString(1);
-                    String temp = "";
-                    for(int i=1; i<lastId.length(); i++){
-                        temp = temp + lastId.charAt(i);
-                    }
-                    int idnow = Integer.parseInt(temp);
-                    idnow++;
-                    String str = "z" + String.valueOf(idnow);
-                    id.setText(str); 
+                ResultSet rs1 = st.executeQuery("select id from quizID");
+                while(rs1.next()){
+                    String text = rs1.getString("id");
+                    allIdList.add(text);
                 }
+                
+                String lastId = allIdList.getLast();
+                String temp = "";
+                for(int i=1; i<lastId.length(); i++){
+                    temp = temp + lastId.charAt(i);
+                }
+                int idnow = Integer.parseInt(temp);
+                idnow++;
+                String str = "z" + String.valueOf(idnow);
+                id.setText(str); 
                 
             }
             
@@ -199,7 +202,7 @@ public class AddQuiz extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
         
         jLabel6.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
-        jLabel6.setText("(0 / 40)");
+        jLabel6.setText("(0 / 30)");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 193, -1, -1));
         
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
@@ -271,9 +274,9 @@ public class AddQuiz extends javax.swing.JFrame {
     private void updateCharacterCount() {
         String text = titleField.getText();
         int length = text.length();
-        jLabel6.setText("(" + length + " / 40)");
+        jLabel6.setText("(" + length + " / 30)");
         
-        if(length > 40 || length==0){
+        if(length > 30 || length==0){
             jLabel7.setVisible(true);
             titleField.setForeground(Color.red);
             jLabel6.setForeground(Color.red);
@@ -361,8 +364,8 @@ public class AddQuiz extends javax.swing.JFrame {
         else if(durationInput.equals("")){
             JOptionPane.showMessageDialog(getContentPane(), "Your duration field is still empty");
         }
-        else if(titleInput.length() > 40){
-            JOptionPane.showMessageDialog(getContentPane(), "Your title has exceeded 40 characters.");            
+        else if(titleInput.length() > 30){
+            JOptionPane.showMessageDialog(getContentPane(), "Your title has exceeded 30 characters.");            
         }
         else if(checkInt(durationInput) == false){
             JOptionPane.showMessageDialog(getContentPane(), "Duration input must be a number");
@@ -382,6 +385,8 @@ public class AddQuiz extends javax.swing.JFrame {
                 ps2.setString(1, idInput);
                 ps2.executeUpdate();
                 
+                JOptionPane.showMessageDialog(getContentPane(), "Successfully added");
+                AdminHome.open=0;
                 setVisible(false);
                 home.goToEdit(idInput);
 

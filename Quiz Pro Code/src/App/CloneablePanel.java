@@ -40,7 +40,7 @@ public class CloneablePanel extends JPanel{
         JLabel duration = new JLabel();
         duration.setFont(new Font("Montserrat", 0, 24));
         duration.setText(durationInput + " minutes");
-        setComponentBounds(duration, 40, titleHeight+90, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
+        setComponentBounds(duration, 40, titleHeight+50, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
         add(duration);
         
         buttonCustom deleteButton = new App.buttonCustom();
@@ -103,24 +103,25 @@ public class CloneablePanel extends JPanel{
             // Get the width of the current text with the new word
             int wordWidth = label.getFontMetrics(label.getFont()).stringWidth(word + " ");
 
-            // If adding the new word exceeds the maximum width, add a line break
+            // Check if adding the new word exceeds the maximum width, including a space
             if (currentWidth + wordWidth > maxWidth) {
-                newText.append("<br>");
-                currentWidth = 0;
+                // If the current word exceeds the maximum width, add a line break and start a new line
+                newText.append("<br>").append(word).append(" ");
+                currentWidth = wordWidth;
+            } else {
+                // Otherwise, add the word to the current line
+                newText.append(word).append(" ");
+                currentWidth += wordWidth;
             }
-
-            // Add the word to the text
-            newText.append(word).append(" ");
-            currentWidth += wordWidth;
         }
 
         // Set the label text with line breaks
         label.setText("<html>" + newText.toString() + "</html>");
 
         // Adjust label bounds based on the wrapped text
-        int labelWidth = Math.min(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
-        int labelHeight = (int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight; // Adjust height to fit lines
-        setComponentBounds(label, 40, 70, labelWidth, labelHeight); // Set new bounds for the label
+        int labelWidth = Math.max(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
+        int labelHeight = ((int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight) + 40; // Adjust height to fit lines
+        setComponentBounds(label, 40, 50, labelWidth, labelHeight); // Set new bounds for the label
         return labelHeight;
     }
     
@@ -130,7 +131,9 @@ public class CloneablePanel extends JPanel{
     
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
         String str = "Do you really want to delete " + titleInput + "?";
-        int a = JOptionPane.showConfirmDialog(null, str, "SELECT", JOptionPane.YES_OPTION);
+        AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
+        
+        int a = JOptionPane.showConfirmDialog(home.getContentPane(), str, "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             try{
                 Connection con = ConnectionProvider.getCon();
@@ -138,12 +141,11 @@ public class CloneablePanel extends JPanel{
                 ps.setString(1, id);
                 ps.executeUpdate();
 
-                JOptionPane.showMessageDialog(null, "Successfully deleted");
-                AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
+                JOptionPane.showMessageDialog(home.getContentPane(), "Successfully deleted");
                 home.reloadSelf();
             
             }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(home.getContentPane(), e);
             }
         }
     }

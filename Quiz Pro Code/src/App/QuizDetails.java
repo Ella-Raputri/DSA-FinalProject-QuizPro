@@ -16,6 +16,8 @@ public class QuizDetails extends javax.swing.JFrame {
     private String quizTitle;
     private String quizDuration;
     private int quizTotalQuestions;
+    private String studentId;
+    private String quizId;
     /**
      * Creates new form QuizDetails
      */
@@ -23,7 +25,10 @@ public class QuizDetails extends javax.swing.JFrame {
         initComponents();
     }
     
-    public QuizDetails(String quizId) {
+    public QuizDetails(String quizId, String studentId) {
+        this.quizId = quizId;
+        this.studentId = studentId;
+        
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -90,7 +95,7 @@ public class QuizDetails extends javax.swing.JFrame {
 
         startButton.setBackground(new java.awt.Color(57, 129, 247));
         startButton.setForeground(new java.awt.Color(255, 255, 255));
-        startButton.setText("Start >");
+        startButton.setText("Start   >");
         startButton.setBorderColor(new java.awt.Color(57, 129, 247));
         startButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
         startButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
@@ -138,7 +143,7 @@ public class QuizDetails extends javax.swing.JFrame {
 
         backButton.setBackground(new java.awt.Color(57, 129, 247));
         backButton.setForeground(new java.awt.Color(255, 255, 255));
-        backButton.setText("< Back");
+        backButton.setText("<   Back");
         backButton.setBorderColor(new java.awt.Color(57, 129, 247));
         backButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
         backButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
@@ -191,11 +196,15 @@ public class QuizDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        
+        int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to start?", "SELECT", JOptionPane.YES_OPTION);
+        if(a==0){
+            setVisible(false);
+            new ExamPage(quizId, studentId).setVisible(true);
+        }
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
-        int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
+        int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             setVisible(false);
             new WelcomePage().setVisible(true);
@@ -203,7 +212,7 @@ public class QuizDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        int a = JOptionPane.showConfirmDialog(null, "Do you really want to go back?", "SELECT", JOptionPane.YES_OPTION);
+        int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to go back?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             setVisible(false);
             new StudentHome().setVisible(true);

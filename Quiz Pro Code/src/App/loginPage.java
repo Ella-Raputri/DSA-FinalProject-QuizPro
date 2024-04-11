@@ -366,17 +366,19 @@ public class loginPage extends javax.swing.JFrame {
         else{
             if(role.equals("Student")){
                 String passwordConfirmation ="";
+                String idStr = "";
                 try{
                     Connection con = ConnectionProvider.getCon();
                     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                     ResultSet rs = st.executeQuery("select * from student where username='"+usernameStr+"'");
                     while(rs.next()){
+                        idStr = rs.getString(1);
                         passwordConfirmation = rs.getString(4);
                     }
                     
                     if(passwordConfirmation.equals(passwordStr)){
                         setVisible(false);
-                        new StudentHome().setVisible(true);
+                        new StudentHome(idStr).setVisible(true);
                     }
                     else{
                         JOptionPane.showMessageDialog(getContentPane(), "Password is incorrect");

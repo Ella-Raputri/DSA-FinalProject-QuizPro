@@ -614,14 +614,32 @@ public class SignUpPage extends javax.swing.JFrame {
                         idStr = "1";
                     }
                     
-                    PreparedStatement ps = con.prepareStatement("insert into student values(?,?,?,?)");
+                    String numColumnStr = "";
+                    ResultSet rs1 = st.executeQuery("select count(*) as num_columns from information_schema.columns where table_name = 'student'");
+                    if(rs1.first()){
+                        numColumnStr = rs1.getString(1);
+                    }
+                    
+                    int numColumn = Integer.parseInt(numColumnStr);
+                    int numNull = numColumn - 4;
+                    String str = "insert into student values(?,?,?,?";
+                    for(int i=0; i<numNull; i++){
+                        str = str + ",?";
+                    }
+                    str = str + ")";
+                    
+                    PreparedStatement ps = con.prepareStatement(str);
                     ps.setString(1, idStr);
                     ps.setString(2, usernameStr);
                     ps.setString(3, emailStr);
                     ps.setString(4, passwordStr);
+                    for(int i=0; i<numNull; i++){
+                        ps.setString(i+5, null);
+                    }
+                    
                     ps.executeUpdate();
                     setVisible(false);
-                    new StudentHome().setVisible(true);
+                    new StudentHome(idStr).setVisible(true);
                     
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(getContentPane(), e);

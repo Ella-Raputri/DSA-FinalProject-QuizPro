@@ -15,11 +15,17 @@ import javax.swing.*;
  * @author asus
  */
 public class StudentHome extends javax.swing.JFrame {
-
+    private String studentId;
     /**
      * Creates new form StudentHome
      */
     public StudentHome() {
+        initComponents();
+        myinit();
+    }
+    
+    public StudentHome(String studentId) {
+        this.studentId = studentId;
         initComponents();
         myinit();
     }
@@ -207,9 +213,9 @@ public class StudentHome extends javax.swing.JFrame {
         }
     }
     
-    public void goToDetails(String id){
+    public void goToDetails(String quizId){
         setVisible(false);
-        new QuizDetails(id).setVisible(true);
+        new QuizDetails(quizId, studentId).setVisible(true);
     }
     
     

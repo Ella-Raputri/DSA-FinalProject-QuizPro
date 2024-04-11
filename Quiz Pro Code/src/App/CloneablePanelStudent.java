@@ -40,7 +40,7 @@ public class CloneablePanelStudent extends JPanel{
         JLabel duration = new JLabel();
         duration.setFont(new Font("Montserrat", 0, 24));
         duration.setText(durationInput + " minutes");
-        setComponentBounds(duration, 40, titleHeight+90, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
+        setComponentBounds(duration, 40, titleHeight+50, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
         add(duration);
         
         
@@ -96,9 +96,9 @@ public class CloneablePanelStudent extends JPanel{
         label.setText("<html>" + newText.toString() + "</html>");
 
         // Adjust label bounds based on the wrapped text
-        int labelWidth = Math.min(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
-        int labelHeight = (int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight; // Adjust height to fit lines
-        setComponentBounds(label, 40, 70, labelWidth, labelHeight); // Set new bounds for the label
+        int labelWidth = Math.max(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
+        int labelHeight = ((int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight) + 40; // Adjust height to fit lines
+        setComponentBounds(label, 40, 50, labelWidth, labelHeight); // Set new bounds for the label
         return labelHeight;
     }
     
@@ -106,29 +106,42 @@ public class CloneablePanelStudent extends JPanel{
         component.setBounds(x, y, width, height); // Set the position and size of the component
     }
     
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        String str = "Do you really want to delete " + titleInput + "?";
-        int a = JOptionPane.showConfirmDialog(null, str, "SELECT", JOptionPane.YES_OPTION);
-        if(a==0){
-            try{
-                Connection con = ConnectionProvider.getCon();
-                PreparedStatement ps = con.prepareStatement("delete from quiz where id=?");
-                ps.setString(1, id);
-                ps.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "Successfully deleted");
-                AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
-                home.reloadSelf();
-            
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e);
+    private static boolean checkColumn(StudentHome home, String quizID){
+        try{
+            Connection con = ConnectionProvider.getCon();
+            DatabaseMetaData md = con.getMetaData();
+            ResultSet rs = md.getColumns(null, null, "student", quizID);
+            if (rs.next()) {
+                return true;
             }
+            else{
+                return false;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(home.getContentPane(), e);
         }
+        return false;
     }
     
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
-        home.goToEdit(id);
+        StudentHome home = (StudentHome) SwingUtilities.getWindowAncestor(this);
+        boolean check = checkColumn(home, id);
+        
+        if(!check){
+            try{
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+                PreparedStatement ps = con.prepareStatement("ALTER TABLE student ADD " + id + " int(5)"); 
+                ps.executeUpdate();
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(home.getContentPane(), e);
+            }
+        }
+        
+        home.goToDetails(id);
+
     }
     
     

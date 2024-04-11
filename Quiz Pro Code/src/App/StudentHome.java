@@ -47,27 +47,30 @@ public class StudentHome extends javax.swing.JFrame {
     
     private void myinit(){
         setTitle("Student Home Page");
-        int totalElement = 0;
+        LinkedList<String> idListTemp = new LinkedList<>();
         LinkedList<String> idList = new LinkedList<>();
         
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select count(id) from quiz");
-            if(rs.first()){
-                String temp = rs.getString(1);
-                totalElement = Integer.parseInt(temp);
-            }
-            else{
-                totalElement = 0;
-            }
-            
             
             ResultSet rs1 = st.executeQuery("select id from quiz");
             while(rs1.next()){
                 String id = rs1.getString("id");
-                idList.add(id);
+                idListTemp.add(id);
             }
+            
+            for(int i=0; i<idListTemp.size(); i++){
+                ResultSet rs2 = st.executeQuery("select count(id) from question where quizID='" + idListTemp.get(i) + "'");
+                if(rs2.first()){
+                    String temp = rs2.getString(1);
+                    if(!(temp.equals("0"))){
+                        idList.add(idListTemp.get(i));
+                    }
+                }
+                
+            }
+            
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
@@ -106,7 +109,7 @@ public class StudentHome extends javax.swing.JFrame {
         
         int row=0, column=0;
 
-        for(int i=0; i<totalElement;i++){
+        for(int i=0; i<idList.size();i++){
             String title = "";
             String duration = "";
             String id="";
@@ -196,12 +199,17 @@ public class StudentHome extends javax.swing.JFrame {
         setVisible(true);
     }
     
-     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             setVisible(false);
             new WelcomePage().setVisible(true);
         }
+    }
+    
+    public void goToDetails(String id){
+        setVisible(false);
+        new QuizDetails(id).setVisible(true);
     }
     
     

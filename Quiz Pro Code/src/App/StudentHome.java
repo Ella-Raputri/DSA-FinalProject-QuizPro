@@ -4,6 +4,12 @@
  */
 package App;
 
+import DatabaseConnection.ConnectionProvider;
+import java.awt.*;
+import java.sql.*;
+import java.util.LinkedList;
+import javax.swing.*;
+
 /**
  *
  * @author asus
@@ -15,6 +21,7 @@ public class StudentHome extends javax.swing.JFrame {
      */
     public StudentHome() {
         initComponents();
+        myinit();
     }
 
     /**
@@ -27,21 +34,177 @@ public class StudentHome extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    
+    private JPanel contentPane;
+    private JPanel cloneablePanel;
+    private JScrollPane scrollPane;
+    
+    private void myinit(){
+        setTitle("Student Home Page");
+        int totalElement = 0;
+        LinkedList<String> idList = new LinkedList<>();
+        
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select count(id) from quiz");
+            if(rs.first()){
+                String temp = rs.getString(1);
+                totalElement = Integer.parseInt(temp);
+            }
+            else{
+                totalElement = 0;
+            }
+            
+            
+            ResultSet rs1 = st.executeQuery("select id from quiz");
+            while(rs1.next()){
+                String id = rs1.getString("id");
+                idList.add(id);
+            }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(getContentPane(), e);
+        }
+        
 
+        // Create the content pane
+        contentPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Load the background image
+                ImageIcon bgImage = new ImageIcon("src/App/img/background_studenthome.png");
+                // Draw the background image
+                g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), null);
+            }
+        };
+        contentPane.setLayout(null); // Use absolute layout
+        setContentPane(contentPane);
+
+        // Create the scroll pane
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(80, 200, 1180, 480); // Set bounds for the scroll pane
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        contentPane.add(scrollPane);
+
+        // Create the cloneable panel
+        cloneablePanel = new JPanel(); // The initial panel inside scroll pane
+        cloneablePanel.setLayout(null); // Use absolute layout
+        cloneablePanel.setPreferredSize(new Dimension(400, 200)); // Set initial size
+        cloneablePanel.setBounds(80, 200, 1200, 1500); // Set bounds for the initial panel
+        cloneablePanel.setBackground(new Color(241, 241, 241));
+        scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
+
+        
+        int row=0, column=0;
+
+        for(int i=0; i<totalElement;i++){
+            String title = "";
+            String duration = "";
+            String id="";
+            
+            try{
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet rs1 = st.executeQuery("select * from quiz where id='"+idList.get(i)+"'");
+                if(rs1.first()){
+                    id = rs1.getString(1);
+                    title = rs1.getString(2);
+                    duration = rs1.getString(3);
+                }
+                else{
+                    JOptionPane.showMessageDialog(getContentPane(), "null");
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            }
+            
+            
+            
+            // Create a new cloned panel
+            CloneablePanelStudent clonedPanel = new CloneablePanelStudent(40, Color.white, 2,id, title, duration);
+            // Set your custom width and height for the cloned panel
+            int panelWidth = 330;
+            int panelHeight = 330;
+            
+            
+            // Calculate the row and column indices
+            row = i / 3;
+            column = i % 3;
+
+            // Calculate the x and y positions based on row and column indices
+            int x = 10 + column * (panelWidth + 50);
+            int y = 10 + row * (panelHeight + 50);
+
+            // Set the bounds for the cloned panel with your custom size
+            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
+            clonedPanel.setBackground(Color.white);
+            
+            // Add the cloned panel to the initial panel
+            cloneablePanel.add(clonedPanel);
+            // Adjust preferred size of initial panel to include new panel
+            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 10); // Adjusted size
+            cloneablePanel.setPreferredSize(newSize);
+            // Ensure the scroll pane updates its viewport
+            scrollPane.revalidate();
+            scrollPane.repaint();
+            // Scroll to show the new panel
+            scrollPane.getVerticalScrollBar().setValue(0);
+        }
+        
+
+        ImageIcon bgImage = new ImageIcon("src/App/img/background_studenthome.png");
+        contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
+        
+        
+        buttonCustom logoutButton = new App.buttonCustom();
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Log out");
+        logoutButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
+        logoutButton.setBorderColor(new java.awt.Color(57, 129, 247));
+        logoutButton.setBorderColorOver(new java.awt.Color(57, 158, 255));
+        logoutButton.setColor(new java.awt.Color(57, 129, 247));
+        logoutButton.setColorClick(new java.awt.Color(57, 158, 255));
+        logoutButton.setColorOver(new java.awt.Color(57, 158, 255));
+        logoutButton.setColor2(Color.white);
+        logoutButton.setColorOver2(Color.white);
+        logoutButton.setColorClick2(Color.white);
+        logoutButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
+        logoutButton.setRadius(30);
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+        logoutButton.setBounds(1120, 20, 130, 50);
+        contentPane.add(logoutButton);
+        
+        
+        contentPane.revalidate();
+        contentPane.repaint();
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    
+     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
+        if(a==0){
+            setVisible(false);
+            new WelcomePage().setVisible(true);
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

@@ -65,7 +65,6 @@ public class AdminHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
-        JRootPane frame = this.rootPane;
 
         // Create the content pane
         contentPane = new JPanel() {

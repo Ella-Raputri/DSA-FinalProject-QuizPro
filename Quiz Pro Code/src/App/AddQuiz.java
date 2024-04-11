@@ -63,9 +63,9 @@ public class AddQuiz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    int totalElement =0;
     private void myinit(){
-        
+
         getContentPane().setBackground(Color.white);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -92,24 +92,40 @@ public class AddQuiz extends javax.swing.JFrame {
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("SELECT max(id) FROM quiz;");
+            ResultSet rs = st.executeQuery("select count(id) from quiz");
             if(rs.first()){
-                String lastId = rs.getString(1);
-                char[] arr = lastId.toCharArray();
-                String temp = "";
-                for(int i=1; i<arr.length; i++){
-                    temp += arr[i];
-                }
-                int idnow = Integer.parseInt(temp);
-                idnow = idnow+1;
-                String str = "z" + String.valueOf(idnow);
-                id.setText(str);
+                String temp = rs.getString(1);
+                totalElement = Integer.parseInt(temp);
             }
             else{
+                totalElement = 0;
+            }
+            
+            if(totalElement==0){
                 id.setText("z1");
             }
-        }
-        catch(Exception e){
+            else{
+                ResultSet rs1 = st.executeQuery("select max(id) from quizID");
+                
+                if(rs1.first()){
+                    String lastId = rs1.getString(1);
+                    String temp = "";
+                    for(int i=1; i<lastId.length(); i++){
+                        temp = temp + lastId.charAt(i);
+                    }
+                    int idnow = Integer.parseInt(temp);
+                    idnow++;
+                    String str = "z" + String.valueOf(idnow);
+                    id.setText(str); 
+                }
+                
+            }
+            
+            
+           
+         
+            
+        } catch(Exception e){
             JFrame jf = new JFrame();
             jf.setAlwaysOnTop(true);
             JOptionPane.showMessageDialog(jf, e);
@@ -361,6 +377,11 @@ public class AddQuiz extends javax.swing.JFrame {
                 ps.setString(2, titleInput);
                 ps.setString(3, durationInput);
                 ps.executeUpdate();
+                
+                PreparedStatement ps2 = con.prepareStatement("insert into quizID values(?)");
+                ps2.setString(1, idInput);
+                ps2.executeUpdate();
+                
                 setVisible(false);
                 home.goToEdit(idInput);
 

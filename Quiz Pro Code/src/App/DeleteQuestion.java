@@ -93,6 +93,11 @@ public class DeleteQuestion extends javax.swing.JFrame {
         btnGrp.add(radio2);
         btnGrp.add(radio3);
         btnGrp.add(radio4);
+        
+        radio1.setEnabled(false);
+        radio2.setEnabled(false);
+        radio3.setEnabled(false);
+        radio4.setEnabled(false);
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {

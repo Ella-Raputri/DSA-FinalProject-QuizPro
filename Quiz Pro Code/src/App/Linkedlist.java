@@ -122,6 +122,14 @@ public class Linkedlist {
         return;    
         
     }
+    
+    public void clearNodes(){
+        Node current = head;
+        while (current != null){
+            deleteNode(current);
+            current = head;
+        }
+    }
 
 
     public void changeNodeOrder(int newNumber, Node current, int currentNumber){

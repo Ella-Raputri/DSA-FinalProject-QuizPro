@@ -20,18 +20,18 @@ public class LinkedlistBenchmark {
     }
     
     public void addQuestionUpdate(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){ 
-        if (quiz.isEmpty()){
-            //create a new Question object based on the given question and answer   
-            Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
-            //add the Question object to the linked list
-            quiz.addNode(q1);
+        
+        //create a new Question object based on the given question and answer   
+        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
+        //add the Question object to the linked list
+        quiz.addNode(q1);
 
-            //set the ID number of the Question
-            int tracker = 1;
-            //reset all the question number
-            quiz.resetNumber();
-            tracker++;
-        }
+        //set the ID number of the Question
+        int tracker = 1;
+        //reset all the question number
+        quiz.resetNumber();
+        tracker++;
+        
     }
 
 

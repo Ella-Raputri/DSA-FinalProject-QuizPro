@@ -52,7 +52,6 @@ public class EditQuiz extends javax.swing.JFrame {
                 list.addQuestionUpdate(quest, ans, EditQuiz.quizID, opt1, opt2, opt3, opt4);
                 Linkedlist.Node tail_node = list.quiz.tail;
                 tail_node.data.setQuestionID(qID);
-                list.printQuestions();
             }
         }
         catch(Exception e){
@@ -369,6 +368,7 @@ public class EditQuiz extends javax.swing.JFrame {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        EditQuiz.quizlist.quiz.clearNodes();
         setVisible(false);
         new AdminHome().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
@@ -418,6 +418,7 @@ public class EditQuiz extends javax.swing.JFrame {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
+        EditQuiz.quizlist.quiz.clearNodes();
         int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
             setVisible(false);

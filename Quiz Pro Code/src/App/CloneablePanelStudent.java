@@ -132,7 +132,7 @@ public class CloneablePanelStudent extends JPanel{
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-                PreparedStatement ps = con.prepareStatement("ALTER TABLE student ADD " + id + " int(5)"); 
+                PreparedStatement ps = con.prepareStatement("ALTER TABLE student ADD " + id + " double(10,2)"); 
                 ps.executeUpdate();
 
             }catch(Exception e){

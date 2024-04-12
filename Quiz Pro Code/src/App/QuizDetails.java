@@ -88,6 +88,7 @@ public class QuizDetails extends javax.swing.JFrame {
         title1 = new javax.swing.JLabel();
         duration1 = new javax.swing.JLabel();
         totalQuestions1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,29 +166,33 @@ public class QuizDetails extends javax.swing.JFrame {
         });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 640, 170, 60));
 
-        duration.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
+        duration.setFont(new java.awt.Font("Montserrat", 0, 32)); // NOI18N
         duration.setText("Duration: ");
-        getContentPane().add(duration, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, -1, -1));
+        getContentPane().add(duration, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
-        totalQuestions.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
+        totalQuestions.setFont(new java.awt.Font("Montserrat", 0, 32)); // NOI18N
         totalQuestions.setText("Total Questions:");
-        getContentPane().add(totalQuestions, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, -1, -1));
+        getContentPane().add(totalQuestions, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, -1, -1));
 
-        title.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
+        title.setFont(new java.awt.Font("Montserrat", 0, 32)); // NOI18N
         title.setText("Title:");
         getContentPane().add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, -1));
 
-        title1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
+        title1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 32)); // NOI18N
         title1.setText("Title:");
         getContentPane().add(title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, -1, -1));
 
-        duration1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
+        duration1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 32)); // NOI18N
         duration1.setText("Duration: ");
-        getContentPane().add(duration1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
+        getContentPane().add(duration1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
 
-        totalQuestions1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
+        totalQuestions1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 32)); // NOI18N
         totalQuestions1.setText("Total Questions:");
-        getContentPane().add(totalQuestions1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, -1, -1));
+        getContentPane().add(totalQuestions1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Montserrat Medium", 0, 32)); // NOI18N
+        jLabel3.setText("Make sure to fill all the questions before submitting.");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_quizdetails.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
@@ -260,6 +265,7 @@ public class QuizDetails extends javax.swing.JFrame {
     private javax.swing.JLabel duration;
     private javax.swing.JLabel duration1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private App.buttonCustom startButton;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;

@@ -461,14 +461,14 @@ public class ChangeOrder extends javax.swing.JFrame {
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         String numStr = orderField.getText();
         String idStr = current_question.getQuestionID();
-        System.out.println("quizid"+this.quizid);
-        
-        if(isNumeric(numStr)){
+        System.out.println("quizid" + this.quizid);
+
+        if (isNumeric(numStr)) {
             //update linked list
             int newNum = Integer.parseInt(numStr);
             int oldNum = current_question.getQuestionNumber();
-            EditQuiz.quizlist.changeOrder(idStr, newNum);
-            
+            this.quizList.changeOrder(idStr, newNum);
+
             String updateTarget = "UPDATE question SET number = ? WHERE id = ?";
             String updateBackwardCase = "UPDATE question SET number = number - 1 WHERE quizID = ? AND number > ? AND number < ?";
             String updateForwardCase = "UPDATE question SET number = number + 1 WHERE quizID = ? AND number < ? AND number > ?";
@@ -477,67 +477,65 @@ public class ChangeOrder extends javax.swing.JFrame {
                 // Start a transaction
                 conn.setAutoCommit(false);
 
-                // Update the question number of the targeted question
-                try (PreparedStatement pstmt1 = conn.prepareStatement(updateTarget)) {
-                    pstmt1.setInt(1, newNum);
-                    pstmt1.setString(2, idStr);
-                    int rowsUpdated = pstmt1.executeUpdate();
-                    System.out.println("row: "+rowsUpdated);
-                    
-                    // Check if the targeted question number was updated successfully
-                    if (rowsUpdated == 1) {
-                        System.out.println("lets go");
-                        //forward case
-                        // Update the question numbers of subsequent questions by decrementing them by 1
-                        if (oldNum > newNum){
-                            System.out.println("lets go forwardd");
-                            try (PreparedStatement pstmt2 = conn.prepareStatement(updateForwardCase)) {
-                                pstmt2.setString(1, this.quizid);
-                                pstmt2.setInt(2, oldNum);
-                                pstmt2.setInt(3, newNum-1);
-                                pstmt2.executeUpdate();
+                System.out.println("lets go");
+                //forward case
+                // Update the question numbers of subsequent questions by decrementing them by 1
+                if (oldNum > newNum) {
+                    System.out.println("lets go forwardd");
+                    try (PreparedStatement pstmt2 = conn.prepareStatement(updateForwardCase);
+                         PreparedStatement pstmt1 = conn.prepareStatement(updateTarget)) {
+                        pstmt2.setString(1, this.quizid);
+                        pstmt2.setInt(2, oldNum);
+                        pstmt2.setInt(3, newNum - 1);
+                        pstmt2.executeUpdate();
 
-                                // Commit the transaction if both updates were successful
-                                conn.commit();
-                                System.out.println("Question forward numbers updated successfully.");
-                            }
-                        } 
-//                        //backward case
-//                        else if (oldNum < newNum){
-//                            try (PreparedStatement pstmt2 = conn.prepareStatement(updateBackwardCase)) {
-//                                pstmt2.setString(1, this.quizid);
-//                                pstmt2.setInt(2, oldNum);
-//                                pstmt2.setInt(3, newNum+1);
-//                                pstmt2.executeUpdate();
-//
-//                                // Commit the transaction if both updates were successful
-//                                conn.commit();
-//                                System.out.println("Question backward numbers updated successfully.");
-//                            }
-//                        }
-                    } else {
-                        // Rollback the transaction if the targeted question number was not updated
-                        conn.rollback();
-                        System.out.println("Failed to update the targeted question number.");
+                        // Execute pstmt1 to update the target question number
+                        pstmt1.setInt(1, newNum);
+                        pstmt1.setString(2, idStr);
+                        pstmt1.executeUpdate();
+
+                        // Commit the transaction
+                        conn.commit();
+                        System.out.println("Question forward numbers updated successfully.");
+                    }
+                } 
+                //backward case
+                else if (oldNum < newNum) {
+                    System.out.println("lets go backwardd");
+                    try (PreparedStatement pstmt2 = conn.prepareStatement(updateBackwardCase);
+                         PreparedStatement pstmt1 = conn.prepareStatement(updateTarget)) {
+                        pstmt2.setString(1, this.quizid);
+                        pstmt2.setInt(2, oldNum);
+                        pstmt2.setInt(3, newNum + 1);
+                        pstmt2.executeUpdate();
+
+                        // Execute pstmt1 to update the target question number
+                        pstmt1.setInt(1, newNum);
+                        pstmt1.setString(2, idStr);
+                        pstmt1.executeUpdate();
+
+                        // Commit the transaction
+                        conn.commit();
+                        System.out.println("Question backward numbers updated successfully.");
                     }
                 }
 
                 //show message and close menu
-                String message = "Question with the ID of "+ idStr +"'s order has been changed successfully.";
+                String message = "Question with the ID of " + idStr + "'s order has been changed successfully.";
                 JOptionPane.showMessageDialog(getContentPane(), message);
 
                 current_question = null;
                 setVisible(false);
                 EditQuiz.open = 0;
-                
-            }catch(HeadlessException | SQLException e){
+
+            } catch (SQLException e) {
+                // Handle SQL Exception
                 JOptionPane.showMessageDialog(getContentPane(), e);
             } 
-            
-        }else{
+        } else {
             JOptionPane.showMessageDialog(getContentPane(), "Number is not valid.");
         }
-    }                                        
+    }                                       
 
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:

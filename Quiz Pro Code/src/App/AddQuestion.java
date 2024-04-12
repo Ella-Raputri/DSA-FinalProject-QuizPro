@@ -500,7 +500,7 @@ public class AddQuestion extends javax.swing.JFrame {
                                 
                 Connection con = ConnectionProvider.getCon();
     
-                Linkedlist.Node tail_node = quizList.quiz.tail;
+                Linkedlist.Node tail_node = EditQuiz.quizlist.quiz.tail;
                 Question new_question = tail_node.data;
                 
                 PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?,?)");

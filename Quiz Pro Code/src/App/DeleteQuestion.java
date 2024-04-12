@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class DeleteQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizlist;
-    private String quizid = "z3";
+    private String quizid;
     private static Question current_question;
     /**
      * Creates new form DeleteQuestion
@@ -87,6 +87,12 @@ public class DeleteQuestion extends javax.swing.JFrame {
         txtopt2 = new javax.swing.JLabel();
         txtopt3 = new javax.swing.JLabel();
         txtopt4 = new javax.swing.JLabel();
+        btnGrp = new javax.swing.ButtonGroup();
+        
+        btnGrp.add(radio1);
+        btnGrp.add(radio2);
+        btnGrp.add(radio3);
+        btnGrp.add(radio4);
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -497,6 +503,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel txtopt3;
     private javax.swing.JLabel txtopt4;
     private javax.swing.JLabel txtquestion;
+    private javax.swing.ButtonGroup btnGrp;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

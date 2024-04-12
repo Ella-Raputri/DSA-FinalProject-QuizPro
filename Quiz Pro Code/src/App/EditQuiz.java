@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class EditQuiz extends javax.swing.JFrame {
     public static int open = 0;
     public static LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
-    public static String quizID="z3";
+    public static String quizID;
     /**
      * Creates new form WelcomePage
      */
@@ -27,7 +27,7 @@ public class EditQuiz extends javax.swing.JFrame {
     }
     
     public EditQuiz(String quizId){
-        this.quizID = quizId;
+        EditQuiz.quizID = quizId;
         updateLinkedList(EditQuiz.quizlist);
         initComponents();
     }
@@ -370,7 +370,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeOrderButtonActionPerformed
         if(open==0){
-            new ChangeOrder().setVisible(true);
+            new ChangeOrder(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{

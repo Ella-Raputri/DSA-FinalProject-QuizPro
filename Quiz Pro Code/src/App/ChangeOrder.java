@@ -4,9 +4,17 @@
  */
 package App;
 
+import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.HeadlessException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,11 +23,20 @@ import javax.swing.JOptionPane;
  * @author Asus
  */
 public class ChangeOrder extends javax.swing.JFrame {
-
+    private LinkedlistBenchmark quizList;
+    private String quizid;
+    private static Question current_question;
     /**
      * Creates new form ChangeOrder
      */
     public ChangeOrder() {
+        initComponents();
+        myinit();
+    }
+    
+    public ChangeOrder(LinkedlistBenchmark list, String quizid) {
+        this.quizList = list;
+        this.quizid = quizid;
         initComponents();
         myinit();
     }
@@ -56,10 +73,10 @@ public class ChangeOrder extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        rad1 = new javax.swing.JRadioButton();
-        rad2 = new javax.swing.JRadioButton();
-        rad3 = new javax.swing.JRadioButton();
-        rad4 = new javax.swing.JRadioButton();
+        radio4 = new javax.swing.JRadioButton();
+        radio3 = new javax.swing.JRadioButton();
+        radio1 = new javax.swing.JRadioButton();
+        radio2 = new javax.swing.JRadioButton();
         backButton = new App.buttonCustom();
         OKbutton = new App.buttonCustom();
         idField = new RoundJTextField(15);
@@ -73,6 +90,12 @@ public class ChangeOrder extends javax.swing.JFrame {
         txtopt3 = new javax.swing.JLabel();
         txtopt4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        btnGrp = new javax.swing.ButtonGroup();
+        
+        btnGrp.add(radio1);
+        btnGrp.add(radio2);
+        btnGrp.add(radio3);
+        btnGrp.add(radio4);
         
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -106,27 +129,27 @@ public class ChangeOrder extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
 
-        rad1.addActionListener(new java.awt.event.ActionListener() {
+        radio4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad1ActionPerformed(evt);
+                radio4ActionPerformed(evt);
             }
         });
 
-        rad2.addActionListener(new java.awt.event.ActionListener() {
+        radio3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad2ActionPerformed(evt);
+                radio3ActionPerformed(evt);
             }
         });
 
-        rad3.addActionListener(new java.awt.event.ActionListener() {
+        radio1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad3ActionPerformed(evt);
+                radio1ActionPerformed(evt);
             }
         });
 
-        rad4.addActionListener(new java.awt.event.ActionListener() {
+        radio2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad4ActionPerformed(evt);
+                radio2ActionPerformed(evt);
             }
         });
 
@@ -183,8 +206,6 @@ public class ChangeOrder extends javax.swing.JFrame {
             }
         });
 
-        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
-
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel4.setText("Question");
 
@@ -221,6 +242,27 @@ public class ChangeOrder extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel5.setText("Change Order to");
 
+        
+        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
+        search_id.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String idStr = idField.getText();
+                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
+        
+                if(current_node != null){
+                   current_question = current_node.data; 
+                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+                   txtquestion.setText(current_question.getQuestion());
+                   setOptionsAnswer(idStr);                   
+                
+                }else{
+                    String message = "There is no question with the ID of " + idStr;
+                    JOptionPane.showMessageDialog(getContentPane(), message);
+                }
+            }
+        });
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -253,10 +295,10 @@ public class ChangeOrder extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(rad4)
-                                .addComponent(rad3)
-                                .addComponent(rad2)
-                                .addComponent(rad1))
+                                .addComponent(radio2)
+                                .addComponent(radio1)
+                                .addComponent(radio3)
+                                .addComponent(radio4))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,22 +343,22 @@ public class ChangeOrder extends javax.swing.JFrame {
                         .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(rad3)))
+                        .addComponent(radio1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtopt2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(rad4)))
+                        .addComponent(radio2)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtopt3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rad2))
+                    .addComponent(radio3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rad1))
+                    .addComponent(radio4))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -332,19 +374,63 @@ public class ChangeOrder extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void setOptionsAnswer(String qid){
+        try {
+            Connection conn = ConnectionProvider.getCon();
+            String sql = "SELECT * FROM question WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            // Set the parameter value for the ID
+            pstmt.setString(1, qid);
+
+            // Execute the query
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Retrieve data from the result set for each column
+                    String option1 = rs.getString("option1");
+                    txtopt1.setText(option1);   
+                    
+                    String option2 = rs.getString("option2");
+                    txtopt2.setText(option2);  
+                    
+                    String option3 = rs.getString("option3");
+                    txtopt3.setText(option3); 
+                    
+                    String option4 = rs.getString("option4");
+                    txtopt4.setText(option4);  
+                    
+                    String answ = rs.getString("answer");
+                    if (option1.equals(answ)){
+                        radio1.setSelected(true);
+                    }
+                    else if (option2.equals(answ)){
+                        radio2.setSelected(true);
+                    }
+                    else if (option3.equals(answ)){
+                        radio3.setSelected(true);
+                    }
+                    else if (option4.equals(answ)){
+                        radio4.setSelected(true);
+                    }                                    
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void radio4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
-    private void rad2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
-    private void rad3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
-    private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
+    private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
 
@@ -354,10 +440,103 @@ public class ChangeOrder extends javax.swing.JFrame {
             setVisible(false);
             EditQuiz.open = 0;
         }
-    }                                          
+    }      
+    
+    private boolean isNumeric(String strNum) {
+        //to check whether some string is numeric
+        if (strNum == null) {
+            //if the string is null, then return false
+            return false;
+        }
+        //if not null, then try to parse the string to integer
+        try {
+            int d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            //if exception happens, then return false
+            return false;
+        }
+        return true; //if not, return true
+    }
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        String numStr = orderField.getText();
+        String idStr = current_question.getQuestionID();
+        System.out.println("quizid"+this.quizid);
+        
+        if(isNumeric(numStr)){
+            //update linked list
+            int newNum = Integer.parseInt(numStr);
+            int oldNum = current_question.getQuestionNumber();
+            EditQuiz.quizlist.changeOrder(idStr, newNum);
+            
+            String updateTarget = "UPDATE question SET number = ? WHERE id = ?";
+            String updateBackwardCase = "UPDATE question SET number = number - 1 WHERE quizID = ? AND number > ? AND number < ?";
+            String updateForwardCase = "UPDATE question SET number = number + 1 WHERE quizID = ? AND number < ? AND number > ?";
+
+            try (Connection conn = ConnectionProvider.getCon()) {
+                // Start a transaction
+                conn.setAutoCommit(false);
+
+                // Update the question number of the targeted question
+                try (PreparedStatement pstmt1 = conn.prepareStatement(updateTarget)) {
+                    pstmt1.setInt(1, newNum);
+                    pstmt1.setString(2, idStr);
+                    int rowsUpdated = pstmt1.executeUpdate();
+                    System.out.println("row: "+rowsUpdated);
+                    
+                    // Check if the targeted question number was updated successfully
+                    if (rowsUpdated == 1) {
+                        System.out.println("lets go");
+                        //forward case
+                        // Update the question numbers of subsequent questions by decrementing them by 1
+                        if (oldNum > newNum){
+                            System.out.println("lets go forwardd");
+                            try (PreparedStatement pstmt2 = conn.prepareStatement(updateForwardCase)) {
+                                pstmt2.setString(1, this.quizid);
+                                pstmt2.setInt(2, oldNum);
+                                pstmt2.setInt(3, newNum-1);
+                                pstmt2.executeUpdate();
+
+                                // Commit the transaction if both updates were successful
+                                conn.commit();
+                                System.out.println("Question forward numbers updated successfully.");
+                            }
+                        } 
+//                        //backward case
+//                        else if (oldNum < newNum){
+//                            try (PreparedStatement pstmt2 = conn.prepareStatement(updateBackwardCase)) {
+//                                pstmt2.setString(1, this.quizid);
+//                                pstmt2.setInt(2, oldNum);
+//                                pstmt2.setInt(3, newNum+1);
+//                                pstmt2.executeUpdate();
+//
+//                                // Commit the transaction if both updates were successful
+//                                conn.commit();
+//                                System.out.println("Question backward numbers updated successfully.");
+//                            }
+//                        }
+                    } else {
+                        // Rollback the transaction if the targeted question number was not updated
+                        conn.rollback();
+                        System.out.println("Failed to update the targeted question number.");
+                    }
+                }
+
+                //show message and close menu
+                String message = "Question with the ID of "+ idStr +"'s order has been changed successfully.";
+                JOptionPane.showMessageDialog(getContentPane(), message);
+
+                current_question = null;
+                setVisible(false);
+                EditQuiz.open = 0;
+                
+            }catch(HeadlessException | SQLException e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            } 
+            
+        }else{
+            JOptionPane.showMessageDialog(getContentPane(), "Number is not valid.");
+        }
     }                                        
 
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -414,10 +593,10 @@ public class ChangeOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField orderField;
-    private javax.swing.JRadioButton rad1;
-    private javax.swing.JRadioButton rad2;
-    private javax.swing.JRadioButton rad3;
-    private javax.swing.JRadioButton rad4;
+    private javax.swing.JRadioButton radio4;
+    private javax.swing.JRadioButton radio3;
+    private javax.swing.JRadioButton radio1;
+    private javax.swing.JRadioButton radio2;
     private javax.swing.JLabel search_id;
     private javax.swing.JLabel txtnum;
     private javax.swing.JLabel txtopt1;
@@ -425,6 +604,7 @@ public class ChangeOrder extends javax.swing.JFrame {
     private javax.swing.JLabel txtopt3;
     private javax.swing.JLabel txtopt4;
     private javax.swing.JLabel txtquestion;
+    private javax.swing.ButtonGroup btnGrp;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

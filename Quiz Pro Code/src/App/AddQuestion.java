@@ -18,7 +18,7 @@ import DatabaseConnection.ConnectionProvider;
  */
 public class AddQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
-    private String quizid = "z3"; 
+    private String quizid; 
     
     /**
      * Creates new form AddQuest
@@ -474,9 +474,6 @@ public class AddQuestion extends javax.swing.JFrame {
         else if (rad4.isSelected()){
             answerStr = opt4Str;
         }
-        else{
-            JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
-        }
         
         
         if(questionStr.equals("")){
@@ -493,6 +490,9 @@ public class AddQuestion extends javax.swing.JFrame {
         }
         else if (opt4Str.equals("")){
             JOptionPane.showMessageDialog(getContentPane(), "Option 4 is still empty.");
+        }
+        else if (answerStr.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
         }
         else{
             try{

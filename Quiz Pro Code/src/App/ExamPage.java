@@ -70,8 +70,7 @@ public class ExamPage extends javax.swing.JFrame {
                     min++;
                     if(min==totalTime){
                         time.stop();
-//                        answerCheck();
-//                        submit();
+                        submit();
                     }
                 }
                 sec++;
@@ -114,7 +113,7 @@ public class ExamPage extends javax.swing.JFrame {
             
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
         for(int i=0; i<quizTotalQuestions; i++){
@@ -209,7 +208,7 @@ public class ExamPage extends javax.swing.JFrame {
     }
     
     
-    private void checkAnswer(){
+    private int checkAnswer(){
         int marks=0;
         for(int i=0; i<quizTotalQuestions; i++){
             String studentAnswer = studentAnswerList.get(i);
@@ -219,25 +218,29 @@ public class ExamPage extends javax.swing.JFrame {
             }
         }
         
+        double marks2 = (double) marks;
+        double finalScore = (marks2/quizTotalQuestions) * 100;
         
         try{
-                Connection con = ConnectionProvider.getCon();
-                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                
-                PreparedStatement ps = con.prepareStatement("update student set " + quizId +  "=? where id=?");
-                ps.setInt(1, marks);
-                ps.setString(2, studentId);
-                ps.executeUpdate();
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(getContentPane(), e);
-            }
+            PreparedStatement ps = con.prepareStatement("update student set " + quizId +  "=? where id=?");
+            ps.setDouble(1, finalScore);
+            ps.setString(2, studentId);
+            ps.executeUpdate();
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(getContentPane(), e);
+        }
+        
+        return marks;
     }
     
     private void submit(){
-        checkAnswer();
+        int score = checkAnswer();
         setVisible(false);
-        new QuizSummary().setVisible(true);
+        new QuizSummary(score, studentId, quizTotalQuestions).setVisible(true);
     }
 
     

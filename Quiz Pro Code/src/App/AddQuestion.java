@@ -496,24 +496,23 @@ public class AddQuestion extends javax.swing.JFrame {
         }
         else{
             try{
-                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid);
+                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid, opt1Str, opt2Str, opt3Str, opt4Str);
                                 
                 Connection con = ConnectionProvider.getCon();
     
                 Linkedlist.Node tail_node = quizList.quiz.tail;
                 Question new_question = tail_node.data;
                 
-                int question_num = Integer.parseInt(txtnum.getText());
                 PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?,?)");
                 ps.setString(1, new_question.getQuestionID());
                 ps.setString(2, new_question.getQuestion());
                 ps.setString(3, new_question.getCorrectAnswer());
-                ps.setString(4, opt1Str);
-                ps.setString(5, opt2Str);
-                ps.setString(6, opt3Str);
-                ps.setString(7, opt4Str);
+                ps.setString(4, new_question.getOption1());
+                ps.setString(5, new_question.getOption2());
+                ps.setString(6, new_question.getOption3());
+                ps.setString(7, new_question.getOption4());
                 ps.setString(8, this.quizid);
-                ps.setInt(9, question_num);
+                ps.setInt(9, new_question.getQuestionNumber());
                 
                 ps.executeUpdate();
                 String message = "Question added successfully.";              

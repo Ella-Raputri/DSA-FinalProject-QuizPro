@@ -5,9 +5,9 @@ public class LinkedlistBenchmark {
     //linked list for the Questions
     Linkedlist quiz = new Linkedlist();
 
-    public void addQuestion(String question, String correctAnswer, String quizid){   
+    public void addQuestion(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){   
         //create a new Question object based on the given question and answer   
-        Question q1 = new Question(correctAnswer, question, quizid);
+        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
         //add the Question object to the linked list
         quiz.addNode(q1);
 
@@ -19,9 +19,9 @@ public class LinkedlistBenchmark {
         tracker++;
     }
     
-    public void addQuestionUpdate(String question, String correctAnswer, String quizid){   
+    public void addQuestionUpdate(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){   
         //create a new Question object based on the given question and answer   
-        Question q1 = new Question(correctAnswer, question, quizid);
+        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
         //add the Question object to the linked list
         quiz.addNode(q1);
 
@@ -147,6 +147,10 @@ public class LinkedlistBenchmark {
                 System.out.println("Question ID: "+ current.data.getQuestionID());
                 System.out.println("Question: "+ current.data.getQuestion());
                 System.out.println("Answer: "+ current.data.getCorrectAnswer());
+                System.out.println("Option1: "+current.data.getOption1());
+                System.out.println("Option2: "+current.data.getOption2());
+                System.out.println("Option3: "+current.data.getOption3());
+                System.out.println("Option4: "+current.data.getOption4());
                 System.out.println();
             
                 current = current.next;//proceed to the next node

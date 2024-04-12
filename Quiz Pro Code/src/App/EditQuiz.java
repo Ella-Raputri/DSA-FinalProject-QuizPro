@@ -44,10 +44,15 @@ public class EditQuiz extends javax.swing.JFrame {
                 String qID = rs.getString("id");
                 String quest = rs.getString("question");
                 String ans = rs.getString("answer");
+                String opt1 = rs.getString("option1");
+                String opt2 = rs.getString("option2");
+                String opt3 = rs.getString("option3");
+                String opt4 = rs.getString("option4");
                 
-                list.addQuestionUpdate(quest, ans, EditQuiz.quizID);
+                list.addQuestionUpdate(quest, ans, EditQuiz.quizID, opt1, opt2, opt3, opt4);
                 Linkedlist.Node tail_node = list.quiz.tail;
                 tail_node.data.setQuestionID(qID);
+                list.printQuestions();
             }
         }
         catch(Exception e){

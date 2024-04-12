@@ -27,6 +27,8 @@ public class ExamPage extends javax.swing.JFrame {
     private int quizTotalQuestions;
     private String answer;
     private LinkedList<JRadioButton> answerList = new LinkedList<>();
+    private LinkedList<String> correctAnswersList = new LinkedList<>();
+    private LinkedList<String> studentAnswerList = new LinkedList<>();
     
     /**
      * Creates new form ExamPage
@@ -99,17 +101,31 @@ public class ExamPage extends javax.swing.JFrame {
                 quizTotalQuestions = 0;
             }
             
+            
+            for(int i=1; i<=quizTotalQuestions; i++){
+                String str = "select answer from question where quizID='" + quizId + "' and number=";
+                str = str + i;
+                ResultSet rs2 = st.executeQuery(str);
+                if(rs2.first()){
+                    String ans = rs2.getString(1);
+                    correctAnswersList.add(ans);
+                }
+            }
+            
+            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
         
         for(int i=0; i<quizTotalQuestions; i++){
             answerList.add(null);
+            studentAnswerList.add(null);
         }
         
         displayQuestion();
         displayAnswer();
-
+        
+        
     }
     
     
@@ -129,7 +145,7 @@ public class ExamPage extends javax.swing.JFrame {
         }
         else if(questionNumber ==1){
             backButton.setVisible(false);
-            nextButton.setVisible(true);
+            
         }
         else{
             nextButton.setVisible(true);
@@ -140,10 +156,11 @@ public class ExamPage extends javax.swing.JFrame {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         
-            ResultSet rs2 = st.executeQuery("select * from question where number=" + questionNumber);
+            ResultSet rs2 = st.executeQuery("select * from question where quizID='" + quizId + "' and number=" + questionNumber);
             while(rs2.next()){
                 questionNumberLabel.setText("Question " + questionNumber + " of " + quizTotalQuestions);
-                questionLabel.setText(rs2.getString(2));
+                String question = rs2.getString(2);
+                setLabelTextWithLineBreaks(questionLabel, question, 984);
                 option1Label.setText(rs2.getString(4));
                 option2Label.setText(rs2.getString(5));
                 option3Label.setText(rs2.getString(6));
@@ -153,6 +170,74 @@ public class ExamPage extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
+    }
+    
+    private void setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
+        // Split the text into words
+        String[] words = text.split(" ");
+        StringBuilder newText = new StringBuilder();
+        int currentWidth = 0;
+        int lineHeight = label.getFontMetrics(label.getFont()).getHeight(); // Get the height of each line
+
+        // Iterate through words
+        for (String word : words) {
+            // Get the width of the current text with the new word
+            int wordWidth = label.getFontMetrics(label.getFont()).stringWidth(word + " ");
+
+            // If adding the new word exceeds the maximum width, add a line break
+            if (currentWidth + wordWidth > maxWidth) {
+                newText.append("<br>");
+                currentWidth = 0;
+            }
+
+            // Add the word to the text
+            newText.append(word).append(" ");
+            currentWidth += wordWidth;
+        }
+
+        // Set the label text with line breaks
+        label.setText("<html>" + newText.toString() + "</html>");
+
+        // Adjust label bounds based on the wrapped text
+        int labelWidth = Math.max(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
+        int labelHeight = ((int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight) + 40; // Adjust height to fit lines
+        setComponentBounds(label, 40, 50, labelWidth, labelHeight); // Set new bounds for the label
+    }
+    
+    private void setComponentBounds(Component component, int x, int y, int width, int height) {
+        component.setBounds(x, y, width, height); // Set the position and size of the component
+    }
+    
+    
+    private void checkAnswer(){
+        int marks=0;
+        for(int i=0; i<quizTotalQuestions; i++){
+            String studentAnswer = studentAnswerList.get(i);
+            String correctAnswer = correctAnswersList.get(i);
+            if(studentAnswer.equals(correctAnswer)){
+                marks+=1;
+            }
+        }
+        
+        
+        try{
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                PreparedStatement ps = con.prepareStatement("update student set " + quizId +  "=? where id=?");
+                ps.setInt(1, marks);
+                ps.setString(2, studentId);
+                ps.executeUpdate();
+
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            }
+    }
+    
+    private void submit(){
+        checkAnswer();
+        setVisible(false);
+        new QuizSummary().setVisible(true);
     }
 
     
@@ -177,6 +262,7 @@ public class ExamPage extends javax.swing.JFrame {
         LogoutButton = new App.buttonCustom();
         backButton = new App.buttonCustom();
         submitButton = new App.buttonCustom();
+        asterisks = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -221,9 +307,9 @@ public class ExamPage extends javax.swing.JFrame {
         questionNumberLabel.setText("Question 1 of 50");
         getContentPane().add(questionNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
-        questionLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
+        questionLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 32)); // NOI18N
         questionLabel.setText("What is the meaning of this sentence of the answer?");
-        getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
+        getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 1030, -1));
 
         buttonGroup1.add(option2Label);
         option2Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
@@ -256,7 +342,7 @@ public class ExamPage extends javax.swing.JFrame {
                 option4LabelActionPerformed(evt);
             }
         });
-        getContentPane().add(option4Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 510, -1, -1));
+        getContentPane().add(option4Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, -1, -1));
 
         buttonGroup1.add(option1Label);
         option1Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
@@ -350,6 +436,11 @@ public class ExamPage extends javax.swing.JFrame {
         });
         getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 630, 140, 50));
 
+        asterisks.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
+        asterisks.setForeground(new java.awt.Color(255, 0, 0));
+        asterisks.setText("*");
+        getContentPane().add(asterisks, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_exam.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1280, 730));
 
@@ -384,25 +475,58 @@ public class ExamPage extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to submit?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
-            setVisible(false);
-            new QuizSummary().setVisible(true);
+            int empty=0;
+            int[]arr = new int[answerList.size()];
+            for(int i=0; i<answerList.size(); i++){
+                if(answerList.get(i) == null){
+                    arr[empty] = i+1;
+                    empty++;
+                }
+            }
+            
+            if(empty==0){
+                submit();
+            }
+            else{
+                String str="Number " + arr[0];
+                for(int j=1; j<arr.length; j++){
+                    if(arr[j] != 0){
+                        str = str + ", " + arr[j];
+                    }
+                }
+                str = str + " is still empty. \nPlease fill it before submitting.";
+                
+                JOptionPane.showMessageDialog(getContentPane(), str);
+            }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void option1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1LabelActionPerformed
         answerList.set(questionNumber-1, option1Label);
+        
+        String ans = option1Label.getText();
+        studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option1LabelActionPerformed
 
     private void option2LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option2LabelActionPerformed
         answerList.set(questionNumber-1, option2Label);
+        
+        String ans = option2Label.getText();
+        studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option2LabelActionPerformed
 
     private void option3LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option3LabelActionPerformed
         answerList.set(questionNumber-1, option3Label);
+        
+        String ans = option3Label.getText();
+        studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option3LabelActionPerformed
 
     private void option4LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option4LabelActionPerformed
         answerList.set(questionNumber-1, option4Label);
+        
+        String ans = option4Label.getText();
+        studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option4LabelActionPerformed
 
     /**
@@ -442,6 +566,7 @@ public class ExamPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private App.buttonCustom LogoutButton;
+    private javax.swing.JLabel asterisks;
     private App.buttonCustom backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;

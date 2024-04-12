@@ -477,11 +477,9 @@ public class ChangeOrder extends javax.swing.JFrame {
                 // Start a transaction
                 conn.setAutoCommit(false);
 
-                System.out.println("lets go");
                 //forward case
                 // Update the question numbers of subsequent questions by decrementing them by 1
                 if (oldNum > newNum) {
-                    System.out.println("lets go forwardd");
                     try (PreparedStatement pstmt2 = conn.prepareStatement(updateForwardCase);
                          PreparedStatement pstmt1 = conn.prepareStatement(updateTarget)) {
                         pstmt2.setString(1, this.quizid);
@@ -496,12 +494,10 @@ public class ChangeOrder extends javax.swing.JFrame {
 
                         // Commit the transaction
                         conn.commit();
-                        System.out.println("Question forward numbers updated successfully.");
                     }
                 } 
                 //backward case
                 else if (oldNum < newNum) {
-                    System.out.println("lets go backwardd");
                     try (PreparedStatement pstmt2 = conn.prepareStatement(updateBackwardCase);
                          PreparedStatement pstmt1 = conn.prepareStatement(updateTarget)) {
                         pstmt2.setString(1, this.quizid);
@@ -516,7 +512,6 @@ public class ChangeOrder extends javax.swing.JFrame {
 
                         // Commit the transaction
                         conn.commit();
-                        System.out.println("Question backward numbers updated successfully.");
                     }
                 }
 

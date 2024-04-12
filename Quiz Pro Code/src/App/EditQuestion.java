@@ -484,9 +484,6 @@ public class EditQuestion extends javax.swing.JFrame {
         else if (rad4.isSelected()){
             answerStr = opt4Str;
         }
-        else{
-            JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
-        }
         
         
         if(questionStr.equals("")){
@@ -504,11 +501,14 @@ public class EditQuestion extends javax.swing.JFrame {
         else if (opt4Str.equals("")){
             JOptionPane.showMessageDialog(getContentPane(), "Option 4 is still empty.");
         }
+        else if (answerStr.equals("")){
+            JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
+        }
         else{
             try{
                 //edit in linkedlist
                 String idStr = current_question.getQuestionID();
-                EditQuiz.quizlist.editQuestion(idStr, "y", questionStr, "y", answerStr);
+                EditQuiz.quizlist.editQuestion(idStr, questionStr, answerStr, opt1Str, opt2Str, opt3Str, opt4Str);
                 
                 //edit in database
                 Connection con = ConnectionProvider.getCon();
@@ -526,12 +526,15 @@ public class EditQuestion extends javax.swing.JFrame {
                 ps.executeUpdate();
                 
                 //show message and close menu
+                System.out.println("==========================================");
+                EditQuiz.quizlist.printQuestions();
                 String message = "Question with the ID of "+ idStr +" edited successfully.";
                 JOptionPane.showMessageDialog(getContentPane(), message);
                 
                 current_question = null;
                 setVisible(false);
                 EditQuiz.open = 0;
+                
 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(getContentPane(), e);

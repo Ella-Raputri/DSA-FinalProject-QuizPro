@@ -19,17 +19,19 @@ public class LinkedlistBenchmark {
         tracker++;
     }
     
-    public void addQuestionUpdate(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){   
-        //create a new Question object based on the given question and answer   
-        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
-        //add the Question object to the linked list
-        quiz.addNode(q1);
+    public void addQuestionUpdate(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){ 
+        if (quiz.isEmpty()){
+            //create a new Question object based on the given question and answer   
+            Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
+            //add the Question object to the linked list
+            quiz.addNode(q1);
 
-        //set the ID number of the Question
-        int tracker = 1;
-        //reset all the question number
-        quiz.resetNumber();
-        tracker++;
+            //set the ID number of the Question
+            int tracker = 1;
+            //reset all the question number
+            quiz.resetNumber();
+            tracker++;
+        }
     }
 
 
@@ -54,7 +56,7 @@ public class LinkedlistBenchmark {
     }
 
 
-    public void editQuestion(String id, String questionChange, String newQuestion, String answerChange, String newAnswer){
+    public void editQuestion(String id, String newQuestion, String newAnswer, String newopt1, String newopt2, String newopt3, String newopt4){
         //if linked list is empty, return
         if(quiz.isEmpty()){
             return;
@@ -64,26 +66,18 @@ public class LinkedlistBenchmark {
             Linkedlist.Node current = quiz.getNode(id);
             //if there exists such a node
             if (current != null){
-                //if user wants to change the question
-                if(questionChange.equals("y")){
-                    //set the question based on the new question
-                    current.data.setQuestion(newQuestion);
-                }
-                //invalid user input
-                else if(!(questionChange.equals("y")) && !(questionChange.equals("n"))){
-                    return;
-                }
+                //set the question based on the new question
+                current.data.setQuestion(newQuestion);
+
+                //set the answer based on the new answer
+                current.data.setCorrectAnswer(newAnswer);
                 
-                //if user wants to change the answer
-                if(answerChange.equals("y")){
-                    //set the answer based on the new answer
-                    current.data.setCorrectAnswer(newAnswer);
-                }
-                //invalid user input
-                else if(!(questionChange.equals("y")) && !(questionChange.equals("n"))){
-                    return;
-                }
-    
+                //set the options
+                current.data.setOption1(newopt1);
+                current.data.setOption2(newopt2);
+                current.data.setOption3(newopt3);
+                current.data.setOption4(newopt4);
+                
                 return;
             }
 

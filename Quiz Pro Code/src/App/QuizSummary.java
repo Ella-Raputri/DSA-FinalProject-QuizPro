@@ -37,6 +37,7 @@ public class QuizSummary extends javax.swing.JFrame {
         this.studentId = studentId;
         this.score = score;
         this.totalQuestions = totalQuestions;
+
         
         try{
             Connection con = ConnectionProvider.getCon();
@@ -96,8 +97,8 @@ public class QuizSummary extends javax.swing.JFrame {
         LogoutButton = new App.buttonCustom();
         scoreLabel = new javax.swing.JLabel();
         textLabel = new javax.swing.JLabel();
-        greenBar = new javax.swing.JTextField();
-        redBar = new javax.swing.JTextField();
+        greenBar = new javax.swing.JPanel();
+        redBar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -160,11 +161,33 @@ public class QuizSummary extends javax.swing.JFrame {
         getContentPane().add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
 
         greenBar.setBackground(new java.awt.Color(108, 207, 160));
-        greenBar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        javax.swing.GroupLayout greenBarLayout = new javax.swing.GroupLayout(greenBar);
+        greenBar.setLayout(greenBarLayout);
+        greenBarLayout.setHorizontalGroup(
+            greenBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
+        );
+        greenBarLayout.setVerticalGroup(
+            greenBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
         getContentPane().add(greenBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, 50));
 
         redBar.setBackground(new java.awt.Color(251, 106, 106));
-        redBar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        javax.swing.GroupLayout redBarLayout = new javax.swing.GroupLayout(redBar);
+        redBar.setLayout(redBarLayout);
+        redBarLayout.setHorizontalGroup(
+            redBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 910, Short.MAX_VALUE)
+        );
+        redBarLayout.setVerticalGroup(
+            redBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
         getContentPane().add(redBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 910, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_quizsummary.png"))); // NOI18N
@@ -225,9 +248,9 @@ public class QuizSummary extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private App.buttonCustom LogoutButton;
     private App.buttonCustom backButton;
-    private javax.swing.JTextField greenBar;
+    private javax.swing.JPanel greenBar;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField redBar;
+    private javax.swing.JPanel redBar;
     private javax.swing.JLabel scoreLabel;
     private javax.swing.JLabel textLabel;
     // End of variables declaration//GEN-END:variables

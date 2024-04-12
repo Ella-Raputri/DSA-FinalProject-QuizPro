@@ -52,6 +52,15 @@ public class ExamPage extends javax.swing.JFrame {
         time = new Timer(1000, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae){
+                if(sec==60){
+                    sec=0;
+                    min++;
+                    if(min==totalTime){
+                        time.stop();
+                        submit();
+                    }
+                }
+                
                 String minutes = String.valueOf(min);
                 if(minutes.length() < 2){
                     minutes = "0" + minutes;
@@ -65,14 +74,7 @@ public class ExamPage extends javax.swing.JFrame {
                 String str = minutes + "." + seconds;
                 timeTakenLabel.setText(str);
                 
-                if(sec==60){
-                    sec=0;
-                    min++;
-                    if(min==totalTime){
-                        time.stop();
-                        submit();
-                    }
-                }
+                
                 sec++;
             }
         });
@@ -213,7 +215,10 @@ public class ExamPage extends javax.swing.JFrame {
         for(int i=0; i<quizTotalQuestions; i++){
             String studentAnswer = studentAnswerList.get(i);
             String correctAnswer = correctAnswersList.get(i);
-            if(studentAnswer.equals(correctAnswer)){
+            if(studentAnswer == null){
+                continue;
+            }
+            else if(studentAnswer.equals(correctAnswer)){
                 marks+=1;
             }
         }

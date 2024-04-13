@@ -484,7 +484,7 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }                                         
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         EditQuiz.quizlist.quiz.clearNodes();
         setVisible(false);
         new AdminHome().setVisible(true);
@@ -492,7 +492,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         if(open==0){
-            new ChangeOrder(quizlist, quizID).setVisible(true);
+            new ChangeOrder222(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{
@@ -534,7 +534,7 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }                                          
 
-    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
+    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         EditQuiz.quizlist.quiz.clearNodes();
         int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){

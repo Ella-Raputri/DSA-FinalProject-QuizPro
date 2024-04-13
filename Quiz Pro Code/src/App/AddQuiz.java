@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -68,7 +70,19 @@ public class AddQuiz extends javax.swing.JFrame {
     private void myinit(){
 
         getContentPane().setBackground(Color.white);
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Custom close operation logic
+                int option = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to go back?", null, JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    setVisible(false);
+                    AdminHome.open=0;
+                } 
+            }
+        });
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 540, 570));
         setFocusable(false);
@@ -205,7 +219,7 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel6.setText("(0 / 30)");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 193, -1, -1));
         
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("src/App/img/warning_icon.png")); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
         jLabel7.setVisible(false);
         
@@ -233,7 +247,7 @@ public class AddQuiz extends javax.swing.JFrame {
             }
         });
         
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/warning_icon.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon("src/App/img/warning_icon.png")); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 343, -1, -1));
         jLabel8.setVisible(false);
         

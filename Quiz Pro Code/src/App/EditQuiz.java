@@ -438,28 +438,25 @@ public class EditQuiz extends javax.swing.JFrame {
         });
         addButton.setBounds(70,220,120,60);
         contentPane.add(addButton);
-
-        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 42)); // NOI18N
-        jLabel1.setText("[Quiz Title]");
-        jLabel1.setBounds(80,100, jLabel1.getPreferredSize().width,jLabel1.getPreferredSize().height);
+        
+        
+        
+        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 42)); // NOI18N    
         contentPane.add(jLabel1);
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         jLabel3.setText("Duration:");
-        jLabel3.setBounds(90,160, jLabel3.getPreferredSize().width,jLabel3.getPreferredSize().height);
+        jLabel3.setBounds(80,160, jLabel3.getPreferredSize().width,jLabel3.getPreferredSize().height);
         contentPane.add(jLabel3);
         
         jLabel2.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         jLabel2.setText("[Duration]");
-        jLabel2.setBounds(200,160, jLabel2.getPreferredSize().width + 40, jLabel2.getPreferredSize().height);
         contentPane.add(jLabel2);
 
         edit_quiz_title_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_quiz_title.png"));
-        edit_quiz_title_icon.setBounds(jLabel1.getPreferredSize().width + 90, 110, edit_quiz_title_icon.getPreferredSize().width, edit_quiz_title_icon.getPreferredSize().height);
         contentPane.add(edit_quiz_title_icon);
 
         edit_duration_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration.png"));
-        edit_duration_icon.setBounds(jLabel2.getPreferredSize().width + 200, 160, edit_duration_icon.getPreferredSize().width, edit_duration_icon.getPreferredSize().height);
         contentPane.add(edit_duration_icon);
 
         
@@ -469,6 +466,38 @@ public class EditQuiz extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        
+        setTitleAndDuration();
+    }
+    
+   
+    private void setTitleAndDuration(){
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select * from quiz where id='" + EditQuiz.quizID + "'");
+            if(rs.first()){
+                String title = rs.getString(2);
+                String duration = rs.getString(3);
+                
+                jLabel1.setText(title);
+                jLabel1.setBounds(80,100, jLabel1.getPreferredSize().width, jLabel1.getPreferredSize().height);
+                edit_quiz_title_icon.setBounds(jLabel1.getWidth()+jLabel1.getX()+10, 115, edit_quiz_title_icon.getPreferredSize().width, edit_quiz_title_icon.getPreferredSize().height);
+
+                
+                jLabel2.setText(duration + " minutes");
+                jLabel2.setBounds(jLabel3.getWidth()+jLabel3.getX()+10, 160, jLabel2.getPreferredSize().width, jLabel2.getPreferredSize().height);
+                edit_duration_icon.setBounds(jLabel2.getWidth()+jLabel2.getX()+10, 160, edit_duration_icon.getPreferredSize().width, edit_duration_icon.getPreferredSize().height);
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(getContentPane(), "ID invalid");
+            }
+            
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(getContentPane(), e);
+        }
     }
     
     
@@ -484,7 +513,7 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }                                         
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         EditQuiz.quizlist.quiz.clearNodes();
         setVisible(false);
         new AdminHome().setVisible(true);
@@ -534,7 +563,7 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }                                          
 
-    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
+    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         EditQuiz.quizlist.quiz.clearNodes();
         int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){

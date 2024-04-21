@@ -21,20 +21,20 @@ import javax.swing.JOptionPane;
  *
  * @author Asus
  */
-public class DeleteQuestion extends javax.swing.JFrame {
-    private LinkedlistBenchmark quizlist;
+public class ChangeOrder222 extends javax.swing.JFrame {
+    private LinkedlistBenchmark quizList;
     private String quizid;
     private static Question current_question;
     /**
-     * Creates new form DeleteQuestion
+     * Creates new form ChangeOrder
      */
-    public DeleteQuestion() {
+    public ChangeOrder222() {
         initComponents();
         myinit();
     }
     
-    public DeleteQuestion(LinkedlistBenchmark quizList, String quizid) {
-        this.quizlist = quizList;
+    public ChangeOrder222(LinkedlistBenchmark list, String quizid) {
+        this.quizList = list;
         this.quizid = quizid;
         initComponents();
         myinit();
@@ -81,12 +81,14 @@ public class DeleteQuestion extends javax.swing.JFrame {
         idField = new RoundJTextField(15);
         search_id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        orderField = new RoundJTextField(15);
         txtnum = new javax.swing.JLabel();
         txtopt1 = new javax.swing.JLabel();
         txtquestion = new javax.swing.JLabel();
         txtopt2 = new javax.swing.JLabel();
         txtopt3 = new javax.swing.JLabel();
         txtopt4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         btnGrp = new javax.swing.ButtonGroup();
         
         btnGrp.add(radio1);
@@ -98,7 +100,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
         radio2.setEnabled(false);
         radio3.setEnabled(false);
         radio4.setEnabled(false);
-
+        
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -120,7 +122,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(540, 600));
 
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
-        jLabel1.setText("<html><u>DELETE QUESTION</u></html>");
+        jLabel1.setText("<html><u>CHANGE ORDER</u></html>");
 
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel3.setText("Input Question ID");
@@ -155,7 +157,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
             }
         });
 
-        
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
@@ -209,9 +210,15 @@ public class DeleteQuestion extends javax.swing.JFrame {
             }
         });
 
-        
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel4.setText("Question");
+
+        orderField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        orderField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderFieldActionPerformed(evt);
+            }
+        });
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
@@ -235,14 +242,17 @@ public class DeleteQuestion extends javax.swing.JFrame {
         txtopt4.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt4.setText("[option 4]");
         txtopt4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-       
+
+        jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        jLabel5.setText("Change Order to");
+
         
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 String idStr = idField.getText();
-                Linkedlist.Node current_node = quizlist.quiz.getNode(idStr);
+                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
         
                 if(current_node != null){
                    current_question = current_node.data; 
@@ -262,46 +272,53 @@ public class DeleteQuestion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(search_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtnum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtquestion, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(radio2)
-                                        .addComponent(radio1)
-                                        .addComponent(radio3)
-                                        .addComponent(radio4))
-                                    .addGap(18, 18, 18)
+                                    .addGap(16, 16, 16)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtopt2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtopt3, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(search_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtnum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtquestion, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(113, 113, 113)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(4, 4, 4))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(radio2)
+                                .addComponent(radio1)
+                                .addComponent(radio3)
+                                .addComponent(radio4))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtopt2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtopt3, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(orderField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -346,11 +363,15 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(radio4))
-                .addGap(30, 30, 30)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(orderField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -400,7 +421,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-        
+    
     private void radio4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
     }                                    
@@ -423,30 +444,40 @@ public class DeleteQuestion extends javax.swing.JFrame {
             setVisible(false);
             EditQuiz.open = 0;
         }
-    }  
+    }      
     
+    private boolean isNumeric(String strNum) {
+        //to check whether some string is numeric
+        if (strNum == null) {
+            //if the string is null, then return false
+            return false;
+        }
+        //if not null, then try to parse the string to integer
+        try {
+            int d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            //if exception happens, then return false
+            return false;
+        }
+        return true; //if not, return true
+    }
+
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        if (current_question != null){
-            String id = current_question.getQuestionID();
-            EditQuiz.quizlist.deleteQuestion(id);
+        String numStr = orderField.getText();
+        String idStr = current_question.getQuestionID();
+        System.out.println("lests go=============");
+
+        if (isNumeric(numStr)) {
+            //update linked list
+            int newNum = Integer.parseInt(numStr);
+            int oldNum = current_question.getQuestionNumber();
+            EditQuiz.quizlist.changeOrder(idStr, newNum);
             
-            //delete from database
-            try{
-                Connection conn = ConnectionProvider.getCon();
-                String query = "DELETE FROM question WHERE id = ?";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, id);
-                
-                ps.executeUpdate();
-                current_question = null;
-                String message = "Question with the ID of " + id +" deleted successfully.";
-                JOptionPane.showMessageDialog(getContentPane(), message);                
-                
-            }catch(SQLException se){
-                JOptionPane.showMessageDialog(getContentPane(), se);
+            if (newNum == oldNum){
+                JOptionPane.showMessageDialog(getContentPane(), "The new number is the same as the old number. Changes are not applied.");
+                return;
             }
-            
-            //set the question number
+
             String updateQuery = "UPDATE question SET number = ? WHERE id = ?";
 
             try (Connection conn = ConnectionProvider.getCon();
@@ -458,7 +489,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
                     
                     pstmt.setInt(1, curr_node.data.getQuestionNumber());
                     pstmt.setString(2, curr_node.data.getQuestionID());
-
+                    
                     // Execute the update statement
                     pstmt.executeUpdate();
                     curr_node = curr_node.next;
@@ -471,12 +502,19 @@ public class DeleteQuestion extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } 
-    }                                        
+        } else {
+            JOptionPane.showMessageDialog(getContentPane(), "Number is not valid.");
+        }
+    }                                       
 
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
-    }
+    }                                       
+
+    private void orderFieldActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+    }  
+    
     /**
      * @param args the command line arguments
      */
@@ -494,20 +532,21 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteQuestion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteQuestion().setVisible(true);
+                new ChangeOrder222().setVisible(true);
             }
         });
     }
@@ -519,8 +558,10 @@ public class DeleteQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField orderField;
     private javax.swing.JRadioButton radio4;
     private javax.swing.JRadioButton radio3;
     private javax.swing.JRadioButton radio1;

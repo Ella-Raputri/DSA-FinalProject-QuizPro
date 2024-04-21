@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -74,7 +77,7 @@ public class EditQuiz extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pack();
@@ -186,11 +189,13 @@ public class EditQuiz extends javax.swing.JFrame {
         deleteButton = new App.buttonCustom();
         add_icon = new javax.swing.JLabel();
         addButton = new App.buttonCustom();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        edit_quiz_title_icon = new javax.swing.JLabel();
         edit_duration_icon = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        titleField = new javax.swing.JTextField();
+        editTitle = new App.buttonCustom();
+        editTitleDone = new App.buttonCustom();
+        editTitleCancel = new App.buttonCustom();
         
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
@@ -439,10 +444,101 @@ public class EditQuiz extends javax.swing.JFrame {
         addButton.setBounds(70,220,120,60);
         contentPane.add(addButton);
         
+        titleField.setFont(new java.awt.Font("Montserrat SemiBold", 0, 42)); // NOI18N   
+        titleField.setEditable(false);
+        titleField.setFocusable(false);
+        titleField.setBackground(new Color(224, 237, 255));
+        titleField.setBorder(null);
+        contentPane.add(titleField);
+        
+        Runnable disableTitleField = () ->{
+            titleField.setEditable(false);
+            titleField.setFocusable(false);
+            titleField.setBackground(new Color(224, 237, 255));
+            titleField.setBorder(null);
+            titleField.setCursor(null);
+        };
+       
+        Runnable enableTitleField = () -> {
+            titleField.setEnabled(true);
+            titleField.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+            titleField.requestFocusInWindow();
+        };
+        
+        editTitle.setBackground(new java.awt.Color(224, 237, 255));
+        editTitle.setForeground(new java.awt.Color(0,0,0));
+        editTitle.setIcon(new javax.swing.ImageIcon("src/App/img/edit_quiz_title.png")); // NOI18N
+        editTitle.setToolTipText("");
+        editTitle.setBorderColor(new java.awt.Color(224, 237, 255));
+        editTitle.setBorderColorNotOver(new java.awt.Color(224, 237, 255));
+        editTitle.setBorderColorOver(new java.awt.Color(224, 237, 255));
+        editTitle.setColor(new java.awt.Color(224, 237, 255));
+        editTitle.setColor2(new java.awt.Color(224, 237, 255));
+        editTitle.setColorClick(new java.awt.Color(224, 237, 255));
+        editTitle.setColorClick2(new java.awt.Color(224, 237, 255));
+        editTitle.setColorOver(new java.awt.Color(252, 252, 252));
+        editTitle.setColorOver2(new java.awt.Color(224, 237, 255));
+        editTitle.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        editTitle.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editTitle.setRadius(30);
+        editTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTitleActionPerformed(evt);
+                enableTitleField.run();
+            }
+        });
+        contentPane.add(editTitle);
+        
+        editTitleDone.setVisible(false);
+        editTitleDone.setBackground(new java.awt.Color(224, 237, 255));
+        editTitleDone.setForeground(new java.awt.Color(0,0,0));
+        editTitleDone.setIcon(new javax.swing.ImageIcon("src/App/img/edit_title_done.png")); // NOI18N
+        editTitleDone.setToolTipText("");
+        editTitleDone.setBorderColor(new java.awt.Color(224, 237, 255));
+        editTitleDone.setBorderColorNotOver(new java.awt.Color(224, 237, 255));
+        editTitleDone.setBorderColorOver(new java.awt.Color(224, 237, 255));
+        editTitleDone.setColor(new java.awt.Color(224, 237, 255));
+        editTitleDone.setColor2(new java.awt.Color(224, 237, 255));
+        editTitleDone.setColorClick(new java.awt.Color(224, 237, 255));
+        editTitleDone.setColorClick2(new java.awt.Color(224, 237, 255));
+        editTitleDone.setColorOver(new java.awt.Color(224, 237, 255));
+        editTitleDone.setColorOver2(new java.awt.Color(224, 237, 255));
+        editTitleDone.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        editTitleDone.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editTitleDone.setRadius(30);
+        editTitleDone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTitleDoneActionPerformed(evt);
+            }
+        });
+        contentPane.add(editTitleDone);
         
         
-        jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 42)); // NOI18N    
-        contentPane.add(jLabel1);
+        editTitleCancel.setVisible(false);
+        editTitleCancel.setBackground(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setForeground(new java.awt.Color(0,0,0));
+        editTitleCancel.setIcon(new javax.swing.ImageIcon("src/App/img/edit_title_cancel.png")); // NOI18N
+        editTitleCancel.setToolTipText("");
+        editTitleCancel.setBorderColor(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setBorderColorNotOver(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setBorderColorOver(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setColor(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setColor2(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setColorClick(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setColorClick2(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setColorOver(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setColorOver2(new java.awt.Color(224, 237, 255));
+        editTitleCancel.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        editTitleCancel.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editTitleCancel.setRadius(30);
+        editTitleCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTitleCancelActionPerformed(evt);
+                disableTitleField.run();
+            }
+        });
+        contentPane.add(editTitleCancel);
+
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         jLabel3.setText("Duration:");
@@ -453,8 +549,7 @@ public class EditQuiz extends javax.swing.JFrame {
         jLabel2.setText("[Duration]");
         contentPane.add(jLabel2);
 
-        edit_quiz_title_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_quiz_title.png"));
-        contentPane.add(edit_quiz_title_icon);
+        
 
         edit_duration_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration.png"));
         contentPane.add(edit_duration_icon);
@@ -480,9 +575,9 @@ public class EditQuiz extends javax.swing.JFrame {
                 String title = rs.getString(2);
                 String duration = rs.getString(3);
                 
-                jLabel1.setText(title);
-                jLabel1.setBounds(80,100, jLabel1.getPreferredSize().width, jLabel1.getPreferredSize().height);
-                edit_quiz_title_icon.setBounds(jLabel1.getWidth()+jLabel1.getX()+10, 115, edit_quiz_title_icon.getPreferredSize().width, edit_quiz_title_icon.getPreferredSize().height);
+                titleField.setText(title);
+                titleField.setBounds(80,100, titleField.getPreferredSize().width, titleField.getPreferredSize().height);
+                editTitle.setBounds(titleField.getWidth()+titleField.getX(), 108, editTitle.getPreferredSize().width, editTitle.getPreferredSize().height);
 
                 
                 jLabel2.setText(duration + " minutes");
@@ -498,6 +593,33 @@ public class EditQuiz extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
+    }
+    
+    
+    
+    private void editTitleActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        titleField.setEditable(true);
+        titleField.setFocusable(true);
+        titleField.setBackground(new Color(255,255,255));
+        titleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 14, 2, 3)));
+        titleField.setBounds(80,100, titleField.getPreferredSize().width, titleField.getPreferredSize().height);
+        editTitle.setVisible(false);
+        editTitleDone.setVisible(true);
+        editTitleDone.setBounds(titleField.getWidth()+titleField.getX()+5, 108, editTitleDone.getPreferredSize().width, editTitleDone.getPreferredSize().height);
+        editTitleCancel.setVisible(true);
+        editTitleCancel.setBounds(titleField.getWidth()+titleField.getX()+editTitleDone.getPreferredSize().width, 108, editTitleCancel.getPreferredSize().width, editTitleCancel.getPreferredSize().height);
+    }
+    
+    private void editTitleDoneActionPerformed(java.awt.event.ActionEvent evt) {  
+        System.out.print("hello world");
+    }
+    
+    private void editTitleCancelActionPerformed(java.awt.event.ActionEvent evt) {  
+        titleField.setBounds(80,100, titleField.getWidth()-17, titleField.getPreferredSize().height);
+        editTitle.setBounds(titleField.getWidth()+titleField.getX(), 108, editTitle.getPreferredSize().width, editTitle.getPreferredSize().height);
+        editTitle.setVisible(true);
+        editTitleDone.setVisible(false);
+        editTitleCancel.setVisible(false);
     }
     
     
@@ -627,14 +749,18 @@ public class EditQuiz extends javax.swing.JFrame {
     private App.buttonCustom editButton;
     private javax.swing.JLabel edit_duration_icon;
     private javax.swing.JLabel edit_icon;
-    private javax.swing.JLabel edit_quiz_title_icon;
-    private javax.swing.JLabel jLabel1;
+//    private javax.swing.JLabel edit_quiz_title_icon;
+//    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private App.buttonCustom resultButton;
     private javax.swing.JLabel result_icon;
     private App.buttonCustom searchButton;
     private javax.swing.JLabel search_icon;
+    private javax.swing.JTextField titleField;
+    private App.buttonCustom editTitle;
+    private App.buttonCustom editTitleDone;
+    private App.buttonCustom editTitleCancel;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

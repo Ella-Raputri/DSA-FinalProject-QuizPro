@@ -7,6 +7,7 @@ import DatabaseConnection.ConnectionProvider;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.LinkedList;
 /**
  *
  * @author asus
@@ -68,13 +69,44 @@ public class CloneablePanelStudent extends JPanel{
         
     }
     
+    public String[] splitWord(String str){
+        int len = str.length()/10;
+        if(str.length()%10 != 0){
+            len+=1;
+        }
+        String[]wordCut = new String[len];
+        
+        for(int i=0; i<wordCut.length; i++){
+            if(i==wordCut.length-1){
+                wordCut[i] = str.substring(0+(10*i));
+            }
+            else{
+                wordCut[i] = str.substring(0+(10*i), 9+(10*i));
+            }
+        }
+        return wordCut;
+    }
+    
     
     public int setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
         // Split the text into words
-        String[] words = text.split(" ");
+        String[] wordsTemp = text.split(" ");
         StringBuilder newText = new StringBuilder();
         int currentWidth = 0;
         int lineHeight = label.getFontMetrics(label.getFont()).getHeight(); // Get the height of each line
+        
+        LinkedList<String> words = new LinkedList<>();
+        for(int i=0; i<wordsTemp.length; i++){
+            if(wordsTemp[i].length() > 10){
+                String[]wordCut = splitWord(wordsTemp[i]);
+                for(String w:wordCut){
+                    words.add(w);
+                }
+            }
+            else{
+                words.add(wordsTemp[i]);
+            }
+        }
 
         // Iterate through words
         for (String word : words) {

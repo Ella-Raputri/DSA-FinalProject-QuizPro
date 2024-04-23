@@ -122,7 +122,8 @@ public class AdminHome extends javax.swing.JFrame {
             
             
             // Create a new cloned panel
-            CloneablePanel clonedPanel = new CloneablePanel(40, Color.white, 2,id, title, duration);
+            // Cloneable Panel
+            CloneablePanelAdmin clonedPanel = new CloneablePanelAdmin(40, Color.white, 2,id, title, duration);
             // Set your custom width and height for the cloned panel
             int panelWidth = 330;
             int panelHeight = 330;

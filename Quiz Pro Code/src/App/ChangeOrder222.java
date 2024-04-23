@@ -6,16 +6,19 @@ package App;
 
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -247,26 +250,6 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         jLabel5.setText("Change Order to");
 
         
-        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
-        search_id.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String idStr = idField.getText();
-                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
-        
-                if(current_node != null){
-                   current_question = current_node.data; 
-                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
-                   txtquestion.setText(current_question.getQuestion());
-                   setOptionsAnswer(idStr);                   
-                
-                }else{
-                    String message = "There is no question with the ID of " + idStr;
-                    JOptionPane.showMessageDialog(getContentPane(), message);
-                }
-            }
-        });
-        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -373,53 +356,78 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
+        
+        
+        //set checkmark image
+        JLabel checkmark = new JLabel();
+        ImageIcon checkmarkIcon = new ImageIcon("src/App/img/checkmark.png");
+        checkmark.setIcon(checkmarkIcon);
+        
+        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
+        search_id.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String idStr = idField.getText();
+                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
+                
+                if(current_node != null){
+                   current_question = current_node.data; 
+                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+                   txtquestion.setText(current_question.getQuestion());
+                   txtopt1.setText(current_question.getOption1());
+                   txtopt2.setText(current_question.getOption2());
+                   txtopt3.setText(current_question.getOption3());
+                   txtopt4.setText(current_question.getOption4());
+                   
+                   if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
+                        radio1.setSelected(true);
+                        drawCheckmark(radio1, checkmark, checkmarkIcon);
+                    }
+                    else if (current_question.getOption2().equals(current_question.getCorrectAnswer())){
+                        radio2.setSelected(true);
+                        drawCheckmark(radio2, checkmark, checkmarkIcon);
+                    }
+                    else if (current_question.getOption3().equals(current_question.getCorrectAnswer())){
+                        radio3.setSelected(true);
+                        drawCheckmark(radio3, checkmark, checkmarkIcon);
+                    }
+                    else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
+                        radio4.setSelected(true);
+                        drawCheckmark(radio4, checkmark, checkmarkIcon);
+                    }
+           
+                }else{
+                    String message = "There is no question with the ID of " + idStr;
+                    JOptionPane.showMessageDialog(getContentPane(), message);
+                }
+            }
+        });
 
         pack();
         setLocationRelativeTo(null);
     }
     
-    private void setOptionsAnswer(String qid){
-        try {
-            Connection conn = ConnectionProvider.getCon();
-            String sql = "SELECT * FROM question WHERE id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            // Set the parameter value for the ID
-            pstmt.setString(1, qid);
+    
+    private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
+        //set the previous checkmark (if any) to false first
+        checkmark.setVisible(false);
+        
+        //find radio button location
+        Point radioLocation = radio.getLocation();
+        int checkmarkX = radioLocation.x; 
+        int checkmarkY = radioLocation.y; 
 
-            // Execute the query
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    // Retrieve data from the result set for each column
-                    String option1 = rs.getString("option1");
-                    txtopt1.setText(option1);   
-                    
-                    String option2 = rs.getString("option2");
-                    txtopt2.setText(option2);  
-                    
-                    String option3 = rs.getString("option3");
-                    txtopt3.setText(option3); 
-                    
-                    String option4 = rs.getString("option4");
-                    txtopt4.setText(option4);  
-                    
-                    String answ = rs.getString("answer");
-                    if (option1.equals(answ)){
-                        radio1.setSelected(true);
-                    }
-                    else if (option2.equals(answ)){
-                        radio2.setSelected(true);
-                    }
-                    else if (option3.equals(answ)){
-                        radio3.setSelected(true);
-                    }
-                    else if (option4.equals(answ)){
-                        radio4.setSelected(true);
-                    }                                    
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Set the bounds of the checkmark label
+        checkmark.setBounds(checkmarkX, checkmarkY, checkmarkIcon.getIconWidth(), checkmarkIcon.getIconHeight());
+
+        // Add the checkmark label to the parent container of the radio button
+        getContentPane().add(checkmark);
+        
+        //set the checkmark z index to be the top layer
+        getContentPane().setComponentZOrder(checkmark, 0);
+        //set the checkmark to be visible in the new location
+        checkmark.setVisible(true);        
+        getContentPane().repaint();
     }
     
     private void radio4ActionPerformed(java.awt.event.ActionEvent evt) {                                     

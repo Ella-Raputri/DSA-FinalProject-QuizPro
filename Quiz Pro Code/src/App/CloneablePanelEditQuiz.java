@@ -7,6 +7,7 @@ import DatabaseConnection.ConnectionProvider;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.LinkedList;
 /**
  *
  * @author asus
@@ -139,13 +140,45 @@ public class CloneablePanelEditQuiz extends JPanel{
     }
     
     
+    public String[] splitWord(String str){
+        int len = str.length()/67;
+        if(str.length()%67 != 0){
+            len+=1;
+        }
+        String[]wordCut = new String[len];
+        
+        for(int i=0; i<wordCut.length; i++){
+            if(i==wordCut.length-1){
+                wordCut[i] = str.substring(0+(67*i));
+            }
+            else{
+                wordCut[i] = str.substring(0+(67*i), 66+(67*i));
+            }
+        }
+        return wordCut;
+    }
+    
+    
     public int setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
         // Split the text into words
-        String[] words = text.split(" ");
+        String[] wordsTemp = text.split(" ");
         StringBuilder newText = new StringBuilder();
         int currentWidth = 0;
         int lineHeight = label.getFontMetrics(label.getFont()).getHeight(); // Get the height of each line
-
+        
+        LinkedList<String> words = new LinkedList<>();
+        for(int i=0; i<wordsTemp.length; i++){
+            if(wordsTemp[i].length() > 67){
+                String[]wordCut = splitWord(wordsTemp[i]);
+                for(String w:wordCut){
+                    words.add(w);
+                }
+            }
+            else{
+                words.add(wordsTemp[i]);
+            }
+        }
+        
         // Iterate through words
         for (String word : words) {
             // Get the width of the current text with the new word

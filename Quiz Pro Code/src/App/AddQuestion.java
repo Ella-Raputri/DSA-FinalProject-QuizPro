@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
+import java.awt.Point;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -92,6 +96,10 @@ public class AddQuestion extends javax.swing.JFrame {
         buttonGroup.add(rad2);
         buttonGroup.add(rad3);
         buttonGroup.add(rad4);
+        
+        checkmark = new javax.swing.JLabel();
+        checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
+        checkmark.setIcon(checkmarkIcon);
                    
         try{
             Connection con = ConnectionProvider.getCon();
@@ -409,6 +417,27 @@ public class AddQuestion extends javax.swing.JFrame {
         
     }
     
+    private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
+        //set the previous checkmark (if any) to false first
+        checkmark.setVisible(false);
+        
+        //find radio button location
+        Point radioLocation = radio.getLocation();
+        int checkmarkX = radioLocation.x; 
+        int checkmarkY = radioLocation.y; 
+
+        // Set the bounds of the checkmark label
+        checkmark.setBounds(checkmarkX, checkmarkY, checkmarkIcon.getIconWidth(), checkmarkIcon.getIconHeight());
+
+        // Add the checkmark label to the parent container of the radio button
+        getContentPane().add(checkmark);
+        
+        //set the checkmark z index to be the top layer
+        getContentPane().setComponentZOrder(checkmark, 0);
+        //set the checkmark to be visible in the new location
+        checkmark.setVisible(true);        
+        getContentPane().repaint();
+    }
     
     private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
@@ -416,18 +445,22 @@ public class AddQuestion extends javax.swing.JFrame {
 
     private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
+        drawCheckmark(rad1, checkmark, checkmarkIcon);
     }                                    
 
     private void rad2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
+        drawCheckmark(rad2, checkmark, checkmarkIcon);
     }                                    
 
     private void rad3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
+        drawCheckmark(rad3, checkmark, checkmarkIcon);
     }                                    
 
     private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
+        drawCheckmark(rad4, checkmark, checkmarkIcon);
     }                                    
 
     private void questionFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
@@ -585,6 +618,8 @@ public class AddQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel txtID;
     private javax.swing.JLabel txtnum;
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JLabel checkmark;
+    private javax.swing.ImageIcon checkmarkIcon;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

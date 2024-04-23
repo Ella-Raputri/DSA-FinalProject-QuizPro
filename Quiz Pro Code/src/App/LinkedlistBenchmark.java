@@ -154,10 +154,11 @@ public class LinkedlistBenchmark {
     }
 
 
-    public void questionSearch(String str){
+    public Linkedlist questionSearch(String str){
+        Linkedlist res = new Linkedlist();
         //if linked list is empty, return
         if(quiz.isEmpty()){
-            return;
+            return null;
         }
         else{
             //to track whether exists a search result
@@ -169,29 +170,59 @@ public class LinkedlistBenchmark {
                 //get the current node question and answer
                 String question = current.data.getQuestion();
                 String answer = current.data.getCorrectAnswer();
+                String quizid = current.data.getQuizID();
+                String opt1 = current.data.getOption1();
+                String opt2 = current.data.getOption2();
+                String opt3 = current.data.getOption3();
+                String opt4 = current.data.getOption4();
+                String questionID = current.data.getQuestionID();
+                int question_number = current.data.getQuestionNumber();
 
                 //if the question or answer contains the searched string
-                if(question.contains(str) || answer.contains(str)){
-                    //print the information of the current node data
-                    System.out.println("Question " + current.data.getQuestionNumber());
-                    System.out.println("Question ID: "+ current.data.getQuestionID());
-                    System.out.println("Question: "+ current.data.getQuestion());
-                    System.out.println("Answer: "+ current.data.getCorrectAnswer());
-                    System.out.println();
+                if(containsIgnoreCase(question, str) || containsIgnoreCase(answer,str)){
+                    Question data = new Question(answer, question, quizid, opt1, opt2, opt3, opt4);
+                    //add the node to the linked list result
+                    res.addNode(data);
+                    
+                    //set the number and id with the original one
+                    res.tail.data.setQuestionID(questionID);
+                    res.tail.data.setQuestionNumber(question_number);
+                            
                     track = true; //set the track to true
                 }
                 //proceed to the next node
                 current = current.next;
             }
-            //if track is true, then return
+            //if track is true, then return the result
             if(track){
-                return;
+                return res;
             }
             //if track is false (no result), then print the error message
             else{
-                System.out.println("No question or answer with such string.");
+                return null;
             }
         }
+    }
+    
+    public boolean containsIgnoreCase(String src, String what) {
+        final int length = what.length();
+        if (length == 0)
+            return true; // Empty string is contained
+
+        final char firstLo = Character.toLowerCase(what.charAt(0));
+        final char firstUp = Character.toUpperCase(what.charAt(0));
+
+        for (int i = src.length() - length; i >= 0; i--) {
+            // Quick check before calling the more expensive regionMatches() method:
+            final char ch = src.charAt(i);
+            if (ch != firstLo && ch != firstUp)
+                continue;
+
+            if (src.regionMatches(true, i, what, 0, length))
+                return true;
+        }
+
+        return false;
     }
     
 }

@@ -472,8 +472,13 @@ public class ChangeOrder222 extends javax.swing.JFrame {
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         String numStr = orderField.getText();
-        String idStr = current_question.getQuestionID();
-        System.out.println("lests go=============");
+        String idStr = "";
+        
+        if (current_question != null){
+            idStr = current_question.getQuestionID();
+        }else{
+            JOptionPane.showMessageDialog(getContentPane(), "Please fill in the correct ID.");
+        }
 
         if (isNumeric(numStr)) {
             //update linked list
@@ -485,8 +490,8 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(getContentPane(), "The new number is the same as the old number. Changes are not applied.");
                 return;
             }
-            if (newNum < 0 || newNum > EditQuiz.quizlist.quiz.countNodes()){
-                JOptionPane.showMessageDialog(getContentPane(), newNum+" is not valid. Please try again.");
+            else if (newNum < 0 || newNum > EditQuiz.quizlist.quiz.countNodes()){
+                JOptionPane.showMessageDialog(getContentPane(), "The number "+newNum+" is not in the range of question numbers in this quiz. Please try again.");
                 return;
             }
 
@@ -515,7 +520,7 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(getContentPane(), "Input is not valid. Please try again.");
+            JOptionPane.showMessageDialog(getContentPane(), "New number input is not valid. Please try again.");
         }
     }                                       
 

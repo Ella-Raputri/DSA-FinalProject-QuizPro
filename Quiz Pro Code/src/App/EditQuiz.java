@@ -1000,7 +1000,15 @@ public class EditQuiz extends javax.swing.JFrame {
     }                                            
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+        if(open==0){
+            new SearchQuestion(quizlist, quizID).setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
     }                                            
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           

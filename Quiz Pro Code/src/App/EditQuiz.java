@@ -10,10 +10,14 @@ import java.sql.Connection;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 /**
  *
  * @author asus
@@ -190,12 +194,15 @@ public class EditQuiz extends javax.swing.JFrame {
         add_icon = new javax.swing.JLabel();
         addButton = new App.buttonCustom();
         jLabel3 = new javax.swing.JLabel();
-        edit_duration_icon = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         titleField = new javax.swing.JTextField();
         editTitle = new App.buttonCustom();
         editTitleDone = new App.buttonCustom();
         editTitleCancel = new App.buttonCustom();
+        durationField = new javax.swing.JTextField();
+        editDuration = new App.buttonCustom();
+        editDurationDone = new App.buttonCustom();
+        editDurationCancel = new App.buttonCustom();
+        minuteLabel = new javax.swing.JLabel();
         
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
@@ -449,7 +456,48 @@ public class EditQuiz extends javax.swing.JFrame {
         titleField.setFocusable(false);
         titleField.setBackground(new Color(224, 237, 255));
         titleField.setBorder(null);
+        titleField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateTitleCharacterCount();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateTitleCharacterCount();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateTitleCharacterCount();
+            }
+        });
+
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) titleField.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
         contentPane.add(titleField);
+       
+        Runnable enableTitleField = () -> {
+            titleField.setEnabled(true);
+            titleField.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+            titleField.requestFocusInWindow();
+        };
         
         Runnable disableTitleField = () ->{
             titleField.setEditable(false);
@@ -457,12 +505,7 @@ public class EditQuiz extends javax.swing.JFrame {
             titleField.setBackground(new Color(224, 237, 255));
             titleField.setBorder(null);
             titleField.setCursor(null);
-        };
-       
-        Runnable enableTitleField = () -> {
-            titleField.setEnabled(true);
-            titleField.setCursor(new Cursor(Cursor.TEXT_CURSOR));
-            titleField.requestFocusInWindow();
+            titleField.setForeground(Color.black);
         };
         
         editTitle.setBackground(new java.awt.Color(224, 237, 255));
@@ -508,11 +551,13 @@ public class EditQuiz extends javax.swing.JFrame {
         editTitleDone.setRadius(30);
         editTitleDone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editTitleDoneActionPerformed(evt);
+                boolean run = editTitleDoneActionPerformed(evt);
+                if(run){
+                    disableTitleField.run();
+                }
             }
         });
         contentPane.add(editTitleDone);
-        
         
         editTitleCancel.setVisible(false);
         editTitleCancel.setBackground(new java.awt.Color(224, 237, 255));
@@ -538,21 +583,152 @@ public class EditQuiz extends javax.swing.JFrame {
             }
         });
         contentPane.add(editTitleCancel);
-
-
+        
+        
+        
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         jLabel3.setText("Duration:");
         jLabel3.setBounds(80,160, jLabel3.getPreferredSize().width,jLabel3.getPreferredSize().height);
         contentPane.add(jLabel3);
         
-        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
-        jLabel2.setText("[Duration]");
-        contentPane.add(jLabel2);
+        minuteLabel.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
+        minuteLabel.setText("minutes");
+        contentPane.add(minuteLabel);
+        
+        
+        
+        durationField.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N   
+        durationField.setEditable(false);
+        durationField.setFocusable(false);
+        durationField.setBackground(new Color(224, 237, 255));
+        durationField.setBorder(null);
+
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) durationField.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regex = Pattern.compile("\\d*"); // Regular expression to match numbers
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                Matcher matcher = regex.matcher(newText);
+                if (matcher.matches() && newText.length()<10) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+   
+            }
+        });
+        
+        durationField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateDurationCharacterCount();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateDurationCharacterCount();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateDurationCharacterCount();
+            }
+        });
+        
+        contentPane.add(durationField);
 
         
-
-        edit_duration_icon.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration.png"));
-        contentPane.add(edit_duration_icon);
+        Runnable enableDurationField = () -> {
+            durationField.setEnabled(true);
+            durationField.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+            durationField.requestFocusInWindow();
+        };
+        
+        Runnable disableDurationField = () ->{
+            durationField.setEditable(false);
+            durationField.setFocusable(false);
+            durationField.setBackground(new Color(224, 237, 255));
+            durationField.setBorder(null);
+            durationField.setCursor(null);
+            durationField.setForeground(Color.black);
+        };
+        
+        
+        editDuration.setBackground(new java.awt.Color(224, 237, 255));
+        editDuration.setForeground(new java.awt.Color(0,0,0));
+        editDuration.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration.png")); // NOI18N
+        editDuration.setToolTipText("");
+        editDuration.setBorderColor(new java.awt.Color(224, 237, 255));
+        editDuration.setBorderColorNotOver(new java.awt.Color(224, 237, 255));
+        editDuration.setBorderColorOver(new java.awt.Color(224, 237, 255));
+        editDuration.setColor(new java.awt.Color(224, 237, 255));
+        editDuration.setColor2(new java.awt.Color(224, 237, 255));
+        editDuration.setColorClick(new java.awt.Color(224, 237, 255));
+        editDuration.setColorClick2(new java.awt.Color(224, 237, 255));
+        editDuration.setColorOver(new java.awt.Color(252, 252, 252));
+        editDuration.setColorOver2(new java.awt.Color(224, 237, 255));
+        editDuration.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        editDuration.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editDuration.setRadius(30);
+        editDuration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editDurationActionPerformed(evt);
+                enableDurationField.run();
+            }
+        });
+        contentPane.add(editDuration);
+        
+        editDurationDone.setVisible(false);
+        editDurationDone.setBackground(new java.awt.Color(224, 237, 255));
+        editDurationDone.setForeground(new java.awt.Color(0,0,0));
+        editDurationDone.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_done.png")); // NOI18N
+        editDurationDone.setToolTipText("");
+        editDurationDone.setBorderColor(new java.awt.Color(224, 237, 255));
+        editDurationDone.setBorderColorNotOver(new java.awt.Color(224, 237, 255));
+        editDurationDone.setBorderColorOver(new java.awt.Color(224, 237, 255));
+        editDurationDone.setColor(new java.awt.Color(224, 237, 255));
+        editDurationDone.setColor2(new java.awt.Color(224, 237, 255));
+        editDurationDone.setColorClick(new java.awt.Color(224, 237, 255));
+        editDurationDone.setColorClick2(new java.awt.Color(224, 237, 255));
+        editDurationDone.setColorOver(new java.awt.Color(224, 237, 255));
+        editDurationDone.setColorOver2(new java.awt.Color(224, 237, 255));
+        editDurationDone.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        editDurationDone.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editDurationDone.setRadius(30);
+        editDurationDone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boolean run = editDurationDoneActionPerformed(evt);
+                if(run){
+                    disableDurationField.run();
+                }
+            }
+        });
+        contentPane.add(editDurationDone);
+        
+        editDurationCancel.setVisible(false);
+        editDurationCancel.setBackground(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setForeground(new java.awt.Color(0,0,0));
+        editDurationCancel.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_cancel.png")); // NOI18N
+        editDurationCancel.setToolTipText("");
+        editDurationCancel.setBorderColor(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setBorderColorNotOver(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setBorderColorOver(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setColor(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setColor2(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setColorClick(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setColorClick2(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setColorOver(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setColorOver2(new java.awt.Color(224, 237, 255));
+        editDurationCancel.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        editDurationCancel.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editDurationCancel.setRadius(30);
+        editDurationCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editDurationCancelActionPerformed(evt);
+                disableDurationField.run();
+            }
+        });
+        contentPane.add(editDurationCancel);
 
         
         contentPane.revalidate();
@@ -579,10 +755,10 @@ public class EditQuiz extends javax.swing.JFrame {
                 titleField.setBounds(80,100, titleField.getPreferredSize().width, titleField.getPreferredSize().height);
                 editTitle.setBounds(titleField.getWidth()+titleField.getX(), 108, editTitle.getPreferredSize().width, editTitle.getPreferredSize().height);
 
-                
-                jLabel2.setText(duration + " minutes");
-                jLabel2.setBounds(jLabel3.getWidth()+jLabel3.getX()+10, 160, jLabel2.getPreferredSize().width, jLabel2.getPreferredSize().height);
-                edit_duration_icon.setBounds(jLabel2.getWidth()+jLabel2.getX()+10, 160, edit_duration_icon.getPreferredSize().width, edit_duration_icon.getPreferredSize().height);
+                durationField.setText(duration);
+                durationField.setBounds(jLabel3.getWidth()+jLabel3.getX()+10, 160, durationField.getPreferredSize().width, durationField.getPreferredSize().height);
+                minuteLabel.setBounds(durationField.getWidth()+durationField.getX()+3, 160, minuteLabel.getPreferredSize().width, minuteLabel.getPreferredSize().height);
+                editDuration.setBounds(minuteLabel.getWidth()+minuteLabel.getX()+5, 155, editDuration.getPreferredSize().width, editDuration.getPreferredSize().height);
                 
             }
             else{
@@ -595,6 +771,26 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }
     
+    private void updateTitleCharacterCount() {
+        String text = titleField.getText();
+        int length = text.length();
+        
+        if(length > 30 || length==0){
+            titleField.setForeground(Color.red);
+            titleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 14, 2, 3)));
+        }
+        else{
+            if(titleField.getBackground().equals(Color.white)){
+               titleField.setForeground(Color.black);  
+               titleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 14, 2, 3)));   
+            }
+        }
+        
+        titleField.setBounds(80, 100, titleField.getPreferredSize().width+30, titleField.getPreferredSize().height);
+        editTitleDone.setBounds(titleField.getWidth()+titleField.getX()+5, 108, editTitleDone.getPreferredSize().width, editTitleDone.getPreferredSize().height);
+        editTitleCancel.setBounds(titleField.getWidth()+titleField.getX()+editTitleDone.getPreferredSize().width+5, 108, editTitleCancel.getPreferredSize().width, editTitleCancel.getPreferredSize().height);
+    
+    }
     
     
     private void editTitleActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -607,20 +803,154 @@ public class EditQuiz extends javax.swing.JFrame {
         editTitleDone.setVisible(true);
         editTitleDone.setBounds(titleField.getWidth()+titleField.getX()+5, 108, editTitleDone.getPreferredSize().width, editTitleDone.getPreferredSize().height);
         editTitleCancel.setVisible(true);
-        editTitleCancel.setBounds(titleField.getWidth()+titleField.getX()+editTitleDone.getPreferredSize().width, 108, editTitleCancel.getPreferredSize().width, editTitleCancel.getPreferredSize().height);
+        editTitleCancel.setBounds(titleField.getWidth()+titleField.getX()+editTitleDone.getPreferredSize().width+5, 108, editTitleCancel.getPreferredSize().width, editTitleCancel.getPreferredSize().height);
     }
     
-    private void editTitleDoneActionPerformed(java.awt.event.ActionEvent evt) {  
-        System.out.print("hello world");
+    private boolean editTitleDoneActionPerformed(java.awt.event.ActionEvent evt) {
+        boolean run = false;
+        
+        if(titleField.getForeground().equals(Color.red)){
+            JOptionPane.showMessageDialog(getContentPane(), "Title is empty");
+        }
+        else{
+            editTitle.setVisible(true);
+            editTitleDone.setVisible(false);
+            editTitleCancel.setVisible(false);
+            try{
+                Connection con = ConnectionProvider.getCon();
+                String str = "update quiz set title='" + titleField.getText() + "' where id='" + EditQuiz.quizID + "'";
+                PreparedStatement ps = con.prepareStatement(str);
+                ps.executeUpdate();
+                run = true;
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            }
+            setTitleAfterChange();
+        }
+        return run;
     }
     
     private void editTitleCancelActionPerformed(java.awt.event.ActionEvent evt) {  
-        titleField.setBounds(80,100, titleField.getWidth()-17, titleField.getPreferredSize().height);
-        editTitle.setBounds(titleField.getWidth()+titleField.getX(), 108, editTitle.getPreferredSize().width, editTitle.getPreferredSize().height);
         editTitle.setVisible(true);
         editTitleDone.setVisible(false);
         editTitleCancel.setVisible(false);
+        setTitleAfterChange();
     }
+    
+    private void setTitleAfterChange(){
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select * from quiz where id='" + EditQuiz.quizID + "'");
+            if(rs.first()){
+                String title = rs.getString(2);
+                titleField.setText(title);
+                titleField.setBounds(80,100, titleField.getPreferredSize().width-17, titleField.getPreferredSize().height);
+                editTitle.setBounds(titleField.getWidth()+titleField.getX(), 108, editTitle.getPreferredSize().width, editTitle.getPreferredSize().height);
+            }
+            else{
+                JOptionPane.showMessageDialog(getContentPane(), "ID invalid");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(getContentPane(), e);
+        }
+    }
+
+        
+    
+    
+    
+    private void updateDurationCharacterCount() {
+        String text = durationField.getText();
+        int length = text.length();
+        
+        if(length > 30 || length==0){
+            durationField.setForeground(Color.red);
+            durationField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 9, 2, 9)));
+        }
+        else{
+            if(durationField.getBackground().equals(Color.white)){
+                durationField.setForeground(Color.black);  
+                durationField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 9, 2, 8)));
+            }
+        }
+        
+        durationField.setBounds(jLabel3.getWidth()+jLabel3.getX()+10,160, durationField.getPreferredSize().width+30, durationField.getPreferredSize().height);
+        editDurationDone.setBounds(durationField.getWidth()+durationField.getX()+5, 160, editDurationDone.getPreferredSize().width, editDurationDone.getPreferredSize().height);
+        editDurationCancel.setBounds(editDurationDone.getX()+editDurationDone.getPreferredSize().width, 158, editDurationCancel.getPreferredSize().width, editDurationCancel.getPreferredSize().height);
+    
+    }
+    
+    
+    private void editDurationActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        durationField.setEditable(true);
+        durationField.setFocusable(true);
+        durationField.setBackground(new Color(255,255,255));
+        durationField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 9, 2, 8)));
+        durationField.setBounds(jLabel3.getWidth()+jLabel3.getX()+10,160, durationField.getPreferredSize().width+30, durationField.getPreferredSize().height);
+        editDuration.setVisible(false);
+        minuteLabel.setVisible(false);
+        editDurationDone.setVisible(true);
+        editDurationDone.setBounds(durationField.getWidth()+durationField.getX()+5, 160, editDurationDone.getPreferredSize().width, editDurationDone.getPreferredSize().height);
+        editDurationCancel.setVisible(true);
+        editDurationCancel.setBounds(editDurationDone.getX()+editDurationDone.getPreferredSize().width, 158, editDurationCancel.getPreferredSize().width, editDurationCancel.getPreferredSize().height);
+    }
+    
+    private boolean editDurationDoneActionPerformed(java.awt.event.ActionEvent evt) {
+        boolean run = false;
+        
+        if(durationField.getForeground().equals(Color.red)){
+            JOptionPane.showMessageDialog(getContentPane(), "Duration is empty");
+        }
+        else{           
+            try{
+                Connection con = ConnectionProvider.getCon();
+                String str = "update quiz set duration='" + durationField.getText() + "' where id='" + EditQuiz.quizID + "'";
+                PreparedStatement ps = con.prepareStatement(str);
+                ps.executeUpdate();
+                run = true;
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(getContentPane(), e);
+            }
+            setDurationAfterChange();
+        }
+        return run;
+    }
+    
+    private void editDurationCancelActionPerformed(java.awt.event.ActionEvent evt) {  
+        setDurationAfterChange();
+    }
+    
+    private void setDurationAfterChange(){
+        editDuration.setVisible(true);
+        editDurationDone.setVisible(false);
+        editDurationCancel.setVisible(false);
+        minuteLabel.setVisible(true);
+        
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select * from quiz where id='" + EditQuiz.quizID + "'");
+            if(rs.first()){
+                String duration = rs.getString(3);
+                durationField.setText(duration);
+                durationField.setBounds(jLabel3.getWidth()+jLabel3.getX()+10,158, durationField.getPreferredSize().width-17, durationField.getPreferredSize().height);
+                minuteLabel.setBounds(durationField.getWidth()+durationField.getX()+3, 160, minuteLabel.getPreferredSize().width, minuteLabel.getPreferredSize().height);
+                editDuration.setBounds(minuteLabel.getWidth()+minuteLabel.getX()+5, 155, editDuration.getPreferredSize().width, editDuration.getPreferredSize().height);
+            }
+            else{
+                JOptionPane.showMessageDialog(getContentPane(), "ID invalid");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(getContentPane(), e);
+        }
+    }
+    
+    
+   
+        
+    
+    
     
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -747,11 +1077,7 @@ public class EditQuiz extends javax.swing.JFrame {
     private App.buttonCustom deleteButton;
     private javax.swing.JLabel delete_icon;
     private App.buttonCustom editButton;
-    private javax.swing.JLabel edit_duration_icon;
     private javax.swing.JLabel edit_icon;
-//    private javax.swing.JLabel edit_quiz_title_icon;
-//    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private App.buttonCustom resultButton;
     private javax.swing.JLabel result_icon;
@@ -761,6 +1087,11 @@ public class EditQuiz extends javax.swing.JFrame {
     private App.buttonCustom editTitle;
     private App.buttonCustom editTitleDone;
     private App.buttonCustom editTitleCancel;
+    private javax.swing.JTextField durationField;
+    private App.buttonCustom editDuration;
+    private App.buttonCustom editDurationDone;
+    private App.buttonCustom editDurationCancel;
+    private javax.swing.JLabel minuteLabel;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

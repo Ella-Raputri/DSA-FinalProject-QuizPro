@@ -471,10 +471,14 @@ public class ChangeOrder222 extends javax.swing.JFrame {
             //update linked list
             int newNum = Integer.parseInt(numStr);
             int oldNum = current_question.getQuestionNumber();
-            EditQuiz.quizlist.changeOrder(idStr, newNum);
+            EditQuiz.quizlist.changeOrder(idStr, newNum); 
             
             if (newNum == oldNum){
                 JOptionPane.showMessageDialog(getContentPane(), "The new number is the same as the old number. Changes are not applied.");
+                return;
+            }
+            if (newNum < 0 || newNum > EditQuiz.quizlist.quiz.countNodes()){
+                JOptionPane.showMessageDialog(getContentPane(), newNum+" is not valid. Please try again.");
                 return;
             }
 
@@ -495,7 +499,7 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                     curr_node = curr_node.next;
                 }
 
-                System.out.println("Records updated successfully.");
+                JOptionPane.showMessageDialog(getContentPane(), "The order has been successfully changed.");
                 setVisible(false);
                 EditQuiz.open = 0;
 
@@ -503,7 +507,7 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(getContentPane(), "Number is not valid.");
+            JOptionPane.showMessageDialog(getContentPane(), "Input is not valid. Please try again.");
         }
     }                                       
 

@@ -130,6 +130,18 @@ public class Linkedlist {
             current = head;
         }
     }
+    
+    public int countNodes(){
+        Node current = head;
+        int node_amount = 0;
+        
+        while(current != null){
+            node_amount++;
+            current = current.next;
+        }
+        
+        return node_amount;
+    }
 
 
     public void changeNodeOrder(int newNumber, Node current, int currentNumber){

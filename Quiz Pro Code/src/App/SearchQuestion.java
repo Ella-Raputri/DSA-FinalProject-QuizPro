@@ -4,14 +4,12 @@
  */
 package App;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
 /**
  *
  * @author Asus
@@ -20,6 +18,9 @@ public class SearchQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
     private String quizid;
     private static Question current_question;
+    private JPanel contentPane;
+    private JPanel cloneablePanel;
+    private JScrollPane scrollPane;
 
     /**
      * Creates new form SearchQuestion
@@ -46,22 +47,14 @@ public class SearchQuestion extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void myinit(){
+        setTitle("Search Question");
+        
         //set background color
         getContentPane().setBackground(Color.white);
         
@@ -90,9 +83,45 @@ public class SearchQuestion extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setMaximumSize(new java.awt.Dimension(540, 600));
         setMinimumSize(new java.awt.Dimension(540, 600));
+        
+        // Create the content pane
+        contentPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Load the background image
+                ImageIcon bgImage = new ImageIcon("src/App/img/background_search_question.png");
+                // Draw the background image
+                g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), null);
+            }
+        };
+        contentPane.setLayout(null); // Use absolute layout
+        setContentPane(contentPane);
+        
+        // Create the scroll pane
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(40, 130, 450, 370); // Set bounds for the scroll pane
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        contentPane.add(scrollPane);
 
+        // Create the cloneable panel
+        cloneablePanel = new JPanel(); // The initial panel inside scroll pane
+        cloneablePanel.setLayout(null); // Use absolute layout
+        cloneablePanel.setPreferredSize(new Dimension(400, 200)); // Set initial size
+        cloneablePanel.setBounds(40, 130, 450, 450); // Set bounds for the initial panel
+        cloneablePanel.setBackground(new Color(255,255,255));
+        scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
+        
+        ImageIcon bgImage = new ImageIcon("src/App/img/background_search_question.png");
+        contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
+        
+        
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>SEARCH QUESTION</u></html>");
+        jLabel1.setBounds(80, 10, jLabel1.getPreferredSize().width+20, jLabel1.getPreferredSize().height);
+        contentPane.add(jLabel1);
+        
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -107,15 +136,14 @@ public class SearchQuestion extends javax.swing.JFrame {
         backButton.setColorOver(new java.awt.Color(235, 235, 235));
         backButton.setColorOver2(new java.awt.Color(41, 103, 197));
         backButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
-        backButton.setMaximumSize(new java.awt.Dimension(143, 68));
-        backButton.setMinimumSize(new java.awt.Dimension(143, 68));
-        backButton.setPreferredSize(new java.awt.Dimension(143, 68));
         backButton.setRadius(10);
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
+        backButton.setBounds(30, 530, backButton.getPreferredSize().width+10, backButton.getPreferredSize().height+10);
+        contentPane.add(backButton);
 
         
         stringField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
@@ -124,73 +152,75 @@ public class SearchQuestion extends javax.swing.JFrame {
                 stringFieldActionPerformed(evt);
             }
         });
+        stringField.setBounds(40, 75, 430, stringField.getPreferredSize().height+5);
+        contentPane.add(stringField);
 
         search_icon.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_icon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("searchh");
                 String substr = stringField.getText();
                 Linkedlist result = EditQuiz.quizlist.questionSearch(substr);
                 
-                Linkedlist.Node current = result.head;
-                while(current!=null){
-                    System.out.println("Question " + current.data.getQuestionNumber());
-                    System.out.println("Question ID: "+ current.data.getQuestionID());
-                    System.out.println("Question: "+ current.data.getQuestion());
-                    System.out.println("Answer: "+ current.data.getCorrectAnswer());
-                    System.out.println("Option1: "+current.data.getOption1());
-                    System.out.println("Option2: "+current.data.getOption2());
-                    System.out.println("Option3: "+current.data.getOption3());
-                    System.out.println("Option4: "+current.data.getOption4());
-                    System.out.println();
-
-                    current = current.next;//proceed to the next node
-                }
-                
+                showCloneablePanel(result);       
             }
         }); 
+        search_icon.setBounds(stringField.getX()+stringField.getWidth()+5, 75, search_icon.getPreferredSize().width, search_icon.getPreferredSize().height);
+        contentPane.add(search_icon);
         
-        
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(stringField, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(search_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        ))
-                .addGap(31, 31, 31))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(stringField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search_icon))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    )
-                .addGap(31, 31, 31))
-        );
 
         pack();
         setLocationRelativeTo(null);
+    }
+    
+    
+    private void showCloneablePanel(Linkedlist result){
+        int x=10;
+        Linkedlist.Node currentQuestion = result.head;
+        
+        int totalElement = result.countNodes();
+        
+        for(int i=1; i<totalElement+1;i++){
+            String id = currentQuestion.data.getQuestionID();
+            int questionNumber = currentQuestion.data.getQuestionNumber();
+            String question = currentQuestion.data.getQuestion();
+            String option1 = currentQuestion.data.getOption1();
+            String option2 = currentQuestion.data.getOption2();
+            String option3 = currentQuestion.data.getOption3();
+            String option4 = currentQuestion.data.getOption4();
+            String answer = currentQuestion.data.getCorrectAnswer();
+            
+            // Create a new cloned panel
+            CloneablePanelSearchQuestion clonedPanel = new CloneablePanelSearchQuestion(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer);
+            // Set your custom width and height for the cloned panel
+            int panelWidth = 450;
+            int panelHeight = 350;
+            
+            
+            int y;
+            if (i == 1) {
+                y = 10; // If it's the first cloned panel, start at y = 10
+            } else {
+                y = 10 + (i - 1) * (panelHeight + 50); // Adjusted position for subsequent panels
+            }
+
+            // Set the bounds for the cloned panel with your custom size
+            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
+            clonedPanel.setBackground(Color.white);
+            
+            // Add the cloned panel to the initial panel
+            cloneablePanel.add(clonedPanel);
+            // Adjust preferred size of initial panel to include new panel
+            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 10); // Adjusted size
+            cloneablePanel.setPreferredSize(newSize);
+            // Ensure the scroll pane updates its viewport
+            scrollPane.revalidate();
+            scrollPane.repaint();
+            // Scroll to show the new panel
+            scrollPane.getVerticalScrollBar().setValue(0);
+            
+            currentQuestion = currentQuestion.next;
+        }
     }
     
     

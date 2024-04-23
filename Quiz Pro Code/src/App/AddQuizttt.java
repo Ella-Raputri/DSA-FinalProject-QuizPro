@@ -51,9 +51,9 @@ public class AddQuizttt extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
-        jLabel8.setText("<html><u>ADD QUIZ</u></html>");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 260, 60));
+        jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
+        jLabel8.setText("<html><u>Search Question</u></html>");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 330, 60));
 
         id.setFont(new java.awt.Font("Montserrat SemiBold", 0, 28)); // NOI18N
         id.setText("Id");

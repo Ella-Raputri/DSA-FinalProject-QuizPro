@@ -28,13 +28,13 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Montserrat SemiBold" size="48" style="0"/>
+          <Font name="Montserrat SemiBold" size="36" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;u&gt;ADD QUIZ&lt;/u&gt;&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;u&gt;Search Question&lt;/u&gt;&lt;/html&gt;"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="120" y="10" width="260" height="60"/>
+          <AbsoluteConstraints x="100" y="10" width="330" height="60"/>
         </Constraint>
       </Constraints>
     </Component>

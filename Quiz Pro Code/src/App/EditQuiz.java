@@ -129,7 +129,7 @@ public class EditQuiz extends javax.swing.JFrame {
         cloneablePanel.setBackground(new Color(224, 237, 255));
         scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
 
-        System.out.print(totalElement);
+        
         int x=10;
         Linkedlist.Node currentQuestion = EditQuiz.quizlist.quiz.head;
         for(int i=1; i<totalElement+1;i++){

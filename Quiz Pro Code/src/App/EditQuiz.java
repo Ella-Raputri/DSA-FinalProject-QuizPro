@@ -995,8 +995,10 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }                                            
 
-    private void resultButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void resultButtonActionPerformed(java.awt.event.ActionEvent evt) { 
+        EditQuiz.quizlist.quiz.clearNodes();
+        setVisible(false);
+        new QuizResult(quizID).setVisible(true);
     }                                            
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             

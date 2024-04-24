@@ -13,10 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Enumeration;
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -399,6 +395,16 @@ public class EditQuestion extends javax.swing.JFrame {
                     String message = "There is no question with the ID of " + idStr;
                     JOptionPane.showMessageDialog(getContentPane(), message);
                 }
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         }); 
         

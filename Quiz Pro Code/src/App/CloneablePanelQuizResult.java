@@ -16,6 +16,7 @@ public class CloneablePanelQuizResult extends JPanel{
     private static int borderWidth;
     private String username;
     private double score;
+    private int labelHeight;
 
     public CloneablePanelQuizResult(int borderRadius, Color bgColor, int borderWidth, String username, double score) {
         setLayout(null);
@@ -28,12 +29,12 @@ public class CloneablePanelQuizResult extends JPanel{
 
                 
         // Example content - you can add whatever components you need
-        JLabel usernameLabel = new JLabel();
+        WrappedLabel usernameLabel = new WrappedLabel(750);
         usernameLabel.setFont(new Font("Montserrat SemiBold", 0, 30));
         usernameLabel.setText(username);
-        setComponentBounds(usernameLabel, 50, 15, usernameLabel.getPreferredSize().width+10, usernameLabel.getPreferredSize().height);
+        int lines = usernameLabel.getPreferredSize().height/37;
+        setComponentBounds(usernameLabel, 50, 15*lines, usernameLabel.getPreferredSize().width+10, usernameLabel.getPreferredSize().height);
         add(usernameLabel);
-        
         
         
         buttonCustom scoreLabelSquare = new buttonCustom();
@@ -51,11 +52,14 @@ public class CloneablePanelQuizResult extends JPanel{
         scoreLabelSquare.setColorOver2(java.awt.Color.white);
         scoreLabelSquare.setFont(new java.awt.Font("Montserrat SemiBold", 0, 30)); 
         scoreLabelSquare.setRadius(30);
-        setComponentBounds(scoreLabelSquare, 800, 0, 240, 70);
-        add(scoreLabelSquare);
-        
-
-        
+        labelHeight = (usernameLabel.getHeight()/37)*70;
+        setComponentBounds(scoreLabelSquare, 800, 0, 240, labelHeight);
+        add(scoreLabelSquare);    
+    }
+    
+    
+    public int returnLabelHeight(){
+        return this.labelHeight;
     }
     
     

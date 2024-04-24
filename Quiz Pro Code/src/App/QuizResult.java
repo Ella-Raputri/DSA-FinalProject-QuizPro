@@ -97,6 +97,8 @@ public class QuizResult extends javax.swing.JFrame {
         
         
         int x=10;
+        int prevPanelHeight=0;
+        int prevY=0;
         for(int i=1; i<totalElement+1;i++){
             String username = studentList.get(i-1).getUsername();
             double score = studentList.get(i-1).getGrade();
@@ -105,14 +107,20 @@ public class QuizResult extends javax.swing.JFrame {
             CloneablePanelQuizResult clonedPanel = new CloneablePanelQuizResult(40, Color.white, 2, username, score);
             // Set your custom width and height for the cloned panel
             int panelWidth = 1040;
-            int panelHeight = 70;
+            int panelHeight = clonedPanel.returnLabelHeight();
             
             int y;
-            if (i == 1) {
-                y = 10; // If it's the first cloned panel, start at y = 10
-            } else {
-                y = 10 + (i - 1) * (panelHeight + 50); // Adjusted position for subsequent panels
+            if(i==1){
+                y=10;
+                prevY=10;
             }
+            else{
+                int newY = prevY + prevPanelHeight +30;
+                y = newY;
+                prevY = newY;
+            }
+            
+            prevPanelHeight = panelHeight;
 
             // Set the bounds for the cloned panel with your custom size
             clonedPanel.setBounds(x, y, panelWidth, panelHeight);
@@ -233,6 +241,7 @@ public class QuizResult extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

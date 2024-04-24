@@ -14,6 +14,7 @@ public class WelcomePage extends javax.swing.JFrame {
      * Creates new form WelcomePage
      */
     public WelcomePage() {
+        setTitle("Welcome Page");
         initComponents();
         setResizable(false);
     }

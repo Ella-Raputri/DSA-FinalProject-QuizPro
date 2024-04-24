@@ -67,6 +67,7 @@ public class AddQuestion extends javax.swing.JFrame {
 
     
     private void myinit(){
+        setTitle("Add Question");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         

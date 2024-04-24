@@ -28,12 +28,14 @@ public class QuizSummary extends javax.swing.JFrame {
     /**
      * Creates new form QuizSummary
      */
-    public QuizSummary() {
+    public QuizSummary() {        
+        setTitle("Quiz Summary Page");
         initComponents();
         setResizable(false);
     }
     
     public QuizSummary(int score, String studentId, int totalQuestions) {
+        setTitle("Quiz Summary Page");
         initComponents();
         setResizable(false);
         this.studentId = studentId;

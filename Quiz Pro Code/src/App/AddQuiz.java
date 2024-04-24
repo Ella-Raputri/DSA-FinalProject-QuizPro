@@ -63,11 +63,13 @@ public class AddQuiz extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     int totalElement =0;
     LinkedList<String> allIdList = new LinkedList<>();
     private void myinit(){
+        setTitle("Add Quiz");
         setResizable(false);
         getContentPane().setBackground(Color.white);
         

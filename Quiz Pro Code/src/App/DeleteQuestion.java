@@ -70,9 +70,11 @@ public class DeleteQuestion extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        setTitle("Delete Question");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         

@@ -74,6 +74,7 @@ public class EditQuestion extends javax.swing.JFrame {
 
     
     private void myinit(){
+        setTitle("Edit Question");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         

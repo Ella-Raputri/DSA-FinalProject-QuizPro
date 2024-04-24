@@ -34,6 +34,7 @@ public class ExamPage extends javax.swing.JFrame {
      * Creates new form ExamPage
      */
     public ExamPage() {
+        setTitle("Quiz Exam Page");
         initComponents();
         setResizable(false);
     }
@@ -47,6 +48,7 @@ public class ExamPage extends javax.swing.JFrame {
     }
     
     private void myinit(){
+        setTitle("Quiz Exam Page");
         backButton.setVisible(false);
         submitButton.setVisible(false);
         setResizable(false);

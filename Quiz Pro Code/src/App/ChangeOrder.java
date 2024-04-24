@@ -70,9 +70,11 @@ public class ChangeOrder extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        setTitle("Change Order of Questions");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         

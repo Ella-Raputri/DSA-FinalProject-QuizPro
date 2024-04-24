@@ -21,12 +21,14 @@ public class QuizDetails extends javax.swing.JFrame {
     /**
      * Creates new form QuizDetails
      */
-    public QuizDetails() {
+    public QuizDetails() {        
+        setTitle("Quiz Details Page");
         initComponents();
         setResizable(false);
     }
     
     public QuizDetails(String quizId, String studentId) {
+        setTitle("Quiz Details Page");
         setResizable(false);
         this.quizId = quizId;
         this.studentId = studentId;
@@ -200,6 +202,7 @@ public class QuizDetails extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed

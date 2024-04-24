@@ -1,8 +1,11 @@
 package App;
 
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JTextField;
@@ -23,8 +26,14 @@ public class RoundJTextField extends JTextField {
     
     @Override
     protected void paintBorder(Graphics g) {
-         g.setColor(getForeground());
-         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+        Graphics2D g2 = (Graphics2D) g;
+        Stroke oldStroke = g2.getStroke(); //get the original stroke
+        
+        g2.setStroke(new BasicStroke(1)); //the thickness of the border
+        g.setColor(getForeground());
+        g.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 15, 15); //draw the round rect for the border
+        
+        g2.setStroke(oldStroke); // Restore the original stroke
     }
     
     @Override

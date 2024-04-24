@@ -25,6 +25,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
     private String opt3;
     private String opt4;
     private String answer;
+    private JRadioButton opt4Label;
 
     public CloneablePanelSearchQuestion(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer) {
         setLayout(null);
@@ -44,49 +45,49 @@ public class CloneablePanelSearchQuestion extends JPanel{
                 
         // Example content - you can add whatever components you need
         JLabel qNumLabel = new JLabel();
-        qNumLabel.setFont(new Font("Montserrat SemiBold", 0, 30));
+        qNumLabel.setFont(new Font("Montserrat SemiBold", 0, 22));
         qNumLabel.setText("QUESTION " +  qNumber);
-        setComponentBounds(qNumLabel, 40, 20, qNumLabel.getPreferredSize().width+30, qNumLabel.getPreferredSize().height);
+        setComponentBounds(qNumLabel, 15, 15, qNumLabel.getPreferredSize().width+30, qNumLabel.getPreferredSize().height);
         add(qNumLabel);
         
         JLabel qidLabel = new JLabel();
-        qidLabel.setFont(new Font("Montserrat", 0, 24));
+        qidLabel.setFont(new Font("Montserrat", 0, 18));
         qidLabel.setText("ID: " +  id);
-        setComponentBounds(qidLabel, (1050-qidLabel.getPreferredSize().width), 22, qidLabel.getPreferredSize().width+30, qidLabel.getPreferredSize().height);
+        setComponentBounds(qidLabel, (400-qidLabel.getPreferredSize().width-35), 18, qidLabel.getPreferredSize().width+30, qidLabel.getPreferredSize().height);
         add(qidLabel);
         
         JLabel questionLabel = new JLabel();
-        questionLabel.setFont(new Font("Montserrat SemiBold", 0, 24));
-        int questionLabelHeight = setLabelTextWithLineBreaks(questionLabel, question, 1020);
+        questionLabel.setFont(new Font("Montserrat SemiBold", 0, 20));
+        int questionLabelHeight = setLabelTextWithLineBreaks(questionLabel, question, 380);
         add(questionLabel);
         
-        int opt1Height = questionLabelHeight+60;
-        int opt2Height = opt1Height+50;
-        int opt3Height = opt2Height + 50;
-        int opt4Height = opt3Height +50;
+        int opt1Height = questionLabelHeight+30;
+        int opt2Height = opt1Height+40;
+        int opt3Height = opt2Height + 40;
+        int opt4Height = opt3Height +40;
 
         
         JLabel checkmark1 = new JLabel();
-        checkmark1.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark.png"));
-        setComponentBounds(checkmark1, 40, opt1Height+4, checkmark1.getPreferredSize().width+30, checkmark1.getPreferredSize().height);
+        checkmark1.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark2.png"));
+        setComponentBounds(checkmark1, 15, opt1Height+4, checkmark1.getPreferredSize().width+30, checkmark1.getPreferredSize().height);
         add(checkmark1);
         checkmark1.setVisible(false);
         
         JLabel checkmark2 = new JLabel();
-        checkmark2.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark.png"));
-        setComponentBounds(checkmark2, 40, opt2Height+4, checkmark2.getPreferredSize().width+30, checkmark2.getPreferredSize().height);
+        checkmark2.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark2.png"));
+        setComponentBounds(checkmark2, 15, opt2Height+4, checkmark2.getPreferredSize().width+30, checkmark2.getPreferredSize().height);
         add(checkmark2);
         checkmark2.setVisible(false);
         
         JLabel checkmark3 = new JLabel();
-        checkmark3.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark.png"));
-        setComponentBounds(checkmark3, 40, opt3Height+4, checkmark3.getPreferredSize().width+30, checkmark3.getPreferredSize().height);
+        checkmark3.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark2.png"));
+        setComponentBounds(checkmark3, 15, opt3Height+4, checkmark3.getPreferredSize().width+30, checkmark3.getPreferredSize().height);
         add(checkmark3);
         checkmark3.setVisible(false);
         
         JLabel checkmark4 = new JLabel();
-        checkmark4.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark.png"));
-        setComponentBounds(checkmark4, 40, opt4Height+4, checkmark4.getPreferredSize().width+30, checkmark4.getPreferredSize().height);
+        checkmark4.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark2.png"));
+        setComponentBounds(checkmark4, 15, opt4Height+4, checkmark4.getPreferredSize().width+30, checkmark4.getPreferredSize().height);
         add(checkmark4);
         checkmark4.setVisible(false);
         
@@ -94,34 +95,35 @@ public class CloneablePanelSearchQuestion extends JPanel{
         JRadioButton opt1Label = new JRadioButton();
         opt1Label.setEnabled(false);
         opt1Label.setForeground(Color.black);
-        opt1Label.setFont(new Font("Montserrat", 0, 22));
+        opt1Label.setFont(new Font("Montserrat", 0, 18));
         opt1Label.setText(opt1);
-        setComponentBounds(opt1Label, 40, opt1Height, opt1Label.getPreferredSize().width+30, opt1Label.getPreferredSize().height);
+        setComponentBounds(opt1Label, 15, opt1Height, opt1Label.getPreferredSize().width+30, opt1Label.getPreferredSize().height);
         add(opt1Label);
         
         JRadioButton opt2Label = new JRadioButton();
         opt2Label.setEnabled(false);
         opt2Label.setForeground(Color.black);
-        opt2Label.setFont(new Font("Montserrat", 0, 22));
+        opt2Label.setFont(new Font("Montserrat", 0, 18));
         opt2Label.setText(opt2);
-        setComponentBounds(opt2Label, 40, opt2Height, opt2Label.getPreferredSize().width+30, opt2Label.getPreferredSize().height);
+        setComponentBounds(opt2Label, 15, opt2Height, opt2Label.getPreferredSize().width+30, opt2Label.getPreferredSize().height);
         add(opt2Label);
         
         JRadioButton opt3Label = new JRadioButton();
         opt3Label.setEnabled(false);
         opt3Label.setForeground(Color.black);
-        opt3Label.setFont(new Font("Montserrat", 0, 22));
+        opt3Label.setFont(new Font("Montserrat", 0, 18));
         opt3Label.setText(opt3);
-        setComponentBounds(opt3Label, 40, opt3Height, opt3Label.getPreferredSize().width+30, opt3Label.getPreferredSize().height);
+        setComponentBounds(opt3Label, 15, opt3Height, opt3Label.getPreferredSize().width+30, opt3Label.getPreferredSize().height);
         add(opt3Label);
         
         JRadioButton opt4Label = new JRadioButton();
         opt4Label.setEnabled(false);
         opt4Label.setForeground(Color.black);
-        opt4Label.setFont(new Font("Montserrat", 0, 22));
+        opt4Label.setFont(new Font("Montserrat", 0, 18));
         opt4Label.setText(opt4);
-        setComponentBounds(opt4Label, 40, opt4Height, opt4Label.getPreferredSize().width+30, opt4Label.getPreferredSize().height);
+        setComponentBounds(opt4Label, 15, opt4Height, opt4Label.getPreferredSize().width+30, opt4Label.getPreferredSize().height);
         add(opt4Label);
+        this.opt4Label = opt4Label;
         
         
         if(answer.equals(opt1)){
@@ -141,18 +143,18 @@ public class CloneablePanelSearchQuestion extends JPanel{
     
     
     public String[] splitWord(String str){
-        int len = str.length()/67;
-        if(str.length()%67 != 0){
+        int len = str.length()/28;
+        if(str.length()%28 != 0){
             len+=1;
         }
         String[]wordCut = new String[len];
         
         for(int i=0; i<wordCut.length; i++){
             if(i==wordCut.length-1){
-                wordCut[i] = str.substring(0+(67*i));
+                wordCut[i] = str.substring(0+(28*i));
             }
             else{
-                wordCut[i] = str.substring(0+(67*i), 66+(67*i));
+                wordCut[i] = str.substring(0+(28*i), 27+(28*i));
             }
         }
         return wordCut;
@@ -168,7 +170,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         
         LinkedList<String> words = new LinkedList<>();
         for(int i=0; i<wordsTemp.length; i++){
-            if(wordsTemp[i].length() > 67){
+            if(wordsTemp[i].length() > 28){
                 String[]wordCut = splitWord(wordsTemp[i]);
                 for(String w:wordCut){
                     words.add(w);
@@ -202,8 +204,13 @@ public class CloneablePanelSearchQuestion extends JPanel{
         // Adjust label bounds based on the wrapped text
         int labelWidth = Math.max(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
         int labelHeight = ((int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight) + 40; // Adjust height to fit lines
-        setComponentBounds(label, 40, 55, labelWidth, labelHeight); // Set new bounds for the label
+        setComponentBounds(label, 15, 35, labelWidth, labelHeight); // Set new bounds for the label
         return labelHeight;
+    }
+    
+    public int returnHeight(){
+        int lastHeight = opt4Label.getY() + opt4Label.getHeight() + 40;
+        return lastHeight;
     }
     
     public void setComponentBounds(Component component, int x, int y, int width, int height) {

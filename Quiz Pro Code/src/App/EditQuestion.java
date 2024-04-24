@@ -7,17 +7,21 @@ package App;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -134,11 +138,6 @@ public class EditQuestion extends javax.swing.JFrame {
         jLabel6.setText("Question");
 
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt4Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt4FieldActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
@@ -168,32 +167,11 @@ public class EditQuestion extends javax.swing.JFrame {
         });
 
         questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        questionField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                questionFieldActionPerformed(evt);
-            }
-        });
 
         opt2Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt2Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt2FieldActionPerformed(evt);
-            }
-        });
-
         opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt1Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt1FieldActionPerformed(evt);
-            }
-        });
 
         opt3Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt3Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt3FieldActionPerformed(evt);
-            }
-        });
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -242,9 +220,11 @@ public class EditQuestion extends javax.swing.JFrame {
         });
 
         idField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        idField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idFieldActionPerformed(evt);
+        idField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
+        idField.getActionMap().put("enterPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                handleSearchID();
             }
         });
         
@@ -363,39 +343,7 @@ public class EditQuestion extends javax.swing.JFrame {
         search_id.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String idStr = idField.getText();
-                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
-        
-                if(current_node != null){
-                   current_question = current_node.data; 
-                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
-                   questionField.setText(current_question.getQuestion());
-                   opt1Field.setText(current_question.getOption1());
-                   opt2Field.setText(current_question.getOption2());
-                   opt3Field.setText(current_question.getOption3());
-                   opt4Field.setText(current_question.getOption4());
-                   
-                   if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
-                        rad1.setSelected(true);
-                        drawCheckmark(rad1, checkmark, checkmarkIcon);
-                    }
-                    else if (current_question.getOption2().equals(current_question.getCorrectAnswer())){
-                        rad2.setSelected(true);
-                        drawCheckmark(rad2, checkmark, checkmarkIcon);
-                    }
-                    else if (current_question.getOption3().equals(current_question.getCorrectAnswer())){
-                        rad3.setSelected(true);
-                        drawCheckmark(rad3, checkmark, checkmarkIcon);
-                    }
-                    else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
-                        rad4.setSelected(true);
-                        drawCheckmark(rad4, checkmark, checkmarkIcon);
-                    }                  
-                
-                }else{
-                    String message = "There is no question with the ID of " + idStr;
-                    JOptionPane.showMessageDialog(getContentPane(), message);
-                }
+                handleSearchID();
             }
             
             @Override
@@ -411,6 +359,42 @@ public class EditQuestion extends javax.swing.JFrame {
         
         pack();
         setLocationRelativeTo(null);
+    }
+    
+    private void handleSearchID(){
+        String idStr = idField.getText();
+        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
+
+        if(current_node != null){
+           current_question = current_node.data; 
+           txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+           questionField.setText(current_question.getQuestion());
+           opt1Field.setText(current_question.getOption1());
+           opt2Field.setText(current_question.getOption2());
+           opt3Field.setText(current_question.getOption3());
+           opt4Field.setText(current_question.getOption4());
+
+           if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
+                rad1.setSelected(true);
+                drawCheckmark(rad1, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption2().equals(current_question.getCorrectAnswer())){
+                rad2.setSelected(true);
+                drawCheckmark(rad2, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption3().equals(current_question.getCorrectAnswer())){
+                rad3.setSelected(true);
+                drawCheckmark(rad3, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
+                rad4.setSelected(true);
+                drawCheckmark(rad4, checkmark, checkmarkIcon);
+            }                  
+
+        }else{
+            String message = "There is no question with the ID of " + idStr;
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        }
     }
     
     private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
@@ -433,12 +417,7 @@ public class EditQuestion extends javax.swing.JFrame {
         //set the checkmark to be visible in the new location
         checkmark.setVisible(true);        
         getContentPane().repaint();
-    }
-        
-        
-    private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
+    }                                        
 
     private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
@@ -458,23 +437,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
         drawCheckmark(rad4, checkmark, checkmarkIcon);
-    }                                    
-
-    private void questionFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void opt2FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void opt1FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void opt3FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
+    }                                           
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         int option = JOptionPane.showConfirmDialog(getContentPane(), "Are you sure you want to end editing? Your changes will not be saved.", null, JOptionPane.YES_NO_OPTION);
@@ -563,11 +526,6 @@ public class EditQuestion extends javax.swing.JFrame {
         }
         
     }
-    
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }
-    
     
     /**
      * @param args the command line arguments

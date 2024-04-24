@@ -974,7 +974,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         if(open==0){
-            new ChangeOrder222(quizlist, quizID).setVisible(true);
+            new ChangeOrder(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{

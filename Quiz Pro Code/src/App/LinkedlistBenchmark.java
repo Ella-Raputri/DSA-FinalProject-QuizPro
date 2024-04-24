@@ -179,7 +179,9 @@ public class LinkedlistBenchmark {
                 int question_number = current.data.getQuestionNumber();
 
                 //if the question or answer contains the searched string
-                if(containsIgnoreCase(question, str) || containsIgnoreCase(answer,str)){
+                if(containsIgnoreCase(question, str) || containsIgnoreCase(answer,str) || containsIgnoreCase(opt1,str) 
+                    || containsIgnoreCase(opt2,str) || containsIgnoreCase(opt3,str) || containsIgnoreCase(opt4,str)){
+                    
                     Question data = new Question(answer, question, quizid, opt1, opt2, opt3, opt4);
                     //add the node to the linked list result
                     res.addNode(data);

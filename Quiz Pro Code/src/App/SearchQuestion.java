@@ -5,6 +5,7 @@
 package App;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -21,6 +22,7 @@ public class SearchQuestion extends javax.swing.JFrame {
     private JPanel contentPane;
     private JPanel cloneablePanel;
     private JScrollPane scrollPane;
+    private Linkedlist results = new Linkedlist();
 
     /**
      * Creates new form SearchQuestion
@@ -53,6 +55,7 @@ public class SearchQuestion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void myinit(){
+        setResizable(false);
         setTitle("Search Question");
         
         //set background color
@@ -147,9 +150,11 @@ public class SearchQuestion extends javax.swing.JFrame {
 
         
         stringField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        stringField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stringFieldActionPerformed(evt);
+        stringField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
+        stringField.getActionMap().put("enterPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                handleSearchID();
             }
         });
         stringField.setBounds(40, 75, 430, stringField.getPreferredSize().height+5);
@@ -159,10 +164,17 @@ public class SearchQuestion extends javax.swing.JFrame {
         search_icon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String substr = stringField.getText();
-                Linkedlist result = EditQuiz.quizlist.questionSearch(substr);
-                
-                showCloneablePanel(result);       
+                handleSearchID();
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                search_icon.setIcon(new javax.swing.ImageIcon("src/App/img/search_id_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                search_icon.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));                
             }
         }); 
         search_icon.setBounds(stringField.getX()+stringField.getWidth()+5, 75, search_icon.getPreferredSize().width, search_icon.getPreferredSize().height);
@@ -173,6 +185,25 @@ public class SearchQuestion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
+    
+    private void handleSearchID(){
+        if (results != null && !results.isEmpty()){
+            results.clearNodes();
+        }
+
+        String substr = stringField.getText();
+        results = EditQuiz.quizlist.questionSearch(substr);
+
+        cloneablePanel.removeAll();
+        scrollPane.revalidate();
+        scrollPane.repaint();
+        if (results == null){
+            JOptionPane.showMessageDialog(getContentPane(), "Questions or answers that contain the inputted substring not found.");
+        }
+        else{
+            showCloneablePanel(results);
+        }
+    }
     
     private void showCloneablePanel(Linkedlist result){
         int x=10;
@@ -239,11 +270,6 @@ public class SearchQuestion extends javax.swing.JFrame {
             setVisible(false);
             EditQuiz.open = 0;
         }
-    }                                          
-                                      
-
-    private void stringFieldActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
     }
     
     /**

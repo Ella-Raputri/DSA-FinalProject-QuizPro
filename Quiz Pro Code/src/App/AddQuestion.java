@@ -210,11 +210,6 @@ public class AddQuestion extends javax.swing.JFrame {
         jLabel6.setText("Question");
 
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt4Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt4FieldActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
@@ -244,32 +239,10 @@ public class AddQuestion extends javax.swing.JFrame {
         });
 
         questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        questionField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                questionFieldActionPerformed(evt);
-            }
-        });
 
         opt2Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt2Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt2FieldActionPerformed(evt);
-            }
-        });
-
         opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt1Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt1FieldActionPerformed(evt);
-            }
-        });
-
         opt3Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt3Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt3FieldActionPerformed(evt);
-            }
-        });
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -438,11 +411,7 @@ public class AddQuestion extends javax.swing.JFrame {
         //set the checkmark to be visible in the new location
         checkmark.setVisible(true);        
         getContentPane().repaint();
-    }
-    
-    private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
+    }                                   
 
     private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
@@ -462,22 +431,6 @@ public class AddQuestion extends javax.swing.JFrame {
     private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
         drawCheckmark(rad4, checkmark, checkmarkIcon);
-    }                                    
-
-    private void questionFieldActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void opt2FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void opt1FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void opt3FieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
     }                                         
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           

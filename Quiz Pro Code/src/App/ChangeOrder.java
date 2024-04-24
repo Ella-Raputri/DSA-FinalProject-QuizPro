@@ -7,6 +7,7 @@ package App;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -14,29 +15,32 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author Asus
  */
-public class ChangeOrder222 extends javax.swing.JFrame {
+public class ChangeOrder extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
     private String quizid;
     private static Question current_question;
     /**
      * Creates new form ChangeOrder
      */
-    public ChangeOrder222() {
+    public ChangeOrder() {
         initComponents();
         myinit();
     }
     
-    public ChangeOrder222(LinkedlistBenchmark list, String quizid) {
+    public ChangeOrder(LinkedlistBenchmark list, String quizid) {
         this.quizList = list;
         this.quizid = quizid;
         initComponents();
@@ -95,6 +99,11 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnGrp = new javax.swing.ButtonGroup();
         
+        //set checkmark image
+        checkmark = new javax.swing.JLabel();
+        checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
+        checkmark.setIcon(checkmarkIcon);
+        
         btnGrp.add(radio1);
         btnGrp.add(radio2);
         btnGrp.add(radio3);
@@ -136,30 +145,6 @@ public class ChangeOrder222 extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
-
-        radio4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radio4ActionPerformed(evt);
-            }
-        });
-
-        radio3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radio3ActionPerformed(evt);
-            }
-        });
-
-        radio1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radio1ActionPerformed(evt);
-            }
-        });
-
-        radio2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radio2ActionPerformed(evt);
-            }
-        });
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -208,9 +193,11 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         });
 
         idField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        idField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idFieldActionPerformed(evt);
+        idField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
+        idField.getActionMap().put("enterPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                handleSearchID();
             }
         });
 
@@ -218,11 +205,6 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         jLabel4.setText("Question");
 
         orderField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        orderField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderFieldActionPerformed(evt);
-            }
-        });
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
@@ -359,48 +341,11 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         );
         
         
-        //set checkmark image
-        JLabel checkmark = new JLabel();
-        ImageIcon checkmarkIcon = new ImageIcon("src/App/img/checkmark.png");
-        checkmark.setIcon(checkmarkIcon);
-        
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {           
             @Override
             public void mouseClicked(MouseEvent e) {
-                String idStr = idField.getText();
-                Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
-                
-                if(current_node != null){
-                   current_question = current_node.data; 
-                   txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
-                   txtquestion.setText(current_question.getQuestion());
-                   txtopt1.setText(current_question.getOption1());
-                   txtopt2.setText(current_question.getOption2());
-                   txtopt3.setText(current_question.getOption3());
-                   txtopt4.setText(current_question.getOption4());
-                   
-                   if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
-                        radio1.setSelected(true);
-                        drawCheckmark(radio1, checkmark, checkmarkIcon);
-                    }
-                    else if (current_question.getOption2().equals(current_question.getCorrectAnswer())){
-                        radio2.setSelected(true);
-                        drawCheckmark(radio2, checkmark, checkmarkIcon);
-                    }
-                    else if (current_question.getOption3().equals(current_question.getCorrectAnswer())){
-                        radio3.setSelected(true);
-                        drawCheckmark(radio3, checkmark, checkmarkIcon);
-                    }
-                    else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
-                        radio4.setSelected(true);
-                        drawCheckmark(radio4, checkmark, checkmarkIcon);
-                    }
-           
-                }else{
-                    String message = "There is no question with the ID of " + idStr;
-                    JOptionPane.showMessageDialog(getContentPane(), message);
-                }
+                handleSearchID();
             }
             
             @Override
@@ -416,6 +361,43 @@ public class ChangeOrder222 extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+    
+    
+    private void handleSearchID(){
+        String idStr = idField.getText();
+        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
+
+        if(current_node != null){
+           current_question = current_node.data; 
+           txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+           txtquestion.setText(current_question.getQuestion());
+           txtopt1.setText(current_question.getOption1());
+           txtopt2.setText(current_question.getOption2());
+           txtopt3.setText(current_question.getOption3());
+           txtopt4.setText(current_question.getOption4());
+
+           if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
+                radio1.setSelected(true);
+                drawCheckmark(radio1, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption2().equals(current_question.getCorrectAnswer())){
+                radio2.setSelected(true);
+                drawCheckmark(radio2, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption3().equals(current_question.getCorrectAnswer())){
+                radio3.setSelected(true);
+                drawCheckmark(radio3, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
+                radio4.setSelected(true);
+                drawCheckmark(radio4, checkmark, checkmarkIcon);
+            }
+
+        }else{
+            String message = "There is no question with the ID of " + idStr;
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        }
     }
     
     
@@ -440,22 +422,7 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         checkmark.setVisible(true);        
         getContentPane().repaint();
     }
-    
-    private void radio4ActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
-
-    private void radio3ActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
-
-    private void radio1ActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
-
-    private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+                                       
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         int option = JOptionPane.showConfirmDialog(getContentPane(), "Are you sure you want to end editing? Your changes will not be saved.", null, JOptionPane.YES_NO_OPTION);
@@ -535,13 +502,6 @@ public class ChangeOrder222 extends javax.swing.JFrame {
         }
     }                                       
 
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
-    private void orderFieldActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }  
     
     /**
      * @param args the command line arguments
@@ -560,21 +520,23 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangeOrder222.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChangeOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChangeOrder222().setVisible(true);
+                new ChangeOrder().setVisible(true);
             }
         });
     }
@@ -602,6 +564,8 @@ public class ChangeOrder222 extends javax.swing.JFrame {
     private javax.swing.JLabel txtopt4;
     private javax.swing.JLabel txtquestion;
     private javax.swing.ButtonGroup btnGrp;
+    private javax.swing.JLabel checkmark;
+    private javax.swing.ImageIcon checkmarkIcon;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

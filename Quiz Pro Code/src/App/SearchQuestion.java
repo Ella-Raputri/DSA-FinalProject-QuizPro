@@ -109,7 +109,7 @@ public class SearchQuestion extends javax.swing.JFrame {
         cloneablePanel = new JPanel(); // The initial panel inside scroll pane
         cloneablePanel.setLayout(null); // Use absolute layout
         cloneablePanel.setPreferredSize(new Dimension(400, 200)); // Set initial size
-        cloneablePanel.setBounds(40, 130, 450, 450); // Set bounds for the initial panel
+        cloneablePanel.setBounds(40, 130, 450, 400); // Set bounds for the initial panel
         cloneablePanel.setBackground(new Color(255,255,255));
         scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
         
@@ -179,8 +179,9 @@ public class SearchQuestion extends javax.swing.JFrame {
         Linkedlist.Node currentQuestion = result.head;
         
         int totalElement = result.countNodes();
-        
-        boolean previousHeightExceed300 = false;
+
+        int prevPanelHeight = 0;
+        int prevY =0;
         
         for(int i=1; i<totalElement+1;i++){
             String id = currentQuestion.data.getQuestionID();
@@ -198,24 +199,20 @@ public class SearchQuestion extends javax.swing.JFrame {
             int panelWidth = 400;
             int panelHeight = clonedPanel.returnHeight();
             
-            
             int y;
-            if (i == 1) {
-                y = 5; // If it's the first cloned panel, start at y = 5
-            } else {
-                int heightGap = panelHeight+30;
-                //make the gap bigger if the previous panel height more than 300
-                if(previousHeightExceed300){
-                   heightGap = panelHeight+80; 
-                }
-                y = 5 + (i - 1) * heightGap; // Adjusted position for subsequent panels
+            if(i==1){
+                y=5;
+                prevY=5;
+            }
+            else{
+                int newY = prevY + prevPanelHeight +40;
+                y = newY;
+                prevY = newY;
             }
             
-            //make the gap bigger for the next panel
-            if(panelHeight>300){
-                previousHeightExceed300 = true;
-            }
-
+            
+            prevPanelHeight = panelHeight;
+            
             // Set the bounds for the cloned panel with your custom size
             clonedPanel.setBounds(x, y, panelWidth, panelHeight);
             clonedPanel.setBackground(Color.white);

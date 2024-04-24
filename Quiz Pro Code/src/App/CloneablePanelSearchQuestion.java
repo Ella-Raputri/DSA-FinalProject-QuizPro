@@ -3,10 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package App;
-import DatabaseConnection.ConnectionProvider;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.*;
 import java.util.LinkedList;
 /**
  *
@@ -56,12 +54,14 @@ public class CloneablePanelSearchQuestion extends JPanel{
         setComponentBounds(qidLabel, (400-qidLabel.getPreferredSize().width-35), 18, qidLabel.getPreferredSize().width+30, qidLabel.getPreferredSize().height);
         add(qidLabel);
         
-        JLabel questionLabel = new JLabel();
+        WrappedLabel questionLabel = new WrappedLabel(360);
+        questionLabel.setText(question);
         questionLabel.setFont(new Font("Montserrat SemiBold", 0, 20));
-        int questionLabelHeight = setLabelTextWithLineBreaks(questionLabel, question, 380);
+        setComponentBounds(questionLabel, 15, 55, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height);
         add(questionLabel);
         
-        int opt1Height = questionLabelHeight+30;
+        
+        int opt1Height = questionLabel.getHeight()+70;
         int opt2Height = opt1Height+40;
         int opt3Height = opt2Height + 40;
         int opt4Height = opt3Height +40;
@@ -141,77 +141,12 @@ public class CloneablePanelSearchQuestion extends JPanel{
         
     }
     
-    
-    public String[] splitWord(String str){
-        int len = str.length()/28;
-        if(str.length()%28 != 0){
-            len+=1;
-        }
-        String[]wordCut = new String[len];
-        
-        for(int i=0; i<wordCut.length; i++){
-            if(i==wordCut.length-1){
-                wordCut[i] = str.substring(0+(28*i));
-            }
-            else{
-                wordCut[i] = str.substring(0+(28*i), 27+(28*i));
-            }
-        }
-        return wordCut;
-    }
-    
-    
-    public int setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
-        // Split the text into words
-        String[] wordsTemp = text.split(" ");
-        StringBuilder newText = new StringBuilder();
-        int currentWidth = 0;
-        int lineHeight = label.getFontMetrics(label.getFont()).getHeight(); // Get the height of each line
-        
-        LinkedList<String> words = new LinkedList<>();
-        for(int i=0; i<wordsTemp.length; i++){
-            if(wordsTemp[i].length() > 28){
-                String[]wordCut = splitWord(wordsTemp[i]);
-                for(String w:wordCut){
-                    words.add(w);
-                }
-            }
-            else{
-                words.add(wordsTemp[i]);
-            }
-        }
-        
-        // Iterate through words
-        for (String word : words) {
-            // Get the width of the current text with the new word
-            int wordWidth = label.getFontMetrics(label.getFont()).stringWidth(word + " ");
-
-            // Check if adding the new word exceeds the maximum width, including a space
-            if (currentWidth + wordWidth > maxWidth) {
-                // If the current word exceeds the maximum width, add a line break and start a new line
-                newText.append("<br>").append(word).append(" ");
-                currentWidth = wordWidth;
-            } else {
-                // Otherwise, add the word to the current line
-                newText.append(word).append(" ");
-                currentWidth += wordWidth;
-            }
-        }
-
-        // Set the label text with line breaks
-        label.setText("<html>" + newText.toString() + "</html>");
-
-        // Adjust label bounds based on the wrapped text
-        int labelWidth = Math.max(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
-        int labelHeight = ((int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight) + 40; // Adjust height to fit lines
-        setComponentBounds(label, 15, 35, labelWidth, labelHeight); // Set new bounds for the label
-        return labelHeight;
-    }
-    
     public int returnHeight(){
         int lastHeight = opt4Label.getY() + opt4Label.getHeight() + 40;
         return lastHeight;
     }
+    
+    
     
     public void setComponentBounds(Component component, int x, int y, int width, int height) {
         component.setBounds(x, y, width, height); // Set the position and size of the component

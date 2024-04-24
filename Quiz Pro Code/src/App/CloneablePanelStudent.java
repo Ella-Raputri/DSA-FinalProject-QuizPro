@@ -81,7 +81,7 @@ public class CloneablePanelStudent extends JPanel{
                 wordCut[i] = str.substring(0+(10*i));
             }
             else{
-                wordCut[i] = str.substring(0+(10*i), 9+(10*i));
+                wordCut[i] = str.substring(0+(10*i), 10+(10*i));
             }
         }
         return wordCut;

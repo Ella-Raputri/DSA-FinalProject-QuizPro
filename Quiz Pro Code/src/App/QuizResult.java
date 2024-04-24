@@ -4,6 +4,9 @@
  */
 package App;
 
+import DatabaseConnection.ConnectionProvider;
+import java.sql.*;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,9 +15,10 @@ import javax.swing.JOptionPane;
  */
 public class QuizResult extends javax.swing.JFrame {
     private String quizid;
-    /**
-     * Creates new form QuizResult
-     */
+    int totalElement = 0;
+    LinkedList<Student> studentList = new LinkedList<>();
+    
+    
     public QuizResult() {
         initComponents();
         myinit();
@@ -22,11 +26,39 @@ public class QuizResult extends javax.swing.JFrame {
     
     public QuizResult(String quizID){
         initComponents();
-        myinit();
         this.quizid = quizID;
+        myinit();        
     }
     
     private void myinit(){
+        setTitle("Students Result");
+        
+        //get the total element
+        try {
+            Connection con = ConnectionProvider.getCon();
+
+            // Query to retrieve non-null values in the specified quizid column
+            String selectQuery = "SELECT * FROM student WHERE " + quizid + " IS NOT NULL";
+            try (PreparedStatement selectStmt = con.prepareStatement(selectQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+                ResultSet rs = selectStmt.executeQuery();
+                while (rs.next()) {
+                    String student_name = rs.getString("username");
+                    double student_score = rs.getDouble(quizid);
+                    
+                    Student student1 = new Student (student_name, student_score);
+                    studentList.add(student1);
+                }
+            } catch (SQLException selectEx) {
+                JOptionPane.showMessageDialog(getContentPane(), "Error while retrieving non-null values: " + selectEx.getMessage());
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getContentPane(), "General error: " + e.getMessage());
+        }
+
+        totalElement = studentList.size();
+        
+        
         backButton = new App.buttonCustom();
         LogoutButton = new App.buttonCustom();
         jLabel1 = new javax.swing.JLabel();
@@ -93,12 +125,14 @@ public class QuizResult extends javax.swing.JFrame {
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
+            studentList.clear();
             setVisible(false);
             new WelcomePage().setVisible(true);
         }
     }
     
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        studentList.clear();
         setVisible(false);
         new EditQuiz(quizid).setVisible(true);
     } 

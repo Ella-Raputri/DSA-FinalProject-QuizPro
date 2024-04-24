@@ -8,6 +8,8 @@ import DatabaseConnection.ConnectionProvider;
 import java.sql.*;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -17,6 +19,9 @@ public class QuizResult extends javax.swing.JFrame {
     private String quizid;
     int totalElement = 0;
     LinkedList<Student> studentList = new LinkedList<>();
+    private JPanel contentPane;
+    private JPanel cloneablePanel;
+    private JScrollPane scrollPane;
     
     
     public QuizResult() {
@@ -33,6 +38,8 @@ public class QuizResult extends javax.swing.JFrame {
     private void myinit(){
         setResizable(false);
         setTitle("Students Result");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
         //get the total element
         try {
@@ -59,13 +66,80 @@ public class QuizResult extends javax.swing.JFrame {
 
         totalElement = studentList.size();
         
+        // Create the content pane
+        contentPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Load the background image
+                ImageIcon bgImage = new ImageIcon("src/App/img/background_result.png");
+                // Draw the background image
+                g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), null);
+            }
+        };
+        contentPane.setLayout(null); // Use absolute layout
+        setContentPane(contentPane);
+
+        // Create the scroll pane
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(85, 220, 1100, 440); // Set bounds for the scroll pane
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        contentPane.add(scrollPane);
+
+        // Create the cloneable panel
+        cloneablePanel = new JPanel(); // The initial panel inside scroll pane
+        cloneablePanel.setLayout(null); // Use absolute layout
+        cloneablePanel.setPreferredSize(new Dimension(400, 200)); // Set initial size
+        cloneablePanel.setBounds(85, 220, 1100, 440); // Set bounds for the initial panel
+        cloneablePanel.setBackground(new Color(224, 237, 255));
+        scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
+        
+        
+        int x=10;
+        for(int i=1; i<totalElement+1;i++){
+            String username = studentList.get(i-1).getUsername();
+            double score = studentList.get(i-1).getGrade();
+            
+            // Create a new cloned panel
+            CloneablePanelQuizResult clonedPanel = new CloneablePanelQuizResult(40, Color.white, 2, username, score);
+            // Set your custom width and height for the cloned panel
+            int panelWidth = 1040;
+            int panelHeight = 70;
+            
+            int y;
+            if (i == 1) {
+                y = 10; // If it's the first cloned panel, start at y = 10
+            } else {
+                y = 10 + (i - 1) * (panelHeight + 50); // Adjusted position for subsequent panels
+            }
+
+            // Set the bounds for the cloned panel with your custom size
+            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
+            clonedPanel.setBackground(Color.white);
+            
+            // Add the cloned panel to the initial panel
+            cloneablePanel.add(clonedPanel);
+            // Adjust preferred size of initial panel to include new panel
+            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 20); // Adjusted size
+            cloneablePanel.setPreferredSize(newSize);
+            // Ensure the scroll pane updates its viewport
+            scrollPane.revalidate();
+            scrollPane.repaint();
+            // Scroll to show the new panel
+            scrollPane.getVerticalScrollBar().setValue(0);
+            
+        }
+        
+
+        ImageIcon bgImage = new ImageIcon("src/App/img/background_result.png");
+        contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
+        
         
         backButton = new App.buttonCustom();
         LogoutButton = new App.buttonCustom();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
         backButton.setText("< Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -89,7 +163,8 @@ public class QuizResult extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 120, 60));
+        backButton.setBounds(40,20,120,60);
+        contentPane.add(backButton);
 
         LogoutButton.setBackground(new java.awt.Color(57, 129, 247));
         LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,11 +188,12 @@ public class QuizResult extends javax.swing.JFrame {
                 LogoutButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(LogoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, -1, 60));
+        LogoutButton.setBounds(1090,20, LogoutButton.getPreferredSize().width, 60);
+        contentPane.add(LogoutButton);
         
-        jLabel1.setIcon(new javax.swing.ImageIcon("src/App/img/background_result.png")); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1280, 730));
-
+        
+        contentPane.revalidate();
+        contentPane.repaint();
         pack();
         setLocationRelativeTo(null);
     }

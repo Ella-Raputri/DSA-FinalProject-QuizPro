@@ -68,7 +68,7 @@ public class AddQuiz extends javax.swing.JFrame {
     int totalElement =0;
     LinkedList<String> allIdList = new LinkedList<>();
     private void myinit(){
-
+        setResizable(false);
         getContentPane().setBackground(Color.white);
         
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

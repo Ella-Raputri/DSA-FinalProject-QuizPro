@@ -68,6 +68,7 @@ public class AddQuestion extends javax.swing.JFrame {
     
     private void myinit(){
         getContentPane().setBackground(Color.white);
+        setResizable(false);
         
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();

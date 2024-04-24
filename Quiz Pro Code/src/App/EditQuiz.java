@@ -90,6 +90,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     
     private void myinit(){
+        setResizable(false);
         setTitle("Edit Quiz Page");
         int totalElement = 0;
         

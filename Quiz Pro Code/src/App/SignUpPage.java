@@ -342,6 +342,7 @@ public class SignUpPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        setResizable(false);
         hidePassword.setVisible(false);
         hidePassword1.setVisible(false);
         password.setEchoChar('*');

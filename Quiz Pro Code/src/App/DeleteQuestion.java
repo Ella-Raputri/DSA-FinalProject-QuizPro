@@ -70,6 +70,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
 
     private void myinit(){
         getContentPane().setBackground(Color.white);
+        setResizable(false);
         
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -101,6 +102,10 @@ public class DeleteQuestion extends javax.swing.JFrame {
         radio2.setEnabled(false);
         radio3.setEnabled(false);
         radio4.setEnabled(false);
+        
+        checkmark = new javax.swing.JLabel();
+        checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
+        checkmark.setIcon(checkmarkIcon);
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -336,10 +341,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         
-        //set checkmark image
-        JLabel checkmark = new JLabel();
-        ImageIcon checkmarkIcon = new ImageIcon("src/App/img/checkmark.png");
-        checkmark.setIcon(checkmarkIcon);
         
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
@@ -379,6 +380,16 @@ public class DeleteQuestion extends javax.swing.JFrame {
                     String message = "There is no question with the ID of " + idStr;
                     JOptionPane.showMessageDialog(getContentPane(), message);
                 }
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         });
 
@@ -434,7 +445,44 @@ public class DeleteQuestion extends javax.swing.JFrame {
 
     private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {                                     
         // TODO add your handling code here:
-    }                                    
+    }   
+    
+    private void search_idActionPerformed(java.awt.event.ActionEvent evt){
+        String idStr = idField.getText();
+        Linkedlist.Node current_node = quizlist.quiz.getNode(idStr);
+
+        if(current_node != null){
+           current_question = current_node.data; 
+           txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
+           txtquestion.setText(current_question.getQuestion());
+           txtquestion.setText(current_question.getQuestion());
+           txtopt1.setText(current_question.getOption1());
+           txtopt2.setText(current_question.getOption2());
+           txtopt3.setText(current_question.getOption3());
+           txtopt4.setText(current_question.getOption4());
+
+           if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
+                radio1.setSelected(true);
+                drawCheckmark(radio1, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption2().equals(current_question.getCorrectAnswer())){
+                radio2.setSelected(true);
+                drawCheckmark(radio2, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption3().equals(current_question.getCorrectAnswer())){
+                radio3.setSelected(true);
+                drawCheckmark(radio3, checkmark, checkmarkIcon);
+            }
+            else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
+                radio4.setSelected(true);
+                drawCheckmark(radio4, checkmark, checkmarkIcon);
+            }
+
+        }else{
+            String message = "There is no question with the ID of " + idStr;
+            JOptionPane.showMessageDialog(getContentPane(), message);
+        }
+    }
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         int option = JOptionPane.showConfirmDialog(getContentPane(), "Are you sure you want to end editing? Your changes will not be saved.", null, JOptionPane.YES_NO_OPTION);
@@ -552,6 +600,8 @@ public class DeleteQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel txtopt4;
     private javax.swing.JLabel txtquestion;
     private javax.swing.ButtonGroup btnGrp;
+    private javax.swing.JLabel checkmark;
+    private javax.swing.ImageIcon checkmarkIcon;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

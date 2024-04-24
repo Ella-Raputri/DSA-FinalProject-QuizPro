@@ -30,10 +30,12 @@ public class QuizSummary extends javax.swing.JFrame {
      */
     public QuizSummary() {
         initComponents();
+        setResizable(false);
     }
     
     public QuizSummary(int score, String studentId, int totalQuestions) {
         initComponents();
+        setResizable(false);
         this.studentId = studentId;
         this.score = score;
         this.totalQuestions = totalQuestions;

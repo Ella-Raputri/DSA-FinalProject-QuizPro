@@ -70,6 +70,7 @@ public class ChangeOrder222 extends javax.swing.JFrame {
 
     private void myinit(){
         getContentPane().setBackground(Color.white);
+        setResizable(false);
         
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -400,6 +401,16 @@ public class ChangeOrder222 extends javax.swing.JFrame {
                     String message = "There is no question with the ID of " + idStr;
                     JOptionPane.showMessageDialog(getContentPane(), message);
                 }
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         });
 

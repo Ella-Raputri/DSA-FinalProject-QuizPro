@@ -70,6 +70,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
 
     private void myinit(){
         getContentPane().setBackground(Color.white);
+        setResizable(false);
         
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();

@@ -35,6 +35,7 @@ public class ExamPage extends javax.swing.JFrame {
      */
     public ExamPage() {
         initComponents();
+        setResizable(false);
     }
     
     public ExamPage(String quizId, String studentId) {
@@ -48,6 +49,7 @@ public class ExamPage extends javax.swing.JFrame {
     private void myinit(){
         backButton.setVisible(false);
         submitButton.setVisible(false);
+        setResizable(false);
         
         time = new Timer(1000, new ActionListener(){
             @Override

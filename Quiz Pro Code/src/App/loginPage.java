@@ -244,6 +244,7 @@ public class loginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        setResizable(false);
         hidePassword.setVisible(false);
         password.setEchoChar('*');
         jLabel7.setVisible(false);

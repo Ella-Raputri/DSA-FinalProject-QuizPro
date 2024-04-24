@@ -38,6 +38,7 @@ public class AdminHome extends javax.swing.JFrame {
 
     
     private void myinit(){
+        setResizable(false);
         setTitle("Admin Home Page");
         int totalElement = 0;
         LinkedList<String> idList = new LinkedList<>();

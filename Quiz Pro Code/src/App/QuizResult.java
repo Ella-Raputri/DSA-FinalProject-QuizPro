@@ -31,6 +31,7 @@ public class QuizResult extends javax.swing.JFrame {
     }
     
     private void myinit(){
+        setResizable(false);
         setTitle("Students Result");
         
         //get the total element

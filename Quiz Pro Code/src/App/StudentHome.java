@@ -53,6 +53,7 @@ public class StudentHome extends javax.swing.JFrame {
     
     private void myinit(){
         setTitle("Student Home Page");
+        setResizable(false);
         LinkedList<String> idListTemp = new LinkedList<>();
         LinkedList<String> idList = new LinkedList<>();
         

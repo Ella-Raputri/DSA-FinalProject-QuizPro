@@ -23,9 +23,11 @@ public class QuizDetails extends javax.swing.JFrame {
      */
     public QuizDetails() {
         initComponents();
+        setResizable(false);
     }
     
     public QuizDetails(String quizId, String studentId) {
+        setResizable(false);
         this.quizId = quizId;
         this.studentId = studentId;
         

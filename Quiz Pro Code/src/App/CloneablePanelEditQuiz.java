@@ -141,18 +141,18 @@ public class CloneablePanelEditQuiz extends JPanel{
     
     
     public String[] splitWord(String str){
-        int len = str.length()/67;
-        if(str.length()%67 != 0){
+        int len = str.length()/65;
+        if(str.length()%65 != 0){
             len+=1;
         }
         String[]wordCut = new String[len];
         
         for(int i=0; i<wordCut.length; i++){
             if(i==wordCut.length-1){
-                wordCut[i] = str.substring(0+(67*i));
+                wordCut[i] = str.substring(0+(65*i));
             }
             else{
-                wordCut[i] = str.substring(0+(67*i), 66+(67*i));
+                wordCut[i] = str.substring(0+(65*i), 64+(65*i));
             }
         }
         return wordCut;
@@ -168,7 +168,7 @@ public class CloneablePanelEditQuiz extends JPanel{
         
         LinkedList<String> words = new LinkedList<>();
         for(int i=0; i<wordsTemp.length; i++){
-            if(wordsTemp[i].length() > 67){
+            if(wordsTemp[i].length() > 65){
                 String[]wordCut = splitWord(wordsTemp[i]);
                 for(String w:wordCut){
                     words.add(w);

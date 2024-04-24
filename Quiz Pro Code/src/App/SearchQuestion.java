@@ -180,6 +180,8 @@ public class SearchQuestion extends javax.swing.JFrame {
         
         int totalElement = result.countNodes();
         
+        boolean previousHeightExceed300 = false;
+        
         for(int i=1; i<totalElement+1;i++){
             String id = currentQuestion.data.getQuestionID();
             int questionNumber = currentQuestion.data.getQuestionNumber();
@@ -193,15 +195,25 @@ public class SearchQuestion extends javax.swing.JFrame {
             // Create a new cloned panel
             CloneablePanelSearchQuestion clonedPanel = new CloneablePanelSearchQuestion(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer);
             // Set your custom width and height for the cloned panel
-            int panelWidth = 450;
-            int panelHeight = 350;
+            int panelWidth = 400;
+            int panelHeight = clonedPanel.returnHeight();
             
             
             int y;
             if (i == 1) {
-                y = 10; // If it's the first cloned panel, start at y = 10
+                y = 5; // If it's the first cloned panel, start at y = 5
             } else {
-                y = 10 + (i - 1) * (panelHeight + 50); // Adjusted position for subsequent panels
+                int heightGap = panelHeight+30;
+                //make the gap bigger if the previous panel height more than 300
+                if(previousHeightExceed300){
+                   heightGap = panelHeight+80; 
+                }
+                y = 5 + (i - 1) * heightGap; // Adjusted position for subsequent panels
+            }
+            
+            //make the gap bigger for the next panel
+            if(panelHeight>300){
+                previousHeightExceed300 = true;
             }
 
             // Set the bounds for the cloned panel with your custom size
@@ -211,7 +223,7 @@ public class SearchQuestion extends javax.swing.JFrame {
             // Add the cloned panel to the initial panel
             cloneablePanel.add(clonedPanel);
             // Adjust preferred size of initial panel to include new panel
-            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 10); // Adjusted size
+            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 20); // Adjusted size
             cloneablePanel.setPreferredSize(newSize);
             // Ensure the scroll pane updates its viewport
             scrollPane.revalidate();

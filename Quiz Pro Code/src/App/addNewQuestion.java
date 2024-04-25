@@ -41,34 +41,27 @@ public class addNewQuestion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtnum = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtID = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        opt4Field = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        rad1 = new javax.swing.JRadioButton();
-        rad2 = new javax.swing.JRadioButton();
-        rad3 = new javax.swing.JRadioButton();
-        rad4 = new javax.swing.JRadioButton();
-        questionField = new javax.swing.JTextField();
-        opt2Field = new javax.swing.JTextField();
-        opt1Field = new javax.swing.JTextField();
-        opt3Field = new javax.swing.JTextField();
-        OKButton = new App.ButtonCustom();
-        backButton = new App.ButtonCustom();
-
-        jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
-        jLabel4.setText("Question");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
+        radio4 = new javax.swing.JRadioButton();
+        radio3 = new javax.swing.JRadioButton();
+        radio1 = new javax.swing.JRadioButton();
+        radio2 = new javax.swing.JRadioButton();
+        changefield = new javax.swing.JTextField();
+        search_id = new javax.swing.JLabel();
+        change = new javax.swing.JLabel();
+        txtnum = new javax.swing.JLabel();
+        txtopt1 = new javax.swing.JLabel();
+        txtquestion = new javax.swing.JLabel();
+        txtopt2 = new javax.swing.JLabel();
+        txtopt3 = new javax.swing.JLabel();
+        txtopt4 = new javax.swing.JLabel();
+        buttonCustom1 = new App.ButtonCustom();
+        buttonCustom2 = new App.ButtonCustom();
+        jLabel5 = new javax.swing.JLabel();
+        idField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -80,162 +73,147 @@ public class addNewQuestion extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
-        jLabel1.setText("<html><u>ADD QUESTION</u></html>");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 13, -1, -1));
+        jLabel1.setText("<html><u>DELETE QUESTION</u></html>");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
 
-        txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
-        txtnum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtnum.setText("[num]");
-        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 75, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
-        jLabel3.setText("Question");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 75, -1, -1));
-
-        txtID.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        txtID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txtID.setText("[ID]");
-        getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(329, 81, 199, -1));
+        jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
+        jLabel3.setText("Input Question ID");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 131, 199, -1));
-
-        opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt4Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt4FieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 464, 451, 40));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 199, -1));
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 227, 199, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 259, 91, -1));
 
-        rad1.addActionListener(new java.awt.event.ActionListener() {
+        radio4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad1ActionPerformed(evt);
+                radio4ActionPerformed(evt);
             }
         });
-        getContentPane().add(rad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 277, -1, -1));
+        getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 472, -1, -1));
 
-        rad2.addActionListener(new java.awt.event.ActionListener() {
+        radio3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad2ActionPerformed(evt);
+                radio3ActionPerformed(evt);
             }
         });
-        getContentPane().add(rad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 344, -1, -1));
+        getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 411, -1, -1));
 
-        rad3.addActionListener(new java.awt.event.ActionListener() {
+        radio1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad3ActionPerformed(evt);
+                radio1ActionPerformed(evt);
             }
         });
-        getContentPane().add(rad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 412, -1, -1));
+        getContentPane().add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 297, -1, -1));
 
-        rad4.addActionListener(new java.awt.event.ActionListener() {
+        radio2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad4ActionPerformed(evt);
+                radio2ActionPerformed(evt);
             }
         });
-        getContentPane().add(rad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 473, -1, -1));
+        getContentPane().add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 358, -1, -1));
 
-        questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        questionField.addActionListener(new java.awt.event.ActionListener() {
+        changefield.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        changefield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                questionFieldActionPerformed(evt);
+                changefieldActionPerformed(evt);
             }
         });
-        getContentPane().add(questionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 167, 497, 40));
+        getContentPane().add(changefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 520, 110, 40));
 
-        opt2Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt2Field.addActionListener(new java.awt.event.ActionListener() {
+        search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
+        getContentPane().add(search_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 83, 37, -1));
+
+        change.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        change.setText("Change Order to");
+        getContentPane().add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
+
+        txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        txtnum.setText("[num]");
+        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 136, 100, -1));
+
+        txtopt1.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        txtopt1.setText("[option 1]");
+        txtopt1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 297, 465, 35));
+
+        txtquestion.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        txtquestion.setText("[question]");
+        txtquestion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 198, 502, 43));
+
+        txtopt2.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        txtopt2.setText("[option 2]");
+        txtopt2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 358, 465, 35));
+
+        txtopt3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        txtopt3.setText("[option 3]");
+        txtopt3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 411, 465, 43));
+
+        txtopt4.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        txtopt4.setText("[option 4]");
+        txtopt4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 472, 465, 43));
+
+        buttonCustom1.setText("buttonCustom1");
+        getContentPane().add(buttonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, -1, -1));
+
+        buttonCustom2.setText("buttonCustom2");
+        getContentPane().add(buttonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 600, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
+        jLabel5.setText("Question");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 136, -1, -1));
+
+        idField1.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        idField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt2FieldActionPerformed(evt);
+                idField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(opt2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 334, 451, 40));
-
-        opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt1Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt1FieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(opt1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 268, 450, 40));
-
-        opt3Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        opt3Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opt3FieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(opt3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 403, 451, 40));
-
-        OKButton.setText("ok");
-        OKButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OKButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(OKButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 540, 70, -1));
-
-        backButton.setText("back");
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 70, -1));
+        getContentPane().add(idField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void opt4FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt4FieldActionPerformed
+    private void radio4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_opt4FieldActionPerformed
+    }//GEN-LAST:event_radio4ActionPerformed
 
-    private void rad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad1ActionPerformed
+    private void radio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad1ActionPerformed
+    }//GEN-LAST:event_radio3ActionPerformed
 
-    private void rad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad2ActionPerformed
+    private void radio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad2ActionPerformed
+    }//GEN-LAST:event_radio1ActionPerformed
 
-    private void rad3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad3ActionPerformed
+    private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rad3ActionPerformed
+    }//GEN-LAST:event_radio2ActionPerformed
 
-    private void rad4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rad4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rad4ActionPerformed
-
-    private void questionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questionFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_questionFieldActionPerformed
-
-    private void opt2FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt2FieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_opt2FieldActionPerformed
-
-    private void opt1FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt1FieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_opt1FieldActionPerformed
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void opt3FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt3FieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_opt3FieldActionPerformed
-
-    private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         setVisible(false);
         new AdminHome().setVisible(true);
-    }//GEN-LAST:event_OKButtonActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbuttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_OKbuttonActionPerformed
+
+    private void changefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changefieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_changefieldActionPerformed
+
+    private void idField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,24 +251,26 @@ public class addNewQuestion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.ButtonCustom OKButton;
-    private App.ButtonCustom backButton;
+    private App.ButtonCustom buttonCustom1;
+    private App.ButtonCustom buttonCustom2;
+    private javax.swing.JLabel change;
+    private javax.swing.JTextField changefield;
+    private javax.swing.JTextField idField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField opt1Field;
-    private javax.swing.JTextField opt2Field;
-    private javax.swing.JTextField opt3Field;
-    private javax.swing.JTextField opt4Field;
-    private javax.swing.JTextField questionField;
-    private javax.swing.JRadioButton rad1;
-    private javax.swing.JRadioButton rad2;
-    private javax.swing.JRadioButton rad3;
-    private javax.swing.JRadioButton rad4;
-    private javax.swing.JLabel txtID;
+    private javax.swing.JRadioButton radio1;
+    private javax.swing.JRadioButton radio2;
+    private javax.swing.JRadioButton radio3;
+    private javax.swing.JRadioButton radio4;
+    private javax.swing.JLabel search_id;
     private javax.swing.JLabel txtnum;
+    private javax.swing.JLabel txtopt1;
+    private javax.swing.JLabel txtopt2;
+    private javax.swing.JLabel txtopt3;
+    private javax.swing.JLabel txtopt4;
+    private javax.swing.JLabel txtquestion;
     // End of variables declaration//GEN-END:variables
 }

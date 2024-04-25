@@ -98,6 +98,7 @@ public class EditQuestion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtnum = new javax.swing.JLabel();
         btnGrp = new javax.swing.ButtonGroup();
+        txtcounter = new javax.swing.JLabel();
         
         btnGrp.add(rad1);
         btnGrp.add(rad2);
@@ -123,56 +124,69 @@ public class EditQuestion extends javax.swing.JFrame {
         
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
-        setBounds(new java.awt.Rectangle(0, 0, 540, 600));
+        setBounds(new java.awt.Rectangle(0, 0, 540, 700));
         setFocusable(false);
         setForeground(java.awt.Color.white);
-        setMaximumSize(new java.awt.Dimension(540, 600));
-        setMinimumSize(new java.awt.Dimension(540, 600));
+        setMinimumSize(new java.awt.Dimension(540, 700));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>EDIT QUESTION</u></html>");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 13, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel3.setText("Input Question ID");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 184, 90, -1));
 
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 524, 451, 40));
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 283, 91, -1));
 
         rad1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rad1ActionPerformed(evt);
             }
         });
+        getContentPane().add(rad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 321, -1, -1));
 
         rad2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rad2ActionPerformed(evt);
             }
         });
+        getContentPane().add(rad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 396, -1, -1));
 
         rad3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rad3ActionPerformed(evt);
             }
         });
+        getContentPane().add(rad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 464, -1, -1));
 
         rad4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rad4ActionPerformed(evt);
             }
         });
+        getContentPane().add(rad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 532, -1, -1));
 
         questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        getContentPane().add(questionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 214, 497, 40));
 
         opt2Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        getContentPane().add(opt2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 386, 451, 40));
         opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        getContentPane().add(opt1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 313, 450, 40));
 
         opt3Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        getContentPane().add(opt3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 456, 451, 40));
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -196,6 +210,7 @@ public class EditQuestion extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 80, 50));
 
         OKbutton.setBackground(new java.awt.Color(57, 129, 247));
         OKbutton.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,6 +234,7 @@ public class EditQuestion extends javax.swing.JFrame {
                 OKbuttonActionPerformed(evt);
             }
         });
+        getContentPane().add(OKbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 590, 80, 50));
 
         idField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         idField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
@@ -228,117 +244,19 @@ public class EditQuestion extends javax.swing.JFrame {
                 handleSearchID();
             }
         });
+        getContentPane().add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
         
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel4.setText("Question");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 149, -1, -1));
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
+        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 151, 100, -1));
 
-        
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(search_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rad4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                                    .addComponent(opt4Field, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rad3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(opt3Field, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(rad2)
-                                        .addComponent(rad1))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(opt1Field, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(opt2Field, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(questionField, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtnum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search_id))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtnum))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(questionField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(opt1Field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(rad1)
-                        .addGap(44, 44, 44)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(opt2Field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(rad2)
-                        .addGap(39, 39, 39)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(opt3Field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(rad3)
-                        .addGap(39, 39, 39)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(rad4)
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(opt4Field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
-        );
-        
+        txtcounter.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
+        txtcounter.setText("(0 / 100)");
+        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, 30));
         
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
@@ -357,7 +275,8 @@ public class EditQuestion extends javax.swing.JFrame {
                 search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         }); 
-        
+        getContentPane().add(search_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 83, 37, -1));
+       
         pack();
         setLocationRelativeTo(null);
     }
@@ -411,7 +330,7 @@ public class EditQuestion extends javax.swing.JFrame {
         checkmark.setBounds(checkmarkX, checkmarkY, checkmarkIcon.getIconWidth(), checkmarkIcon.getIconHeight());
 
         // Add the checkmark label to the parent container of the radio button
-        getContentPane().add(checkmark);
+        getContentPane().add(checkmark, new org.netbeans.lib.awtextra.AbsoluteConstraints(radio.getX(), radio.getY(), 17, 17));
         
         //set the checkmark z index to be the top layer
         getContentPane().setComponentZOrder(checkmark, 0);
@@ -583,6 +502,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel search_id;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel txtnum;
+    private javax.swing.JLabel txtcounter;
     private javax.swing.ButtonGroup btnGrp;
     private javax.swing.JLabel checkmark;
     private javax.swing.ImageIcon checkmarkIcon;

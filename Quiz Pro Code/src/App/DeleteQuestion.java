@@ -127,24 +127,27 @@ public class DeleteQuestion extends javax.swing.JFrame {
         });
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
-        setBounds(new java.awt.Rectangle(0, 0, 540, 600));
+        setBounds(new java.awt.Rectangle(0, 0, 540, 650));
         setFocusable(false);
         setForeground(java.awt.Color.white);
-        setMaximumSize(new java.awt.Dimension(540, 600));
-        setMinimumSize(new java.awt.Dimension(540, 600));
+        setMinimumSize(new java.awt.Dimension(540, 650));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>DELETE QUESTION</u></html>");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel3.setText("Input Question ID");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 199, -1));
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
-
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 259, 91, -1));
         
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -168,6 +171,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 80, 50));
 
         OKbutton.setBackground(new java.awt.Color(57, 129, 247));
         OKbutton.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,6 +195,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 OKbuttonActionPerformed(evt);
             }
         });
+        getContentPane().add(OKbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 80, 50));
 
         idField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         idField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
@@ -200,132 +205,47 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 handleSearchID();
             }
         });
-
+        getContentPane().add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
         
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel4.setText("Question");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 136, -1, -1));
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
+        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 136, 100, -1));
 
         txtopt1.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt1.setText("[option 1]");
         txtopt1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 297, 465, 35));
 
         txtquestion.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtquestion.setText("[question]");
         txtquestion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 198, 502, 43));
 
         txtopt2.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt2.setText("[option 2]");
         txtopt2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 358, 465, 35));
 
         txtopt3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt3.setText("[option 3]");
         txtopt3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 411, 465, 43));
 
         txtopt4.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt4.setText("[option 4]");
         txtopt4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txtopt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 472, 465, 43));
        
-        
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(search_id, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtnum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtquestion, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(radio2)
-                                        .addComponent(radio1)
-                                        .addComponent(radio3)
-                                        .addComponent(radio4))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtopt2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtopt3, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search_id))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtnum))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtquestion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtopt1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(radio1)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtopt2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(radio2)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtopt3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radio3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtopt4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radio4))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(OKbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-        
-        
+        getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 472, -1, -1));
+        getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 411, -1, -1));
+        getContentPane().add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 297, -1, -1));
+        getContentPane().add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 358, -1, -1));
+       
+       
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
             @Override
@@ -343,6 +263,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         });
+        getContentPane().add(search_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 83, 37, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -398,7 +319,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
         checkmark.setBounds(checkmarkX, checkmarkY, checkmarkIcon.getIconWidth(), checkmarkIcon.getIconHeight());
 
         // Add the checkmark label to the parent container of the radio button
-        getContentPane().add(checkmark);
+        getContentPane().add(checkmark, new org.netbeans.lib.awtextra.AbsoluteConstraints(radio.getX(), radio.getY(), 17, 17));
         
         //set the checkmark z index to be the top layer
         getContentPane().setComponentZOrder(checkmark, 0);

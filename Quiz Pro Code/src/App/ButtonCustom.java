@@ -1,6 +1,7 @@
 package App;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -98,7 +99,7 @@ public class ButtonCustom extends JButton {
     
     public ButtonCustom() {
         //  Init Color
-
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         setColor(null);
         colorOver = null;
         colorClick = null;

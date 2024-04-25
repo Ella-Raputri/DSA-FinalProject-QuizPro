@@ -53,6 +53,7 @@ public class CloneablePanelQuizResult extends JPanel{
         scoreLabelSquare.setFont(new java.awt.Font("Montserrat SemiBold", 0, 30)); 
         scoreLabelSquare.setRadius(30);
         labelHeight = (usernameLabel.getHeight()/37)*70;
+        scoreLabelSquare.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         setComponentBounds(scoreLabelSquare, 800, 0, 240, labelHeight);
         add(scoreLabelSquare);    
     }

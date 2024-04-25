@@ -30,6 +30,7 @@ public class ExamPage extends javax.swing.JFrame {
     private LinkedList<String> correctAnswersList = new LinkedList<>();
     private LinkedList<String> studentAnswerList = new LinkedList<>();
     
+    
     /**
      * Creates new form ExamPage
      */
@@ -127,10 +128,13 @@ public class ExamPage extends javax.swing.JFrame {
             studentAnswerList.add(null);
         }
         
+        
+        
+        questionLabel = new WrappedLabel(980);
+        questionLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 30));  
+        
         displayQuestion();
-        displayAnswer();
-        
-        
+        displayAnswer(); 
     }
     
     
@@ -164,8 +168,16 @@ public class ExamPage extends javax.swing.JFrame {
             ResultSet rs2 = st.executeQuery("select * from question where quizID='" + quizId + "' and number=" + questionNumber);
             while(rs2.next()){
                 questionNumberLabel.setText("Question " + questionNumber + " of " + quizTotalQuestions);
+                
                 String question = rs2.getString(2);
-                setLabelTextWithLineBreaks(questionLabel, question, 984);
+                questionLabel.setText(question);
+                System.out.println(questionLabel.isVisible());
+                setComponentBounds(questionLabel, 120,180, questionLabel.getPreferredSize().width+30, questionLabel.getPreferredSize().height+30);
+                getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height));
+                getContentPane().setComponentZOrder(questionLabel, 0);
+                revalidate();
+                repaint();
+                
                 option1Label.setText(rs2.getString(4));
                 option2Label.setText(rs2.getString(5));
                 option3Label.setText(rs2.getString(6));
@@ -177,37 +189,6 @@ public class ExamPage extends javax.swing.JFrame {
         }
     }
     
-    private void setLabelTextWithLineBreaks(JLabel label, String text, int maxWidth) {
-        // Split the text into words
-        String[] words = text.split(" ");
-        StringBuilder newText = new StringBuilder();
-        int currentWidth = 0;
-        int lineHeight = label.getFontMetrics(label.getFont()).getHeight(); // Get the height of each line
-
-        // Iterate through words
-        for (String word : words) {
-            // Get the width of the current text with the new word
-            int wordWidth = label.getFontMetrics(label.getFont()).stringWidth(word + " ");
-
-            // If adding the new word exceeds the maximum width, add a line break
-            if (currentWidth + wordWidth > maxWidth) {
-                newText.append("<br>");
-                currentWidth = 0;
-            }
-
-            // Add the word to the text
-            newText.append(word).append(" ");
-            currentWidth += wordWidth;
-        }
-
-        // Set the label text with line breaks
-        label.setText("<html>" + newText.toString() + "</html>");
-
-        // Adjust label bounds based on the wrapped text
-        int labelWidth = Math.max(label.getPreferredSize().width, maxWidth); // Limit the width to maxWidth
-        int labelHeight = ((int) Math.ceil((double) label.getPreferredSize().height / lineHeight) * lineHeight) + 40; // Adjust height to fit lines
-        setComponentBounds(label, 40, 50, labelWidth, labelHeight); // Set new bounds for the label
-    }
     
     private void setComponentBounds(Component component, int x, int y, int width, int height) {
         component.setBounds(x, y, width, height); // Set the position and size of the component
@@ -264,7 +245,6 @@ public class ExamPage extends javax.swing.JFrame {
         quizTitleLabel = new javax.swing.JLabel();
         totalTimeLabel = new javax.swing.JLabel();
         questionNumberLabel = new javax.swing.JLabel();
-        questionLabel = new javax.swing.JLabel();
         option2Label = new javax.swing.JRadioButton();
         option3Label = new javax.swing.JRadioButton();
         option4Label = new javax.swing.JRadioButton();
@@ -319,10 +299,6 @@ public class ExamPage extends javax.swing.JFrame {
         questionNumberLabel.setText("Question 1 of 50");
         getContentPane().add(questionNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
-        questionLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 32)); // NOI18N
-        questionLabel.setText("What is the meaning of this sentence of the answer?");
-        getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 1030, -1));
-
         buttonGroup1.add(option2Label);
         option2Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         option2Label.setText("jRadioButton1");
@@ -332,7 +308,7 @@ public class ExamPage extends javax.swing.JFrame {
                 option2LabelActionPerformed(evt);
             }
         });
-        getContentPane().add(option2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, -1, -1));
+        getContentPane().add(option2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, -1, -1));
 
         buttonGroup1.add(option3Label);
         option3Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
@@ -343,7 +319,7 @@ public class ExamPage extends javax.swing.JFrame {
                 option3LabelActionPerformed(evt);
             }
         });
-        getContentPane().add(option3Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
+        getContentPane().add(option3Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, -1, -1));
 
         buttonGroup1.add(option4Label);
         option4Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
@@ -354,7 +330,7 @@ public class ExamPage extends javax.swing.JFrame {
                 option4LabelActionPerformed(evt);
             }
         });
-        getContentPane().add(option4Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, -1, -1));
+        getContentPane().add(option4Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, -1, -1));
 
         buttonGroup1.add(option1Label);
         option1Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
@@ -365,7 +341,7 @@ public class ExamPage extends javax.swing.JFrame {
                 option1LabelActionPerformed(evt);
             }
         });
-        getContentPane().add(option1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
+        getContentPane().add(option1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, -1));
 
         timeTakenLabel.setFont(new java.awt.Font("Montserrat Medium", 0, 28)); // NOI18N
         timeTakenLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -575,7 +551,8 @@ public class ExamPage extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private App.WrappedLabel questionLabel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private App.ButtonCustom LogoutButton;
     private javax.swing.JLabel asterisks;
@@ -588,7 +565,6 @@ public class ExamPage extends javax.swing.JFrame {
     private javax.swing.JRadioButton option2Label;
     private javax.swing.JRadioButton option3Label;
     private javax.swing.JRadioButton option4Label;
-    private javax.swing.JLabel questionLabel;
     private javax.swing.JLabel questionNumberLabel;
     private javax.swing.JLabel quizTitleLabel;
     private App.ButtonCustom submitButton;

@@ -179,6 +179,7 @@ public class SearchQuestion extends javax.swing.JFrame {
             }
         }); 
         search_icon.setBounds(stringField.getX()+stringField.getWidth()+5, 75, search_icon.getPreferredSize().width, search_icon.getPreferredSize().height);
+        search_icon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         contentPane.add(search_icon);
         
 

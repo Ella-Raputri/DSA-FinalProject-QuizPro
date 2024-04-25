@@ -46,7 +46,7 @@ public class CloneablePanelStudent extends JPanel{
         add(duration);
         
         
-        buttonCustom startButton = new App.buttonCustom();
+        ButtonCustom startButton = new App.ButtonCustom();
         startButton.setForeground(new java.awt.Color(255, 255, 255));
         startButton.setText("Start");
         startButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));

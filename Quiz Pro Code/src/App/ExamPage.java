@@ -260,7 +260,7 @@ public class ExamPage extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        nextButton = new App.buttonCustom();
+        nextButton = new App.ButtonCustom();
         quizTitleLabel = new javax.swing.JLabel();
         totalTimeLabel = new javax.swing.JLabel();
         questionNumberLabel = new javax.swing.JLabel();
@@ -271,9 +271,9 @@ public class ExamPage extends javax.swing.JFrame {
         option1Label = new javax.swing.JRadioButton();
         timeTakenLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        LogoutButton = new App.buttonCustom();
-        backButton = new App.buttonCustom();
-        submitButton = new App.buttonCustom();
+        LogoutButton = new App.ButtonCustom();
+        backButton = new App.ButtonCustom();
+        submitButton = new App.ButtonCustom();
         asterisks = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -577,13 +577,13 @@ public class ExamPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom LogoutButton;
+    private App.ButtonCustom LogoutButton;
     private javax.swing.JLabel asterisks;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private App.buttonCustom nextButton;
+    private App.ButtonCustom nextButton;
     private javax.swing.JRadioButton option1Label;
     private javax.swing.JRadioButton option2Label;
     private javax.swing.JRadioButton option3Label;
@@ -591,7 +591,7 @@ public class ExamPage extends javax.swing.JFrame {
     private javax.swing.JLabel questionLabel;
     private javax.swing.JLabel questionNumberLabel;
     private javax.swing.JLabel quizTitleLabel;
-    private App.buttonCustom submitButton;
+    private App.ButtonCustom submitButton;
     private javax.swing.JLabel timeTakenLabel;
     private javax.swing.JLabel totalTimeLabel;
     // End of variables declaration//GEN-END:variables

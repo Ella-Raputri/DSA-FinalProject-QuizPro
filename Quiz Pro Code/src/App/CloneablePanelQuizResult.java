@@ -37,7 +37,7 @@ public class CloneablePanelQuizResult extends JPanel{
         add(usernameLabel);
         
         
-        buttonCustom scoreLabelSquare = new buttonCustom();
+        ButtonCustom scoreLabelSquare = new ButtonCustom();
         scoreLabelSquare.setBackground(new java.awt.Color(57, 129, 247));
         scoreLabelSquare.setForeground(new java.awt.Color(255, 255, 255));
         scoreLabelSquare.setText(String.valueOf(score));

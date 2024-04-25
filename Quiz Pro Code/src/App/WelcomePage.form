@@ -28,7 +28,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="App.buttonCustom" name="signUpButton">
+    <Component class="App.ButtonCustom" name="signUpButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -75,7 +75,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="logInButton">
+    <Component class="App.ButtonCustom" name="logInButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

@@ -83,9 +83,9 @@ public class QuizDetails extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        startButton = new App.buttonCustom();
-        LogoutButton = new App.buttonCustom();
-        backButton = new App.buttonCustom();
+        startButton = new App.ButtonCustom();
+        LogoutButton = new App.ButtonCustom();
+        backButton = new App.ButtonCustom();
         duration = new javax.swing.JLabel();
         totalQuestions = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
@@ -265,13 +265,13 @@ public class QuizDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom LogoutButton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom LogoutButton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel duration;
     private javax.swing.JLabel duration1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private App.buttonCustom startButton;
+    private App.ButtonCustom startButton;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel totalQuestions;

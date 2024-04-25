@@ -160,7 +160,7 @@ public class AdminHome extends javax.swing.JFrame {
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
         
-        buttonCustom logoutButton = new App.buttonCustom();
+        ButtonCustom logoutButton = new App.ButtonCustom();
         logoutButton.setForeground(new java.awt.Color(255, 255, 255));
         logoutButton.setText("Log out");
         logoutButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));
@@ -183,7 +183,7 @@ public class AdminHome extends javax.swing.JFrame {
         contentPane.add(logoutButton);
         
         
-        buttonCustom addButton = new App.buttonCustom();
+        ButtonCustom addButton = new App.ButtonCustom();
         addButton.setBorder(null);
         addButton.setBorderColor(new Color(224, 237, 255));
         addButton.setBorderColorOver(new Color(224, 237, 255));

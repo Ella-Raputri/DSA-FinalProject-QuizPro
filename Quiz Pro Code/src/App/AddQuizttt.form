@@ -156,7 +156,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="backButton">
+    <Component class="App.ButtonCustom" name="backButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -206,7 +206,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="okButton">
+    <Component class="App.ButtonCustom" name="okButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f7" green="81" red="39" type="rgb"/>

@@ -44,7 +44,7 @@ public class SignUpPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -54,13 +54,13 @@ public class SignUpPage extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         studentRole = new javax.swing.JRadioButton();
         teacherRole = new javax.swing.JRadioButton();
-        submitButton = new App.buttonCustom();
+        submitButton = new App.ButtonCustom();
         jLabel6 = new javax.swing.JLabel();
-        showPassword = new App.buttonCustom();
-        loginButton2 = new App.buttonCustom();
-        hidePassword = new App.buttonCustom();
-        showPassword1 = new App.buttonCustom();
-        hidePassword1 = new App.buttonCustom();
+        showPassword = new App.ButtonCustom();
+        loginButton2 = new App.ButtonCustom();
+        hidePassword = new App.ButtonCustom();
+        showPassword1 = new App.ButtonCustom();
+        hidePassword1 = new App.ButtonCustom();
         passwordConfirm = new javax.swing.JPasswordField();
         password = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
@@ -527,7 +527,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
     private void loginButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButton2ActionPerformed
         setVisible(false);
-        new loginPage().setVisible(true);
+        new LoginPage().setVisible(true);
     }//GEN-LAST:event_loginButton2ActionPerformed
 
     private void hidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePasswordActionPerformed
@@ -832,11 +832,11 @@ public class SignUpPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom backButton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel bg;
     private javax.swing.JTextField email;
-    private App.buttonCustom hidePassword;
-    private App.buttonCustom hidePassword1;
+    private App.ButtonCustom hidePassword;
+    private App.ButtonCustom hidePassword1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -848,13 +848,13 @@ public class SignUpPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private App.buttonCustom loginButton2;
+    private App.ButtonCustom loginButton2;
     private javax.swing.JPasswordField password;
     private javax.swing.JPasswordField passwordConfirm;
-    private App.buttonCustom showPassword;
-    private App.buttonCustom showPassword1;
+    private App.ButtonCustom showPassword;
+    private App.ButtonCustom showPassword1;
     private javax.swing.JRadioButton studentRole;
-    private App.buttonCustom submitButton;
+    private App.ButtonCustom submitButton;
     private javax.swing.JRadioButton teacherRole;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

@@ -11,12 +11,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 /**
  *
@@ -94,8 +100,8 @@ public class AddQuiz extends javax.swing.JFrame {
         
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        backButton = new App.buttonCustom();
-        OKbutton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        OKbutton = new App.ButtonCustom();
         jLabel2 = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -235,19 +241,38 @@ public class AddQuiz extends javax.swing.JFrame {
         titleField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateCharacterCount();
+                updateTitleCharacterCount();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateCharacterCount();
+                updateTitleCharacterCount();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateCharacterCount();
+                updateTitleCharacterCount();
             }
         });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) titleField.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
         
         jLabel8.setIcon(new javax.swing.ImageIcon("src/App/img/warning_icon.png")); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 343, -1, -1));
@@ -255,22 +280,38 @@ public class AddQuiz extends javax.swing.JFrame {
         
         durationField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         getContentPane().add(durationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 335, -1, -1));
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) durationField.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regex = Pattern.compile("\\d*"); // Regular expression to match numbers
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                Matcher matcher = regex.matcher(newText);
+                if (matcher.matches() && newText.length()<10) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+   
+            }
+        });
+        
         durationField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateCheckDigit();
+                updateDurationCharacterCount();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateCheckDigit();
+                updateDurationCharacterCount();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateCheckDigit();
+                updateDurationCharacterCount();
             }
         });
+        
         durationField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 durationFieldFocusLost(evt);
@@ -287,7 +328,7 @@ public class AddQuiz extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    private void updateCharacterCount() {
+    private void updateTitleCharacterCount() {
         String text = titleField.getText();
         int length = text.length();
         jLabel6.setText("(" + length + " / 30)");
@@ -329,20 +370,11 @@ public class AddQuiz extends javax.swing.JFrame {
         }
     }
     
-    private static boolean checkInt(String str){
-        try{
-            Integer.parseInt(str);
-            return true;
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
     
-    private void updateCheckDigit(){
+    private void updateDurationCharacterCount(){
         String text = durationField.getText();
-        boolean check = checkInt(text);
-        if(check){
+        int length = text.length();
+        if(length>0 && length<10){
             jLabel8.setVisible(false);
             durationField.setForeground(Color.black);
             jLabel5.setForeground(Color.black);
@@ -379,12 +411,6 @@ public class AddQuiz extends javax.swing.JFrame {
         }
         else if(durationInput.equals("")){
             JOptionPane.showMessageDialog(getContentPane(), "Your duration field is still empty");
-        }
-        else if(titleInput.length() > 30){
-            JOptionPane.showMessageDialog(getContentPane(), "Your title has exceeded 30 characters.");            
-        }
-        else if(checkInt(durationInput) == false){
-            JOptionPane.showMessageDialog(getContentPane(), "Duration input must be a number");
         }
         else{
             try{
@@ -453,8 +479,8 @@ public class AddQuiz extends javax.swing.JFrame {
         });
     }
     
-    private App.buttonCustom OKbutton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom OKbutton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

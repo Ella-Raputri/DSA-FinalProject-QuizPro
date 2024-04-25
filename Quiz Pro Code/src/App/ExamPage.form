@@ -29,7 +29,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="App.buttonCustom" name="nextButton">
+    <Component class="App.ButtonCustom" name="nextButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f7" green="81" red="39" type="rgb"/>
@@ -254,7 +254,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="LogoutButton">
+    <Component class="App.ButtonCustom" name="LogoutButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f7" green="81" red="39" type="rgb"/>
@@ -313,7 +313,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="backButton">
+    <Component class="App.ButtonCustom" name="backButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f7" green="81" red="39" type="rgb"/>
@@ -372,7 +372,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="submitButton">
+    <Component class="App.ButtonCustom" name="submitButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>

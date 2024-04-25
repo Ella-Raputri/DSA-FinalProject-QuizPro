@@ -44,8 +44,8 @@ public class AddQuizttt extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         titleField = new javax.swing.JTextField();
         titleField1 = new javax.swing.JTextField();
-        backButton = new App.buttonCustom();
-        okButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        okButton = new App.ButtonCustom();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -260,7 +260,7 @@ public class AddQuizttt extends javax.swing.JFrame {
     
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom backButton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -269,7 +269,7 @@ public class AddQuizttt extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private App.buttonCustom okButton;
+    private App.ButtonCustom okButton;
     private javax.swing.JTextField titleField;
     private javax.swing.JTextField titleField1;
     // End of variables declaration//GEN-END:variables

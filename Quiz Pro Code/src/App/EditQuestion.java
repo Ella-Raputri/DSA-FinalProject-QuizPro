@@ -91,8 +91,8 @@ public class EditQuestion extends javax.swing.JFrame {
         opt2Field = new RoundJTextField(15);
         opt1Field = new RoundJTextField(15);
         opt3Field = new RoundJTextField(15);
-        backButton = new App.buttonCustom();
-        OKbutton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        OKbutton = new App.ButtonCustom();
         idField = new RoundJTextField(15);
         search_id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -564,8 +564,8 @@ public class EditQuestion extends javax.swing.JFrame {
         });
     }
     
-    private App.buttonCustom OKbutton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom OKbutton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;

@@ -25,7 +25,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="App.buttonCustom" name="backButton">
+    <Component class="App.ButtonCustom" name="backButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -121,7 +121,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="showPassword">
+    <Component class="App.ButtonCustom" name="showPassword">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="af" green="5c" red="2e" type="rgb"/>
@@ -174,7 +174,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="hidePassword">
+    <Component class="App.ButtonCustom" name="hidePassword">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="af" green="5c" red="2e" type="rgb"/>
@@ -294,7 +294,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="submitButton">
+    <Component class="App.ButtonCustom" name="submitButton">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -357,7 +357,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="App.buttonCustom" name="signupButton">
+    <Component class="App.ButtonCustom" name="signupButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f8" green="f2" red="ed" type="rgb"/>

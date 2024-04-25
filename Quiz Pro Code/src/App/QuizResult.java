@@ -144,8 +144,8 @@ public class QuizResult extends javax.swing.JFrame {
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
         
-        backButton = new App.buttonCustom();
-        LogoutButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        LogoutButton = new App.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
 
         
@@ -280,8 +280,8 @@ public class QuizResult extends javax.swing.JFrame {
     }
     
     
-    private App.buttonCustom LogoutButton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom LogoutButton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel jLabel1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

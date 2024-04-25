@@ -63,7 +63,7 @@ public class SearchQuestion extends javax.swing.JFrame {
         getContentPane().setBackground(Color.white);
         
         jLabel1 = new javax.swing.JLabel();
-        backButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
         stringField = new RoundJTextField(15);
         search_icon = new javax.swing.JLabel();
 
@@ -309,7 +309,7 @@ public class SearchQuestion extends javax.swing.JFrame {
     }
     
     
-    private App.buttonCustom backButton;
+    private App.ButtonCustom backButton;
     private javax.swing.JTextField stringField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel search_icon;

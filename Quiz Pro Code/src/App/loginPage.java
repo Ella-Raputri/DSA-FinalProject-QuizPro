@@ -15,12 +15,12 @@ import javax.swing.event.DocumentListener;
  *
  * @author asus
  */
-public class loginPage extends javax.swing.JFrame {
+public class LoginPage extends javax.swing.JFrame {
 
     /**
      * Creates new form loginPage
      */
-    public loginPage() {
+    public LoginPage() {
         initComponents();
         myinit();
         
@@ -35,19 +35,19 @@ public class loginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
         jLabel2 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        showPassword = new App.buttonCustom();
-        hidePassword = new App.buttonCustom();
+        showPassword = new App.ButtonCustom();
+        hidePassword = new App.ButtonCustom();
         password = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         studentRole = new javax.swing.JRadioButton();
         teacherRole = new javax.swing.JRadioButton();
-        submitButton = new App.buttonCustom();
+        submitButton = new App.ButtonCustom();
         jLabel6 = new javax.swing.JLabel();
-        signupButton = new App.buttonCustom();
+        signupButton = new App.ButtonCustom();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -498,27 +498,28 @@ public class loginPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new loginPage().setVisible(true);
+                new LoginPage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom backButton;
-    private App.buttonCustom hidePassword;
+    private App.ButtonCustom backButton;
+    private App.ButtonCustom hidePassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -528,10 +529,10 @@ public class loginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField password;
-    private App.buttonCustom showPassword;
-    private App.buttonCustom signupButton;
+    private App.ButtonCustom showPassword;
+    private App.ButtonCustom signupButton;
     private javax.swing.JRadioButton studentRole;
-    private App.buttonCustom submitButton;
+    private App.ButtonCustom submitButton;
     private javax.swing.JRadioButton teacherRole;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

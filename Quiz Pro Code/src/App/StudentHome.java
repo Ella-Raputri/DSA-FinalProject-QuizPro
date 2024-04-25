@@ -175,7 +175,7 @@ public class StudentHome extends javax.swing.JFrame {
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
         
-        buttonCustom logoutButton = new App.buttonCustom();
+        ButtonCustom logoutButton = new App.ButtonCustom();
         logoutButton.setForeground(new java.awt.Color(255, 255, 255));
         logoutButton.setText("Log out");
         logoutButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));

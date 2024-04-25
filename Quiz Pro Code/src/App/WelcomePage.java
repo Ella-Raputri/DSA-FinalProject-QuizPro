@@ -28,8 +28,8 @@ public class WelcomePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        signUpButton = new App.buttonCustom();
-        logInButton = new App.buttonCustom();
+        signUpButton = new App.ButtonCustom();
+        logInButton = new App.ButtonCustom();
         bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,7 +92,7 @@ public class WelcomePage extends javax.swing.JFrame {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         setVisible(false);
-        new loginPage().setVisible(true);
+        new LoginPage().setVisible(true);
     }//GEN-LAST:event_logInButtonActionPerformed
 
     /**
@@ -132,7 +132,7 @@ public class WelcomePage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg;
-    private App.buttonCustom logInButton;
-    private App.buttonCustom signUpButton;
+    private App.ButtonCustom logInButton;
+    private App.ButtonCustom signUpButton;
     // End of variables declaration//GEN-END:variables
 }

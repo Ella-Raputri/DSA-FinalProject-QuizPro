@@ -8,7 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
-public class buttonCustom extends JButton {
+public class ButtonCustom extends JButton {
 
     public boolean isOver() {
         return over;
@@ -96,7 +96,7 @@ public class buttonCustom extends JButton {
     }
     
     
-    public buttonCustom() {
+    public ButtonCustom() {
         //  Init Color
 
         setColor(null);

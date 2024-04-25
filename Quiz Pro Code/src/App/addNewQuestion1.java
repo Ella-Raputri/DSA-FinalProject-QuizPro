@@ -43,8 +43,8 @@ public class addNewQuestion1 extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        backButton = new App.buttonCustom();
-        OKbutton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        OKbutton = new App.ButtonCustom();
         search_id = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
@@ -167,8 +167,8 @@ public class addNewQuestion1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom OKbutton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom OKbutton;
+    private App.ButtonCustom backButton;
     private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

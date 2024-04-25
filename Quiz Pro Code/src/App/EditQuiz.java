@@ -180,29 +180,29 @@ public class EditQuiz extends javax.swing.JFrame {
         ImageIcon bgImage = new ImageIcon("src/App/img/background_edit_quiz.png");
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
-        backButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
         changeOrder_icon = new javax.swing.JLabel();
         result_icon = new javax.swing.JLabel();
-        changeOrderButton = new App.buttonCustom();
-        resultButton = new App.buttonCustom();
-        LogoutButton = new App.buttonCustom();
+        changeOrderButton = new App.ButtonCustom();
+        resultButton = new App.ButtonCustom();
+        LogoutButton = new App.ButtonCustom();
         search_icon = new javax.swing.JLabel();
-        searchButton = new App.buttonCustom();
+        searchButton = new App.ButtonCustom();
         edit_icon = new javax.swing.JLabel();
-        editButton = new App.buttonCustom();
+        editButton = new App.ButtonCustom();
         delete_icon = new javax.swing.JLabel();
-        deleteButton = new App.buttonCustom();
+        deleteButton = new App.ButtonCustom();
         add_icon = new javax.swing.JLabel();
-        addButton = new App.buttonCustom();
+        addButton = new App.ButtonCustom();
         jLabel3 = new javax.swing.JLabel();
         titleField = new javax.swing.JTextField();
-        editTitle = new App.buttonCustom();
-        editTitleDone = new App.buttonCustom();
-        editTitleCancel = new App.buttonCustom();
+        editTitle = new App.ButtonCustom();
+        editTitleDone = new App.ButtonCustom();
+        editTitleCancel = new App.ButtonCustom();
         durationField = new javax.swing.JTextField();
-        editDuration = new App.buttonCustom();
-        editDurationDone = new App.buttonCustom();
-        editDurationCancel = new App.buttonCustom();
+        editDuration = new App.ButtonCustom();
+        editDurationDone = new App.ButtonCustom();
+        editDurationCancel = new App.ButtonCustom();
         minuteLabel = new javax.swing.JLabel();
         
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -865,7 +865,7 @@ public class EditQuiz extends javax.swing.JFrame {
         String text = durationField.getText();
         int length = text.length();
         
-        if(length > 30 || length==0){
+        if(length > 10 || length==0){
             durationField.setForeground(Color.red);
             durationField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 9, 2, 9)));
         }
@@ -1079,29 +1079,29 @@ public class EditQuiz extends javax.swing.JFrame {
         });
     }
     
-    private App.buttonCustom LogoutButton;
-    private App.buttonCustom addButton;
+    private App.ButtonCustom LogoutButton;
+    private App.ButtonCustom addButton;
     private javax.swing.JLabel add_icon;
-    private App.buttonCustom backButton;
-    private App.buttonCustom changeOrderButton;
+    private App.ButtonCustom backButton;
+    private App.ButtonCustom changeOrderButton;
     private javax.swing.JLabel changeOrder_icon;
-    private App.buttonCustom deleteButton;
+    private App.ButtonCustom deleteButton;
     private javax.swing.JLabel delete_icon;
-    private App.buttonCustom editButton;
+    private App.ButtonCustom editButton;
     private javax.swing.JLabel edit_icon;
     private javax.swing.JLabel jLabel3;
-    private App.buttonCustom resultButton;
+    private App.ButtonCustom resultButton;
     private javax.swing.JLabel result_icon;
-    private App.buttonCustom searchButton;
+    private App.ButtonCustom searchButton;
     private javax.swing.JLabel search_icon;
     private javax.swing.JTextField titleField;
-    private App.buttonCustom editTitle;
-    private App.buttonCustom editTitleDone;
-    private App.buttonCustom editTitleCancel;
+    private App.ButtonCustom editTitle;
+    private App.ButtonCustom editTitleDone;
+    private App.ButtonCustom editTitleCancel;
     private javax.swing.JTextField durationField;
-    private App.buttonCustom editDuration;
-    private App.buttonCustom editDurationDone;
-    private App.buttonCustom editDurationCancel;
+    private App.ButtonCustom editDuration;
+    private App.ButtonCustom editDurationDone;
+    private App.ButtonCustom editDurationCancel;
     private javax.swing.JLabel minuteLabel;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

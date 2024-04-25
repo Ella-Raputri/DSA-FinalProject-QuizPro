@@ -86,8 +86,8 @@ public class ChangeOrder extends javax.swing.JFrame {
         radio3 = new javax.swing.JRadioButton();
         radio1 = new javax.swing.JRadioButton();
         radio2 = new javax.swing.JRadioButton();
-        backButton = new App.buttonCustom();
-        OKbutton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        OKbutton = new App.ButtonCustom();
         idField = new RoundJTextField(15);
         search_id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -544,8 +544,8 @@ public class ChangeOrder extends javax.swing.JFrame {
     }
 
     
-    private App.buttonCustom OKbutton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom OKbutton;
+    private App.ButtonCustom backButton;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

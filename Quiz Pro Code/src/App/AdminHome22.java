@@ -119,7 +119,7 @@ public class AdminHome22 extends javax.swing.JFrame {
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
         
-        buttonCustom logoutButton = new App.buttonCustom();
+        ButtonCustom logoutButton = new App.ButtonCustom();
         logoutButton.setBorder(null);
         logoutButton.setForeground(new java.awt.Color(255, 255, 255));
         logoutButton.setText("Log out");

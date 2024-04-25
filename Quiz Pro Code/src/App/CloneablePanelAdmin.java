@@ -46,7 +46,7 @@ public class CloneablePanelAdmin extends JPanel{
         setComponentBounds(duration, 40, title.getY()+title.getHeight()+15, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
         add(duration);
         
-        buttonCustom deleteButton = new App.buttonCustom();
+        ButtonCustom deleteButton = new App.ButtonCustom();
         deleteButton.setBorder(null);
         deleteButton.setBorderColor(bgColor);
         deleteButton.setBorderColorOver(bgColor);
@@ -69,7 +69,7 @@ public class CloneablePanelAdmin extends JPanel{
         add(deleteButton);
         
         
-        buttonCustom editButton = new App.buttonCustom();
+        ButtonCustom editButton = new App.ButtonCustom();
         editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit");
         editButton.setBorderColorNotOver(new java.awt.Color(57, 129, 247));

@@ -97,8 +97,8 @@ public class QuizSummary extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new App.buttonCustom();
-        LogoutButton = new App.buttonCustom();
+        backButton = new App.ButtonCustom();
+        LogoutButton = new App.ButtonCustom();
         scoreLabel = new javax.swing.JLabel();
         textLabel = new javax.swing.JLabel();
         greenBar = new javax.swing.JPanel();
@@ -250,8 +250,8 @@ public class QuizSummary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private App.buttonCustom LogoutButton;
-    private App.buttonCustom backButton;
+    private App.ButtonCustom LogoutButton;
+    private App.ButtonCustom backButton;
     private javax.swing.JPanel greenBar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel redBar;

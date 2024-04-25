@@ -426,7 +426,7 @@ public class SignUpPage extends javax.swing.JFrame {
     
     private void updateSelfStatusUsername(){
         String text = username.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel8.setVisible(true);
             username.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             username.setForeground(Color.red);
@@ -440,7 +440,7 @@ public class SignUpPage extends javax.swing.JFrame {
     
     private void updateSelfStatusEmail(){
         String text = email.getText();
-        if(text.equals("") || !(validate(text))){
+        if(text.trim().isEmpty() || !(validate(text))){
             jLabel9.setVisible(true);
             email.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             email.setForeground(Color.red);
@@ -455,7 +455,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void updateSelfStatusPassword(){
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel10.setVisible(true);
             password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             password.setForeground(Color.red);
@@ -486,7 +486,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void updateSelfStatusPasswordConfirm(){
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(textConfirm.equals("")){
+        if(textConfirm.trim().isEmpty()){
             jLabel11.setVisible(true);
             passwordConfirm.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             passwordConfirm.setForeground(Color.red);
@@ -575,19 +575,19 @@ public class SignUpPage extends javax.swing.JFrame {
         }
         
         
-        if(usernameStr.equals("")){
+        if(usernameStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Username is still empty.");
         }
-        else if(emailStr.equals("")){
+        else if(emailStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Email is still empty.");
         }
-        else if(passwordStr.equals("")){
+        else if(passwordStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Password is still empty.");
         }
-        else if(passwordConfirmStr.equals("")){
+        else if(passwordConfirmStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Confirm Password is still empty.");
         }
-        else if(role.equals("")){
+        else if(role.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Please select a role.");
         }
         else{
@@ -685,7 +685,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
     private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
         String text = username.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel8.setVisible(true);
             username.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             username.setForeground(Color.red);
@@ -699,7 +699,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
     private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
         String text = email.getText();
-        if(text.equals("") || !(validate(text))){
+        if(text.trim().isEmpty() || !(validate(text))){
             jLabel9.setVisible(true);
             email.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             email.setForeground(Color.red);
@@ -714,7 +714,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel10.setVisible(true);
             password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             password.setForeground(Color.red);
@@ -745,7 +745,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void passwordConfirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordConfirmFocusLost
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(textConfirm.equals("")){
+        if(textConfirm.trim().isEmpty()){
             jLabel11.setVisible(true);
             passwordConfirm.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             passwordConfirm.setForeground(Color.red);

@@ -349,7 +349,7 @@ public class AddQuiz extends javax.swing.JFrame {
     private void titleFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String title = titleField.getText();
         
-        if(title.equals("")){
+        if(title.trim().isEmpty()){
             jLabel7.setVisible(true);
             titleField.setForeground(Color.red);
             jLabel6.setForeground(Color.red);
@@ -389,7 +389,7 @@ public class AddQuiz extends javax.swing.JFrame {
     private void durationFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String duration = durationField.getText();
         
-        if(duration.equals("")){
+        if(duration.trim().isEmpty()){
             jLabel8.setVisible(true);
             durationField.setForeground(Color.red);
             jLabel5.setForeground(Color.red);
@@ -406,10 +406,10 @@ public class AddQuiz extends javax.swing.JFrame {
         String titleInput = titleField.getText();
         String durationInput = durationField.getText();
         
-        if(titleInput.equals("")){
+        if(titleInput.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Your title is still empty");
         }
-        else if(durationInput.equals("")){
+        else if(durationInput.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Your duration field is still empty");
         }
         else{

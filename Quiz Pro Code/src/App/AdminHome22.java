@@ -12,9 +12,13 @@ import java.io.*;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
@@ -61,91 +65,34 @@ public class AdminHome22 extends javax.swing.JFrame {
 
     
     private void myinit(){
-        setTitle("Cloneable Panel Example");
+        JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true); // Enable text wrapping
+        textArea.setWrapStyleWord(true); // Wrap at word boundaries
 
-        // Create the content pane
-        contentPane = new JPanel() {
+        // Create a rounded border
+        Border roundedBorder = new LineBorder(Color.BLACK, 2, true) {
             @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Load the background image
-                ImageIcon bgImage = new ImageIcon("src/App/img/background_adminhome.png");
-                // Draw the background image
-                g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), null);
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.drawRoundRect(x, y, width - 1, height - 1, 10, 10); // Adjust the rounding radius as needed
+                g2d.dispose();
             }
         };
-        contentPane.setLayout(null); // Use absolute layout
-        setContentPane(contentPane);
-        
-               
-//        int x = 100;
-//        int y = 100;
-//        for(int i=1; i<=10; i++){
-//            CloneablePanel clonedPanel = new CloneablePanel(40, Color.white,2);
-//            // Set bounds for the cloned panel
-//            clonedPanel.setBounds(x*i, y*i, clonedPanel.getPreferredSize().width, clonedPanel.getPreferredSize().height);
-//            // Add the cloned panel to the content pane
-//            contentPane.add(clonedPanel);
-//            // Ensure panel visibility
-//            clonedPanel.setVisible(true);
-//            // Revalidate and repaint to update the layout
-//            contentPane.revalidate();
-//            contentPane.repaint();
-//        }
-            
 
-//        // Create the button
-//        cloneButton = new JButton("Clone Panel");
-//        cloneButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                CloneablePanel clonedPanel = new CloneablePanel();
-//                // Set bounds for the cloned panel
-//                clonedPanel.setBounds(100, 100, clonedPanel.getPreferredSize().width, clonedPanel.getPreferredSize().height);
-//                // Add the cloned panel to the content pane
-//                contentPane.add(clonedPanel);
-//                // Ensure panel visibility
-//                clonedPanel.setVisible(true);
-//                // Revalidate and repaint to update the layout
-//                contentPane.revalidate();
-//                contentPane.repaint();
-//            }
-//        });
-//        
-//        cloneButton.setBounds(10, 10, 120, 30); // Set button bounds
-//        contentPane.add(cloneButton);
-        
-        
-        ImageIcon bgImage = new ImageIcon("src/App/img/background_adminhome.png");
-        contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
-        
-        
-        ButtonCustom logoutButton = new App.ButtonCustom();
-        logoutButton.setBorder(null);
-        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
-        logoutButton.setText("Log out");
-        logoutButton.setBorderColor(new java.awt.Color(57, 129, 247));
-        logoutButton.setColor(new java.awt.Color(57, 129, 247));
-        logoutButton.setColorClick(new java.awt.Color(57, 158, 255));
-        logoutButton.setColorOver(new java.awt.Color(57, 158, 255));
-        logoutButton.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
-        logoutButton.setRadius(30);
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
-            }
-        });
-        logoutButton.setBounds(1120, 20, 130, 50);
-        
-        contentPane.add(logoutButton);
-        contentPane.revalidate();
-        contentPane.repaint();
-        
-        
+        textArea.setBorder(roundedBorder);
+
+        JScrollPane scrollPane = new JScrollPane(textArea); // Add scrollbar
+        getContentPane().add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 149, -1, -1));
+
+        getContentPane().setSize(300, 200);
+        getContentPane().setVisible(true);
         
 
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+        
+        setTitle("Cloneable Panel Example");
+
+        
     }
     
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             

@@ -4,18 +4,13 @@
  */
 package App;
 
-import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import java.awt.*;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
-import java.awt.Point;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
@@ -91,7 +86,6 @@ public class AddQuestion extends javax.swing.JFrame {
         rad3 = new javax.swing.JRadioButton();
         rad4 = new javax.swing.JRadioButton();
         buttonGroup = new javax.swing.ButtonGroup();
-        questionField = new RoundJTextField(15);
         opt2Field = new RoundJTextField(15);
         opt1Field = new RoundJTextField(15);
         opt3Field = new RoundJTextField(15);
@@ -181,7 +175,7 @@ public class AddQuestion extends javax.swing.JFrame {
             txtID.setText("Error:" + e.getMessage());
         }
        
-        System.out.println("hh");
+
        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -221,11 +215,11 @@ public class AddQuestion extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 131, 199, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 111, 199, -1));
 
         txtcounter.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        txtcounter.setText("(0 / 30)");
-        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 133, -1, -1));
+        txtcounter.setText("(0 / 100)");
+        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 113, -1, -1));
         
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 464, 451, 40));
@@ -271,7 +265,7 @@ public class AddQuestion extends javax.swing.JFrame {
         
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 227, 199, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 232, 199, -1));
 
         rad1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,12 +295,24 @@ public class AddQuestion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 473, -1, -1));
-
-        questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        getContentPane().add(questionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 167, 497, 40));
+ 
+        
+        
+        questionField = new JTextArea();
+        questionField.setLineWrap(true); // Enable text wrapping
+        questionField.setWrapStyleWord(true); // Wrap at word boundaries
+        questionField.setFont(new java.awt.Font("Montserrat", 0, 16));
+        
+        Border roundedBorder = new RoundedBorderForTextArea(Color.BLACK, 2, 10, true, 8,8,8,8);
+        questionField.setBorder(roundedBorder);
+        JScrollPane scrollPane = new JScrollPane(questionField); // Add scrollbar
+        scrollPane.setBorder(null);
+        getContentPane().add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 145, 497, 70));
+       
         questionField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 questionFieldFocusLost(evt);
+                
             }
         });
         questionField.getDocument().addDocumentListener(new DocumentListener() {
@@ -530,9 +536,7 @@ public class AddQuestion extends javax.swing.JFrame {
     }
     
     private void questionFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
-        String question = questionField.getText();
-        
-        if(question.equals("")){
+        if(questionField.getText().trim().isEmpty()){
             questionField.setForeground(Color.red);
             txtcounter.setForeground(Color.red);
         }
@@ -545,7 +549,7 @@ public class AddQuestion extends javax.swing.JFrame {
     private void opt4FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt4 = opt4Field.getText();
         
-        if(opt4.equals("")){
+        if(opt4.trim().isEmpty()){
             opt4Field.setForeground(Color.red);
         }
         else{
@@ -556,7 +560,7 @@ public class AddQuestion extends javax.swing.JFrame {
     private void opt3FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt3 = opt3Field.getText();
         
-        if(opt3.equals("")){
+        if(opt3.trim().isEmpty()){
             opt3Field.setForeground(Color.red);
         }
         else{
@@ -567,7 +571,7 @@ public class AddQuestion extends javax.swing.JFrame {
     private void opt2FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt2 = opt2Field.getText();
         
-        if(opt2.equals("")){
+        if(opt2.trim().isEmpty()){
             opt2Field.setForeground(Color.red);
         }
         else{
@@ -578,7 +582,7 @@ public class AddQuestion extends javax.swing.JFrame {
     private void opt1FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt1 = opt1Field.getText();
         
-        if(opt1.equals("")){
+        if(opt1.trim().isEmpty()){
             opt1Field.setForeground(Color.red);
         }
         else{
@@ -687,22 +691,22 @@ public class AddQuestion extends javax.swing.JFrame {
         }
         
         
-        if(questionStr.equals("")){
+        if(questionStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Question is still empty.");
         }
-        else if (opt1Str.equals("")){
+        else if (opt1Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 1 is still empty.");
         }
-        else if (opt2Str.equals("")){
+        else if (opt2Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 2 is still empty.");
         }
-        else if (opt3Str.equals("")){
+        else if (opt3Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 3 is still empty.");
         }
-        else if (opt4Str.equals("")){
+        else if (opt4Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 4 is still empty.");
         }
-        else if (answerStr.equals("")){
+        else if (answerStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
         }
         else{
@@ -777,6 +781,7 @@ public class AddQuestion extends javax.swing.JFrame {
         });
     }
     
+    private JTextArea questionField;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;
     private javax.swing.JLabel jLabel1;
@@ -788,7 +793,6 @@ public class AddQuestion extends javax.swing.JFrame {
     private javax.swing.JTextField opt2Field;
     private javax.swing.JTextField opt3Field;
     private javax.swing.JTextField opt4Field;
-    private javax.swing.JTextField questionField;
     private javax.swing.JRadioButton rad1;
     private javax.swing.JRadioButton rad2;
     private javax.swing.JRadioButton rad3;

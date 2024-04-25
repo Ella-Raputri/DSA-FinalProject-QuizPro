@@ -90,7 +90,6 @@ public class ChangeOrder extends javax.swing.JFrame {
         
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         radio4 = new javax.swing.JRadioButton();
         radio3 = new javax.swing.JRadioButton();
@@ -104,7 +103,6 @@ public class ChangeOrder extends javax.swing.JFrame {
         orderField = new RoundJTextField(15);
         txtnum = new javax.swing.JLabel();
         txtopt1 = new javax.swing.JLabel();
-        txtquestion = new javax.swing.JLabel();
         txtopt2 = new javax.swing.JLabel();
         txtopt3 = new javax.swing.JLabel();
         txtopt4 = new javax.swing.JLabel();
@@ -154,13 +152,10 @@ public class ChangeOrder extends javax.swing.JFrame {
         jLabel3.setText("Input Question ID");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel6.setText("Question");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 199, -1));
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 259, 91, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 265, 91, -1));
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -241,9 +236,9 @@ public class ChangeOrder extends javax.swing.JFrame {
         });
         getContentPane().add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
 
-        getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 472, -1, -1));
-        getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 411, -1, -1));
-        getContentPane().add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 297, -1, -1));
+        getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 474, -1, -1));
+        getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 416, -1, -1));
+        getContentPane().add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 300, -1, -1));
         getContentPane().add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 358, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
@@ -251,7 +246,7 @@ public class ChangeOrder extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 136, -1, -1));
 
         orderField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        getContentPane().add(orderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 520, 110, 40));
+        getContentPane().add(orderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 110, 40));
         orderField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 orderFieldFocusLost(evt);
@@ -295,29 +290,32 @@ public class ChangeOrder extends javax.swing.JFrame {
         txtopt1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(txtopt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 297, 465, 35));
 
-        txtquestion.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        txtquestion = new App.WrappedLabel(480);
+        txtquestion.setFont(new java.awt.Font("Montserrat Medium", 0, 18)); // NOI18N
         txtquestion.setText("[question]");
         txtquestion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 198, 502, 43));
+        getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 480, txtquestion.getPreferredSize().height));
+        txtquestion.revalidate();
+        txtquestion.repaint();
 
         txtopt2.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt2.setText("[option 2]");
         txtopt2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(txtopt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 358, 465, 35));
+        getContentPane().add(txtopt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 355, 465, 35));
 
         txtopt3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt3.setText("[option 3]");
         txtopt3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(txtopt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 411, 465, 43));
+        getContentPane().add(txtopt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 413, 465, 43));
 
         txtopt4.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt4.setText("[option 4]");
         txtopt4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(txtopt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 472, 465, 43));
+        getContentPane().add(txtopt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 471, 465, 43));
 
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel5.setText("Change Order to");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
 
         
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
@@ -348,7 +346,7 @@ public class ChangeOrder extends javax.swing.JFrame {
     private void idFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String id = idField.getText();
         
-        if(id.equals("")){
+        if(id.trim().isEmpty()){
             idField.setForeground(Color.red);
         }
         else{
@@ -359,7 +357,7 @@ public class ChangeOrder extends javax.swing.JFrame {
     private void orderFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String txt = orderField.getText();
         
-        if(txt.equals("")){
+        if(txt.trim().isEmpty()){
             orderField.setForeground(Color.red);
         }
         else{
@@ -393,6 +391,10 @@ public class ChangeOrder extends javax.swing.JFrame {
            txtopt2.setText(current_question.getOption2());
            txtopt3.setText(current_question.getOption3());
            txtopt4.setText(current_question.getOption4());
+           
+           getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 480, txtquestion.getPreferredSize().height));
+           txtquestion.revalidate();
+           txtquestion.repaint();
 
            if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
                 radio1.setSelected(true);
@@ -558,7 +560,7 @@ public class ChangeOrder extends javax.swing.JFrame {
         });
     }
 
-    
+    private App.WrappedLabel txtquestion;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;
     private javax.swing.JTextField idField;
@@ -566,7 +568,6 @@ public class ChangeOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField orderField;
     private javax.swing.JRadioButton radio4;
@@ -579,7 +580,6 @@ public class ChangeOrder extends javax.swing.JFrame {
     private javax.swing.JLabel txtopt2;
     private javax.swing.JLabel txtopt3;
     private javax.swing.JLabel txtopt4;
-    private javax.swing.JLabel txtquestion;
     private javax.swing.ButtonGroup btnGrp;
     private javax.swing.JLabel checkmark;
     private javax.swing.ImageIcon checkmarkIcon;

@@ -290,7 +290,7 @@ public class LoginPage extends javax.swing.JFrame {
     
     private void updateSelfStatusUsername(){
         String text = username.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel9.setVisible(true);
             username.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             username.setForeground(Color.red);
@@ -304,7 +304,7 @@ public class LoginPage extends javax.swing.JFrame {
     
     private void updateSelfStatusPassword(){
         String text = password.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel8.setVisible(true);
             password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             password.setForeground(Color.red);
@@ -357,13 +357,13 @@ public class LoginPage extends javax.swing.JFrame {
             role="Teacher";
         }
 
-        if(usernameStr.equals("")){
+        if(usernameStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Username is still empty.");
         }
-        else if(passwordStr.equals("")){
+        else if(passwordStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Password is still empty.");
         }
-        else if(role.equals("")){
+        else if(role.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Please select a role.");
         }
         else{
@@ -433,7 +433,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
         String text = username.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel9.setVisible(true);
             username.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             username.setForeground(Color.red);
@@ -447,7 +447,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
         String text = password.getText();
-        if(text.equals("")){
+        if(text.trim().isEmpty()){
             jLabel8.setVisible(true);
             password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             password.setForeground(Color.red);

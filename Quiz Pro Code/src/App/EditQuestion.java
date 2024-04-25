@@ -22,8 +22,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
@@ -88,14 +91,12 @@ public class EditQuestion extends javax.swing.JFrame {
         
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         opt4Field = new RoundJTextField(15);
         jLabel7 = new javax.swing.JLabel();
         rad1 = new javax.swing.JRadioButton();
         rad2 = new javax.swing.JRadioButton();
         rad3 = new javax.swing.JRadioButton();
         rad4 = new javax.swing.JRadioButton();
-        questionField = new RoundJTextField(15);
         opt2Field = new RoundJTextField(15);
         opt1Field = new RoundJTextField(15);
         opt3Field = new RoundJTextField(15);
@@ -145,10 +146,6 @@ public class EditQuestion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel3.setText("Input Question ID");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel6.setText("Question");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 184, 90, -1));
 
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 524, 451, 40));
@@ -223,9 +220,19 @@ public class EditQuestion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 532, -1, -1));
-
-        questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        getContentPane().add(questionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 214, 497, 40));
+        
+        
+        questionField = new JTextArea();
+        questionField.setLineWrap(true); // Enable text wrapping
+        questionField.setWrapStyleWord(true); // Wrap at word boundaries
+        questionField.setFont(new java.awt.Font("Montserrat", 0, 16));
+        
+        Border roundedBorder = new RoundedBorderForTextArea(Color.BLACK, 2, 10, true, 8,8,8,8);
+        questionField.setBorder(roundedBorder);
+        JScrollPane scrollPane = new JScrollPane(questionField); // Add scrollbar
+        scrollPane.setBorder(null);
+        getContentPane().add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 184, 497, 70));
+        
         questionField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 questionFieldFocusLost(evt);
@@ -234,17 +241,17 @@ public class EditQuestion extends javax.swing.JFrame {
         questionField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateCharacterCount(questionField);
+                updateQuestionCharacterCount();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateCharacterCount(questionField);
+                updateQuestionCharacterCount();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateCharacterCount(questionField);
+                updateQuestionCharacterCount();
             }
         });
         // Create a DocumentFilter to limit the text length
@@ -477,11 +484,11 @@ public class EditQuestion extends javax.swing.JFrame {
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
-        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 151, 100, -1));
-
+        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 151, txtnum.getPreferredSize().width, -1));
+        
         txtcounter.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
         txtcounter.setText("(0 / 100)");
-        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, 30));
+        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(127+txtnum.getPreferredSize().width+10, 151, -1, 30));
         
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
@@ -519,6 +526,11 @@ public class EditQuestion extends javax.swing.JFrame {
            opt2Field.setText(current_question.getOption2());
            opt3Field.setText(current_question.getOption3());
            opt4Field.setText(current_question.getOption4());
+           
+           getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 151, txtnum.getPreferredSize().width, -1));
+           getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(127+txtnum.getPreferredSize().width+10, 151, -1, 30));
+           revalidate();
+           repaint();
 
            if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
                 rad1.setSelected(true);
@@ -546,7 +558,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void idFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String id = idField.getText();
         
-        if(id.equals("")){
+        if(id.trim().isEmpty()){
             idField.setForeground(Color.red);
         }
         else{
@@ -557,7 +569,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void questionFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String question = questionField.getText();
         
-        if(question.equals("")){
+        if(question.trim().isEmpty()){
             questionField.setForeground(Color.red);
             txtcounter.setForeground(Color.red);
         }
@@ -570,7 +582,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void opt4FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt4 = opt4Field.getText();
         
-        if(opt4.equals("")){
+        if(opt4.trim().isEmpty()){
             opt4Field.setForeground(Color.red);
         }
         else{
@@ -581,7 +593,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void opt3FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt3 = opt3Field.getText();
         
-        if(opt3.equals("")){
+        if(opt3.trim().isEmpty()){
             opt3Field.setForeground(Color.red);
         }
         else{
@@ -592,7 +604,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void opt2FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt2 = opt2Field.getText();
         
-        if(opt2.equals("")){
+        if(opt2.trim().isEmpty()){
             opt2Field.setForeground(Color.red);
         }
         else{
@@ -603,7 +615,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private void opt1FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt1 = opt1Field.getText();
         
-        if(opt1.equals("")){
+        if(opt1.trim().isEmpty()){
             opt1Field.setForeground(Color.red);
         }
         else{
@@ -616,28 +628,27 @@ public class EditQuestion extends javax.swing.JFrame {
         String text = field.getText();
         int length = text.length();
         
-        if(field.equals(questionField)){
-            txtcounter.setText("(" + length + " / 100)");
-            
-            if(length==0){
-                questionField.setForeground(Color.red);
-                txtcounter.setForeground(Color.red);
-            }
-            else{
-                questionField.setForeground(Color.black);
-                txtcounter.setForeground(Color.black);
-            }
+        if(length>30 || length==0){
+            field.setForeground(Color.red);
         }
-        
         else{
-            if(length>30 || length==0){
-                field.setForeground(Color.red);
-            }
-            else{
-                field.setForeground(Color.black);
-            }
+            field.setForeground(Color.black);
         }
-        
+    }
+    
+    private void updateQuestionCharacterCount() {
+        String text = questionField.getText();
+        int length = text.length();
+
+        txtcounter.setText("(" + length + " / 100)");  
+        if(length==0){
+            questionField.setForeground(Color.red);
+            txtcounter.setForeground(Color.red);
+        }
+        else{
+            questionField.setForeground(Color.black);
+            txtcounter.setForeground(Color.black);
+        }
         
     }
     
@@ -714,22 +725,22 @@ public class EditQuestion extends javax.swing.JFrame {
         }
         
         
-        if(questionStr.equals("")){
+        if(questionStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Question is still empty.");
         }
-        else if (opt1Str.equals("")){
+        else if (opt1Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 1 is still empty.");
         }
-        else if (opt2Str.equals("")){
+        else if (opt2Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 2 is still empty.");
         }
-        else if (opt3Str.equals("")){
+        else if (opt3Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 3 is still empty.");
         }
-        else if (opt4Str.equals("")){
+        else if (opt4Str.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Option 4 is still empty.");
         }
-        else if (answerStr.equals("")){
+        else if (answerStr.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(),"Please choose the correct answer.");
         }
         else{
@@ -808,6 +819,7 @@ public class EditQuestion extends javax.swing.JFrame {
         });
     }
     
+    private JTextArea questionField;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;
     private javax.swing.JLabel jLabel1;
@@ -818,7 +830,6 @@ public class EditQuestion extends javax.swing.JFrame {
     private javax.swing.JTextField opt2Field;
     private javax.swing.JTextField opt3Field;
     private javax.swing.JTextField opt4Field;
-    private javax.swing.JTextField questionField;
     private javax.swing.JRadioButton rad1;
     private javax.swing.JRadioButton rad2;
     private javax.swing.JRadioButton rad3;

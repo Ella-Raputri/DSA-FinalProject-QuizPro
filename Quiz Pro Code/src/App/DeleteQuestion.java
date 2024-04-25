@@ -6,6 +6,7 @@ package App;
 
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -263,6 +264,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         });
+        search_id.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         getContentPane().add(search_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 83, 37, -1));
 
         pack();

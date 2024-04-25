@@ -15,6 +15,13 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 /**
  *
@@ -216,12 +223,51 @@ public class AddQuestion extends javax.swing.JFrame {
         jLabel6.setText("Question");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 131, 199, -1));
 
-        txtcounter.setFont(new java.awt.Font("Montserrat Medium", 0, 14)); // NOI18N
+        txtcounter.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         txtcounter.setText("(0 / 30)");
-        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 135, -1, -1));
+        getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 133, -1, -1));
         
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 464, 451, 40));
+        opt4Field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                opt4FieldFocusLost(evt);
+            }
+        });
+        opt4Field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt4Field);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt4Field);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt4Field);
+            }
+        });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) opt4Field.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
         
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
@@ -258,15 +304,175 @@ public class AddQuestion extends javax.swing.JFrame {
 
         questionField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(questionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 167, 497, 40));
+        questionField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                questionFieldFocusLost(evt);
+            }
+        });
+        questionField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateQuestionCharacterCount();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateQuestionCharacterCount();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateQuestionCharacterCount();
+            }
+        });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) questionField.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 100; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
         
         opt2Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 334, 451, 40));
+        opt2Field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                opt2FieldFocusLost(evt);
+            }
+        });
+        opt2Field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt2Field);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt2Field);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt2Field);
+            }
+        });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) opt2Field.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
 
         opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 268, 450, 40));
+        opt1Field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                opt1FieldFocusLost(evt);
+            }
+        });
+        opt1Field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt1Field);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt1Field);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt1Field);
+            }
+        });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) opt1Field.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
 
         opt3Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 403, 451, 40));
+        opt3Field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                opt3FieldFocusLost(evt);
+            }
+        });
+        opt3Field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt3Field);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt3Field);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt3Field);
+            }
+        });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) opt3Field.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -323,6 +529,92 @@ public class AddQuestion extends javax.swing.JFrame {
         
     }
     
+    private void questionFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String question = questionField.getText();
+        
+        if(question.equals("")){
+            questionField.setForeground(Color.red);
+            txtcounter.setForeground(Color.red);
+        }
+        else{
+            questionField.setForeground(Color.black);
+            txtcounter.setForeground(Color.black);
+        }
+    }
+    
+    private void opt4FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String opt4 = opt4Field.getText();
+        
+        if(opt4.equals("")){
+            opt4Field.setForeground(Color.red);
+        }
+        else{
+            opt4Field.setForeground(Color.black);
+        }
+    }
+    
+    private void opt3FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String opt3 = opt3Field.getText();
+        
+        if(opt3.equals("")){
+            opt3Field.setForeground(Color.red);
+        }
+        else{
+            opt3Field.setForeground(Color.black);
+        }
+    }
+    
+    private void opt2FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String opt2 = opt2Field.getText();
+        
+        if(opt2.equals("")){
+            opt2Field.setForeground(Color.red);
+        }
+        else{
+            opt2Field.setForeground(Color.black);
+        }
+    }
+    
+    private void opt1FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String opt1 = opt1Field.getText();
+        
+        if(opt1.equals("")){
+            opt1Field.setForeground(Color.red);
+        }
+        else{
+            opt1Field.setForeground(Color.black);
+        }
+    }
+    
+    private void updateQuestionCharacterCount() {
+        String text = questionField.getText();
+        int length = text.length();
+        txtcounter.setText("(" + length + " / 100)");
+        
+        if(length > 100 || length==0){
+            questionField.setForeground(Color.red);
+            txtcounter.setForeground(Color.red);
+        }
+        else{
+            questionField.setForeground(Color.black);
+            txtcounter.setForeground(Color.black);
+        }
+    }
+    
+    
+    private void updateOptionCharacterCount(JTextField field){
+        String text = field.getText();
+        int length = text.length();
+        
+        if(length>30 || length==0){
+            field.setForeground(Color.red);
+        }
+        else{
+            field.setForeground(Color.black);
+        }
+    }
+    
+    
     private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
         //set the previous checkmark (if any) to false first
         checkmark.setVisible(false);
@@ -336,7 +628,7 @@ public class AddQuestion extends javax.swing.JFrame {
         checkmark.setBounds(checkmarkX, checkmarkY, checkmarkIcon.getIconWidth(), checkmarkIcon.getIconHeight());
 
         // Add the checkmark label to the parent container of the radio button
-        getContentPane().add(checkmark);
+        getContentPane().add(checkmark, new org.netbeans.lib.awtextra.AbsoluteConstraints(radio.getX(), radio.getY(), 17, 17));
         
         //set the checkmark z index to be the top layer
         getContentPane().setComponentZOrder(checkmark, 0);

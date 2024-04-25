@@ -171,9 +171,9 @@ public class ExamPage extends javax.swing.JFrame {
                 
                 String question = rs2.getString(2);
                 questionLabel.setText(question);
-                System.out.println(questionLabel.isVisible());
-                setComponentBounds(questionLabel, 120,180, questionLabel.getPreferredSize().width+30, questionLabel.getPreferredSize().height+30);
-                getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height));
+                
+                int questionHeight = (111 - questionLabel.getPreferredSize().height)/2;
+                getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180+questionHeight, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height));
                 getContentPane().setComponentZOrder(questionLabel, 0);
                 revalidate();
                 repaint();
@@ -188,12 +188,6 @@ public class ExamPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
     }
-    
-    
-    private void setComponentBounds(Component component, int x, int y, int width, int height) {
-        component.setBounds(x, y, width, height); // Set the position and size of the component
-    }
-    
     
     private int checkAnswer(){
         int marks=0;

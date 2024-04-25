@@ -55,7 +55,11 @@ public class QuizSummary extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
-        setTextLabel();
+        textLabel = new WrappedLabel(900);
+        textLabel.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
+        
+        int textHeight = setTextLabel();
+        System.out.println("textheigth:" +textHeight);
         scoreLabel.setText("Your Score: " + score + "/" + totalQuestions);
         
         double score2 = (double)score;
@@ -64,12 +68,29 @@ public class QuizSummary extends javax.swing.JFrame {
         int greenWidth = newData.intValue();
         System.out.print(greenWidth);
         greenBar.setPreferredSize(new Dimension(greenWidth, greenBar.getHeight()));
+        
+        int barHeight = 330;
+        if(textHeight > 44){
+            int lines = textHeight/44;
+            barHeight = 300 + (lines-1)*44;
+        }
+        getContentPane().add(greenBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, barHeight, -1, 50));
+        getContentPane().add(redBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, barHeight, -1, 50));
+        getContentPane().setComponentZOrder(redBar, 1);
+        getContentPane().setComponentZOrder(greenBar, 0);
         greenBar.revalidate();
         greenBar.repaint();
+        redBar.revalidate();
+        redBar.repaint();
+        
+        getContentPane().add(scoreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, barHeight+80, -1, -1));
+        getContentPane().setComponentZOrder(scoreLabel,0);
+        scoreLabel.revalidate();
+        scoreLabel.repaint();
     }
     
     
-    private void setTextLabel(){
+    private int setTextLabel(){
         double score2 = (double)score;
         double finalScore = (score2/totalQuestions) * 100;
         Random rand = new Random();
@@ -86,6 +107,15 @@ public class QuizSummary extends javax.swing.JFrame {
             text = averageMarks[index];
         }
         textLabel.setText(text + username + "!");
+        
+        if(textLabel.getPreferredSize().height > 44){
+            getContentPane().add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 225, -1, -1));
+        }
+        else{
+            getContentPane().add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
+        }
+        getContentPane().setComponentZOrder(textLabel, 0);
+        return textLabel.getPreferredSize().height;
     }
 
     /**
@@ -100,7 +130,6 @@ public class QuizSummary extends javax.swing.JFrame {
         backButton = new App.ButtonCustom();
         LogoutButton = new App.ButtonCustom();
         scoreLabel = new javax.swing.JLabel();
-        textLabel = new javax.swing.JLabel();
         greenBar = new javax.swing.JPanel();
         redBar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -159,10 +188,6 @@ public class QuizSummary extends javax.swing.JFrame {
         scoreLabel.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
         scoreLabel.setText("Your Score: 50/50");
         getContentPane().add(scoreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
-
-        textLabel.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
-        textLabel.setText("Good job/better luck next time, name!");
-        getContentPane().add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
 
         greenBar.setBackground(new java.awt.Color(108, 207, 160));
 
@@ -248,7 +273,8 @@ public class QuizSummary extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private App.WrappedLabel textLabel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private App.ButtonCustom LogoutButton;
     private App.ButtonCustom backButton;
@@ -256,6 +282,5 @@ public class QuizSummary extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel redBar;
     private javax.swing.JLabel scoreLabel;
-    private javax.swing.JLabel textLabel;
     // End of variables declaration//GEN-END:variables
 }

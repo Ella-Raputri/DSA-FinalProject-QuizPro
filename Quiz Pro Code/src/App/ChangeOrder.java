@@ -6,6 +6,7 @@ package App;
 
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,8 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -22,7 +25,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 /**
  *
@@ -208,6 +218,27 @@ public class ChangeOrder extends javax.swing.JFrame {
                 handleSearchID();
             }
         });
+        idField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                idFieldFocusLost(evt);
+            }
+        });
+        idField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCharacterCount(idField);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCharacterCount(idField);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCharacterCount(idField);
+            }
+        });
         getContentPane().add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
 
         getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 472, -1, -1));
@@ -221,6 +252,39 @@ public class ChangeOrder extends javax.swing.JFrame {
 
         orderField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(orderField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 520, 110, 40));
+        orderField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                orderFieldFocusLost(evt);
+            }
+        });
+        orderField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCharacterCount(orderField);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCharacterCount(orderField);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCharacterCount(orderField);
+            }
+        });
+        ((AbstractDocument) orderField.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regex = Pattern.compile("\\d*"); // Regular expression to match numbers
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                Matcher matcher = regex.matcher(newText);
+                if (matcher.matches()) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+   
+            }
+        });
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
@@ -273,11 +337,48 @@ public class ChangeOrder extends javax.swing.JFrame {
                 search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
             }
         });
+        search_id.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         getContentPane().add(search_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 83, 37, -1));
 
         pack();
         setLocationRelativeTo(null);
     }
+    
+    
+    private void idFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String id = idField.getText();
+        
+        if(id.equals("")){
+            idField.setForeground(Color.red);
+        }
+        else{
+            idField.setForeground(Color.black);
+        }
+    }
+    
+    private void orderFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
+        String txt = orderField.getText();
+        
+        if(txt.equals("")){
+            orderField.setForeground(Color.red);
+        }
+        else{
+            orderField.setForeground(Color.black);
+        }
+    }
+    
+    private void updateCharacterCount(JTextField field){
+        String text = field.getText();
+        int length = text.length();
+        
+        if(length==0){
+            field.setForeground(Color.red);
+        }
+        else{
+            field.setForeground(Color.black);
+        }
+    }
+    
     
     
     private void handleSearchID(){

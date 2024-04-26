@@ -131,18 +131,22 @@ public class AddQuestion extends javax.swing.JFrame {
             txtnum.setText("Error:" + e.getMessage());
         }
         
+        //get the z is in what index position
+        int quiz_id_num = quizid.length() + 2;
         
         try{
             Connection con = ConnectionProvider.getCon();
-            String query = "SELECT max(id) AS maxid FROM questionID WHERE quizID = ?";
+            String query = "SELECT * FROM questionID WHERE quizID = ? ORDER BY CAST(SUBSTRING(id, ?) AS SIGNED) DESC LIMIT 1";
              
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, quizid);
+            pst.setInt(2, quiz_id_num);
             
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     // Get the count from the result set
-                    String maximum = rs.getString("maxid");
+                    String maximum = rs.getString(1);
+                    System.out.println(maximum);
                     if(maximum != null){
                         char[] arr = maximum.toCharArray();
                         String temp = "";                    
@@ -174,7 +178,8 @@ public class AddQuestion extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            txtID.setText("Error:" + e.getMessage());
+            System.out.println("Error:" + e.getMessage());
+            txtID.setText("Error");
         }
        
 

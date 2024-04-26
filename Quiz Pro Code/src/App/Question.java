@@ -28,15 +28,19 @@ public class Question {
     }
     
     private void setAdderID(){
+        int quiz_id_num = this.quizID.length() + 2;
        try{
             Connection con = ConnectionProvider.getCon();
-            String query = "SELECT max(id) AS maxid FROM questionID WHERE quizID = ?";
+            String query = "SELECT * FROM questionID WHERE quizID = ? ORDER BY CAST(SUBSTRING(id, ?) AS SIGNED) DESC LIMIT 1";
+             
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, this.quizID);
+            pst.setInt(2, quiz_id_num);
             
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    String maximum = rs.getString("maxid");
+                    String maximum = rs.getString(1);
+                    System.out.println("maccc" + maximum);
                     
                     if(maximum != null){
                         char[] arr = maximum.toCharArray();

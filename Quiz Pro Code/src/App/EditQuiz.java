@@ -46,6 +46,7 @@ public class EditQuiz extends javax.swing.JFrame {
     }
     
     private void updateLinkedList(LinkedlistBenchmark list){
+        quizlist.quiz.clearNodes();
         try{
             Connection con = ConnectionProvider.getCon();
             String query = "SELECT * FROM question WHERE quizID = ? ORDER BY number ASC";

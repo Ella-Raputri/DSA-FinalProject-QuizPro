@@ -42,6 +42,7 @@ public class ChangeOrder extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
     private String quizid;
     private static Question current_question;
+    public EditQuiz editquiz;
     /**
      * Creates new form ChangeOrder
      */
@@ -50,9 +51,10 @@ public class ChangeOrder extends javax.swing.JFrame {
         myinit();
     }
     
-    public ChangeOrder(LinkedlistBenchmark list, String quizid) {
+    public ChangeOrder(LinkedlistBenchmark list, String quizid, EditQuiz editquiz) {
         this.quizList = list;
         this.quizid = quizid;
+        this.editquiz = editquiz;
         initComponents();
         myinit();
     }
@@ -512,6 +514,7 @@ public class ChangeOrder extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(getContentPane(), "The order has been successfully changed.");
                 setVisible(false);
                 EditQuiz.open = 0;
+                editquiz.reloadSelf();
 
             } catch (SQLException e) {
                 e.printStackTrace();

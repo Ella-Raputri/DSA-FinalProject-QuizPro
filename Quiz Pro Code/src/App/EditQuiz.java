@@ -951,12 +951,12 @@ public class EditQuiz extends javax.swing.JFrame {
    
         
     
-    
+    EditQuiz editquiz = (EditQuiz) SwingUtilities.getRoot(this);
     
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if(open==0){
-            new AddQuestion(quizlist, quizID).setVisible(true);
+            new AddQuestion(quizlist, quizID, editquiz).setVisible(true);
             open=1;
         }
         else{
@@ -974,7 +974,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         if(open==0){
-            new ChangeOrder(quizlist, quizID).setVisible(true);
+            new ChangeOrder(quizlist, quizID, editquiz).setVisible(true);
             open=1;
         }
         else{
@@ -986,7 +986,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         if(open==0){
-            new DeleteQuestion(quizlist, quizID).setVisible(true);
+            new DeleteQuestion(quizlist, quizID, editquiz).setVisible(true);
             open=1;
         }
         else{
@@ -1016,7 +1016,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if(open==0){
-            new EditQuestion(quizlist, quizID).setVisible(true);
+            new EditQuestion(quizlist, quizID, editquiz).setVisible(true);
             open=1;
         }
         else{
@@ -1033,6 +1033,12 @@ public class EditQuiz extends javax.swing.JFrame {
             setVisible(false);
             new WelcomePage().setVisible(true);
         }
+    }
+    
+    
+    public void reloadSelf(){
+        setVisible(false);
+        new EditQuiz(quizID).setVisible(true);
     }
     
     

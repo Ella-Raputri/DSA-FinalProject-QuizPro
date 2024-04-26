@@ -42,6 +42,7 @@ public class EditQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
     private String quizid;
     private static Question current_question;
+    public EditQuiz editquiz;
     /**
      * Creates new form AddQuest
      */
@@ -50,9 +51,10 @@ public class EditQuestion extends javax.swing.JFrame {
         myinit();
     }
     
-    public EditQuestion(LinkedlistBenchmark quizList, String quizid) {
+    public EditQuestion(LinkedlistBenchmark quizList, String quizid, EditQuiz editquiz) {
         this.quizList = quizList;
         this.quizid = quizid;
+        this.editquiz = editquiz;
         initComponents();
         myinit();
     }
@@ -773,7 +775,7 @@ public class EditQuestion extends javax.swing.JFrame {
                 current_question = null;
                 setVisible(false);
                 EditQuiz.open = 0;
-                
+                editquiz.reloadSelf();
 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(getContentPane(), e);

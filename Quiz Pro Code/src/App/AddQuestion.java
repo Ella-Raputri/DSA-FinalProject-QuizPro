@@ -25,6 +25,7 @@ import javax.swing.text.DocumentFilter;
 public class AddQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizList;
     private String quizid; 
+    public EditQuiz editquiz;
     
     /**
      * Creates new form AddQuest
@@ -34,9 +35,10 @@ public class AddQuestion extends javax.swing.JFrame {
         myinit();
     }
     
-    public AddQuestion(LinkedlistBenchmark quizList, String quizid) {
+    public AddQuestion(LinkedlistBenchmark quizList, String quizid, EditQuiz editquiz) {
         this.quizList = quizList;
         this.quizid = quizid;
+        this.editquiz = editquiz;
         initComponents();
         myinit();
     }
@@ -735,6 +737,9 @@ public class AddQuestion extends javax.swing.JFrame {
                 
                 setVisible(false);
                 EditQuiz.open = 0;
+                
+                editquiz.reloadSelf();
+                
 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(getContentPane(), e);

@@ -6,6 +6,7 @@ package App;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -346,8 +347,10 @@ public class SignUpPage extends javax.swing.JFrame {
         setTitle("Sign Up Page");
         hidePassword.setVisible(false);
         hidePassword1.setVisible(false);
-        password.setEchoChar('*');
-        passwordConfirm.setEchoChar('*');
+        password.setFont(new java.awt.Font("Montserrat", 1, 22));
+        password.setEchoChar((char)8226);
+        passwordConfirm.setFont(new java.awt.Font("Montserrat", 1, 22));
+        passwordConfirm.setEchoChar((char)8226);
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);
         jLabel9.setVisible(false);
@@ -518,6 +521,7 @@ public class SignUpPage extends javax.swing.JFrame {
         showPassword.setVisible(false);
         hidePassword.setVisible(true);
         password.setEchoChar((char)0);
+        password.setFont(new java.awt.Font("Montserrat", Font.PLAIN, 18));
     }//GEN-LAST:event_showPasswordActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -533,19 +537,22 @@ public class SignUpPage extends javax.swing.JFrame {
     private void hidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePasswordActionPerformed
         showPassword.setVisible(true);
         hidePassword.setVisible(false);
-        password.setEchoChar('*');
+        password.setEchoChar((char)8226);
+        password.setFont(new java.awt.Font("Montserrat", 1, 22));
     }//GEN-LAST:event_hidePasswordActionPerformed
 
     private void showPassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassword1ActionPerformed
         showPassword1.setVisible(false);
         hidePassword1.setVisible(true);
         passwordConfirm.setEchoChar((char)0);
+        passwordConfirm.setFont(new java.awt.Font("Montserrat", Font.PLAIN, 18));
     }//GEN-LAST:event_showPassword1ActionPerformed
 
     private void hidePassword1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePassword1ActionPerformed
         showPassword1.setVisible(true);
         hidePassword1.setVisible(false);
-        passwordConfirm.setEchoChar('*');
+        passwordConfirm.setEchoChar((char)8226);
+        passwordConfirm.setFont(new java.awt.Font("Montserrat", 1, 22));
     }//GEN-LAST:event_hidePassword1ActionPerformed
 
     private void studentRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRoleActionPerformed

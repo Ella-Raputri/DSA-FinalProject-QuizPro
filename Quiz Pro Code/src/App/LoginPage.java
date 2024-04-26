@@ -7,6 +7,7 @@ package App;
 import javax.swing.JOptionPane;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -248,7 +249,8 @@ public class LoginPage extends javax.swing.JFrame {
         setTitle("Login Page");
         setResizable(false);
         hidePassword.setVisible(false);
-        password.setEchoChar('*');
+        password.setEchoChar((char)8226);
+        password.setFont(new java.awt.Font("Montserrat", 1, 22));
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);
         jLabel9.setVisible(false);
@@ -325,12 +327,14 @@ public class LoginPage extends javax.swing.JFrame {
         showPassword.setVisible(false);
         hidePassword.setVisible(true);
         password.setEchoChar((char)0);
+        password.setFont(new java.awt.Font("Montserrat", Font.PLAIN, 18));
     }//GEN-LAST:event_showPasswordActionPerformed
 
     private void hidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hidePasswordActionPerformed
         showPassword.setVisible(true);
         hidePassword.setVisible(false);
-        password.setEchoChar('*');
+        password.setEchoChar((char)8226);
+        password.setFont(new java.awt.Font("Montserrat", 1, 22));
     }//GEN-LAST:event_hidePasswordActionPerformed
 
     private void studentRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRoleActionPerformed

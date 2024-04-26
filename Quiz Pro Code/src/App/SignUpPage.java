@@ -35,6 +35,14 @@ public class SignUpPage extends javax.swing.JFrame {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.matches();
     }
+    
+    public static final Pattern VALID_PASSWORD_REGEX = 
+    Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", Pattern.CASE_INSENSITIVE);
+    
+    public static boolean validatePassword(String passwordStr) {
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(passwordStr);
+        return matcher.matches();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -458,7 +466,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void updateSelfStatusPassword(){
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(text.trim().isEmpty()){
+        if(text.trim().isEmpty() || !(validatePassword(text))){
             jLabel10.setVisible(true);
             password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             password.setForeground(Color.red);
@@ -489,7 +497,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void updateSelfStatusPasswordConfirm(){
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(textConfirm.trim().isEmpty()){
+        if(textConfirm.trim().isEmpty() || !(validatePassword(textConfirm))){
             jLabel11.setVisible(true);
             passwordConfirm.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             passwordConfirm.setForeground(Color.red);
@@ -605,9 +613,14 @@ public class SignUpPage extends javax.swing.JFrame {
            if(!(passwordStr.equals(passwordConfirmStr))){
                JOptionPane.showMessageDialog(getContentPane(), "Password and Confirm Password is not the same.");
            }
+           else{
+               if(!(validatePassword(passwordStr))){
+                    JOptionPane.showMessageDialog(getContentPane(), "Password must have 8 characters with at least one number and one character");
+               }
+           }
            
            
-           if(role.equals("Student") && passwordStr.equals(passwordConfirmStr) && validate(emailStr)){
+           if(role.equals("Student") && passwordStr.equals(passwordConfirmStr) && validate(emailStr) && validatePassword(passwordStr)){
                try{
                     Connection con = ConnectionProvider.getCon();
                     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -655,7 +668,7 @@ public class SignUpPage extends javax.swing.JFrame {
                 }
            }
            
-           if(role.equals("Teacher") && passwordStr.equals(passwordConfirmStr) && validate(emailStr)){
+           if(role.equals("Teacher") && passwordStr.equals(passwordConfirmStr) && validate(emailStr) && validatePassword(passwordStr)){
                try{
                     Connection con = ConnectionProvider.getCon();
                     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -721,7 +734,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(text.trim().isEmpty()){
+        if(text.trim().isEmpty() || !(validatePassword(text))){
             jLabel10.setVisible(true);
             password.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             password.setForeground(Color.red);
@@ -752,7 +765,7 @@ public class SignUpPage extends javax.swing.JFrame {
     private void passwordConfirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordConfirmFocusLost
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
-        if(textConfirm.trim().isEmpty()){
+        if(textConfirm.trim().isEmpty() || !(validatePassword(textConfirm))){
             jLabel11.setVisible(true);
             passwordConfirm.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(Color.red), javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1)));
             passwordConfirm.setForeground(Color.red);

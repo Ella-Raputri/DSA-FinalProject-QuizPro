@@ -99,8 +99,7 @@ public class EditQuiz extends javax.swing.JFrame {
         while(current!=null){
             totalElement++;
             current = current.next;
-        }
-        
+        }    
 
         // Create the content pane
         contentPane = new JPanel() {
@@ -115,6 +114,27 @@ public class EditQuiz extends javax.swing.JFrame {
         };
         contentPane.setLayout(null); // Use absolute layout
         setContentPane(contentPane);
+        
+        JLabel noQuestion = new JLabel();
+        JLabel clickToAdd = new JLabel();
+        JLabel plane_icon = new JLabel();
+        if(totalElement ==0){
+            plane_icon.setIcon(new javax.swing.ImageIcon("src/App/img/paperplane1.png"));
+            plane_icon.setBounds(130,300,plane_icon.getPreferredSize().width+30,plane_icon.getPreferredSize().height);
+            contentPane.add(plane_icon);
+            
+            noQuestion.setText("No question is available.");
+            noQuestion.setFont(new java.awt.Font("Montserrat", 0, 20)); 
+            noQuestion.setForeground(Color.black);
+            noQuestion.setBounds(530,430, noQuestion.getPreferredSize().width+30,noQuestion.getPreferredSize().height);
+            contentPane.add(noQuestion);
+            
+            clickToAdd.setText("Click to add questions");
+            clickToAdd.setFont(new java.awt.Font("Montserrat", 0, 20)); 
+            clickToAdd.setForeground(Color.gray);
+            clickToAdd.setBounds(530,460, clickToAdd.getPreferredSize().width+30,clickToAdd.getPreferredSize().height);
+            contentPane.add(clickToAdd);
+        }
 
         // Create the scroll pane
         scrollPane = new JScrollPane();

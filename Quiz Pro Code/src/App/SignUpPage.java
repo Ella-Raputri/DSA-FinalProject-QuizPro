@@ -7,6 +7,8 @@ import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -381,6 +383,12 @@ public class SignUpPage extends javax.swing.JFrame {
                 updateSelfStatusUsername();
             }
         });
+        username.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                email.requestFocusInWindow();
+            }
+        });
         
         email.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -398,6 +406,12 @@ public class SignUpPage extends javax.swing.JFrame {
                 updateSelfStatusEmail();
             }
         });
+        email.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                password.requestFocusInWindow();
+            }
+        });
         
         password.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -413,6 +427,12 @@ public class SignUpPage extends javax.swing.JFrame {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 updateSelfStatusPassword();
+            }
+        });
+        password.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                passwordConfirm.requestFocusInWindow();
             }
         });
         

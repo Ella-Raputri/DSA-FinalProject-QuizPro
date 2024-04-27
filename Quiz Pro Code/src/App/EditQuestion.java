@@ -8,6 +8,8 @@ import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -318,6 +320,12 @@ public class EditQuestion extends javax.swing.JFrame {
                 }
             }
         });
+        opt2Field.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                opt3Field.requestFocusInWindow();
+            }
+        });
         
         opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 313, 450, 40));
@@ -360,6 +368,12 @@ public class EditQuestion extends javax.swing.JFrame {
                 }
             }
         });
+        opt1Field.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                opt2Field.requestFocusInWindow();
+            }
+        });
 
         opt3Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 456, 451, 40));
@@ -400,6 +414,12 @@ public class EditQuestion extends javax.swing.JFrame {
                 if (newLength <= maxLength) {
                     super.replace(fb, offset, length, text, attrs);
                 }
+            }
+        });
+        opt3Field.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                opt4Field.requestFocusInWindow();
             }
         });
 
@@ -558,7 +578,9 @@ public class EditQuestion extends javax.swing.JFrame {
             else if (current_question.getOption4().equals(current_question.getCorrectAnswer())){
                 rad4.setSelected(true);
                 drawCheckmark(rad4, checkmark, checkmarkIcon);
-            }                  
+            }  
+           
+           questionField.requestFocusInWindow();
 
         }else{
             String message = "There is no question with the ID of " + idStr;

@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -269,6 +271,12 @@ public class LoginPage extends javax.swing.JFrame {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 updateSelfStatusUsername();
+            }
+        });
+        username.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                password.requestFocusInWindow();
             }
         });
         

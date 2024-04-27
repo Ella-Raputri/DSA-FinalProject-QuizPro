@@ -4,19 +4,17 @@
  */
 package App;
 
-import java.awt.Color;
+import java.awt.*;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
@@ -272,7 +270,12 @@ public class AddQuiz extends javax.swing.JFrame {
                 }
             }
         });
-        
+        titleField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                durationField.requestFocusInWindow();
+            }
+        });
         
         jLabel8.setIcon(new javax.swing.ImageIcon("src/App/img/warning_icon.png")); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 343, -1, -1));
@@ -317,6 +320,11 @@ public class AddQuiz extends javax.swing.JFrame {
                 durationFieldFocusLost(evt);
             }
         });
+        durationField.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKbuttonActionPerformed(evt);
+            }
+        });
         
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel5.setText("minutes");
@@ -327,6 +335,7 @@ public class AddQuiz extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }
+    
     
     private void updateTitleCharacterCount() {
         String text = titleField.getText();

@@ -427,6 +427,8 @@ public class ChangeOrder extends javax.swing.JFrame {
                 radio4.setSelected(true);
                 drawCheckmark(radio4, checkmark, checkmarkIcon);
             }
+           
+           orderField.requestFocusInWindow();
 
         }else{
             String message = "There is no question with the ID of " + idStr;

@@ -7,6 +7,8 @@ package App;
 import java.awt.*;
 import java.sql.*;
 import DatabaseConnection.ConnectionProvider;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
@@ -362,6 +364,12 @@ public class AddQuestion extends javax.swing.JFrame {
                 }
             }
         });
+        opt2Field.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                opt3Field.requestFocusInWindow();
+            }
+        });
         
 
         opt1Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
@@ -403,6 +411,12 @@ public class AddQuestion extends javax.swing.JFrame {
                 if (newLength <= maxLength) {
                     super.replace(fb, offset, length, text, attrs);
                 }
+            }
+        });
+        opt1Field.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                opt2Field.requestFocusInWindow();
             }
         });
         
@@ -448,6 +462,12 @@ public class AddQuestion extends javax.swing.JFrame {
                 }
             }
         });
+        opt3Field.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // When "Enter" is pressed in textField1, move focus to textField2
+                opt4Field.requestFocusInWindow();
+            }
+        });
         
         opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 464, 451, 40));
@@ -490,6 +510,7 @@ public class AddQuestion extends javax.swing.JFrame {
                 }
             }
         });
+        
         
 
         backButton.setText("Back");

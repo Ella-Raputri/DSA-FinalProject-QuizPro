@@ -17,7 +17,7 @@ import java.util.LinkedList;
  * @author asus
  */
 public class ExamPage extends javax.swing.JFrame {
-    private String quizId;
+    private static String quizId;
     private String studentId;
     private int totalTime =0;
     private int min=0;
@@ -29,7 +29,7 @@ public class ExamPage extends javax.swing.JFrame {
     private LinkedList<String> correctAnswersList = new LinkedList<>();
     private LinkedList<String> studentAnswerList = new LinkedList<>();
     private LinkedList<Boolean> requiredList = new LinkedList<>();
-    
+    public static LinkedlistBenchmark quizlist2 = new LinkedlistBenchmark();
     
     /**
      * Creates new form ExamPage
@@ -38,15 +38,50 @@ public class ExamPage extends javax.swing.JFrame {
         setTitle("Quiz Exam Page");
         initComponents();
         setResizable(false);
+        updateLinkedList(ExamPage.quizlist2);
     }
     
     public ExamPage(String quizId, String studentId) {
-        this.quizId = quizId;
         this.studentId = studentId;
-        
+        ExamPage.quizId = quizId;
+        updateLinkedList(ExamPage.quizlist2);
         initComponents();
         myinit();
     }
+    
+    
+    private void updateLinkedList(LinkedlistBenchmark list){
+        quizlist2.quiz.clearNodes();
+        try{
+            Connection con = ConnectionProvider.getCon();
+            String query = "SELECT * FROM question WHERE quizID = ? ORDER BY number ASC";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, ExamPage.quizId);
+            
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                String qID = rs.getString("id");
+                String quest = rs.getString("question");
+                String ans = rs.getString("answer");
+                String opt1 = rs.getString("option1");
+                String opt2 = rs.getString("option2");
+                String opt3 = rs.getString("option3");
+                String opt4 = rs.getString("option4");
+                boolean required = rs.getBoolean("required");
+                
+                list.addQuestionUpdate(quest, ans, ExamPage.quizId, opt1, opt2, opt3, opt4, required);
+                Linkedlist.Node tail_node = list.quiz.tail;
+                tail_node.data.setQuestionID(qID);
+            }
+        }
+        catch(Exception e){
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf, e);
+        }
+    }
+    
+    
     
     private void myinit(){
         setTitle("Quiz Exam Page");
@@ -97,49 +132,20 @@ public class ExamPage extends javax.swing.JFrame {
                 this.totalTime = Integer.parseInt(totalTimeStr);
                 totalTimeLabel.setText(totalTimeStr + ".00");
             }
-            
-            ResultSet rs1 = st.executeQuery("select count(id) from question where quizID='" + quizId + "'");
-            if(rs1.first()){
-                String temp = rs1.getString(1);
-                quizTotalQuestions = Integer.parseInt(temp);
-            }
-            else{
-                quizTotalQuestions = 0;
-            }
-            
-            
-            for(int i=1; i<=quizTotalQuestions; i++){
-                String str = "select answer from question where quizID='" + quizId + "' and number=";
-                str = str + i;
-                ResultSet rs2 = st.executeQuery(str);
-                if(rs2.first()){
-                    String ans = rs2.getString(1);
-                    correctAnswersList.add(ans);
-                }
-            }
-            
-            for(int i=1; i<=quizTotalQuestions; i++){
-                String str = "select required from question where quizID='" + quizId + "' and number=";
-                str = str + i;
-                ResultSet rs3 = st.executeQuery(str);
-                if(rs3.first()){
-                    String ans = rs3.getString(1);
-                    boolean req;
-                    if(ans.equals("1")){
-                        req = true;
-                    }
-                    else{
-                        req = false;
-                    }
-                    requiredList.add(req);
-                }
-            }
-            
-            
+
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
+        quizTotalQuestions = quizlist2.quiz.countNodes();
+            
+        Linkedlist.Node current = quizlist2.quiz.head;
+        while(current!=null){
+            correctAnswersList.add(current.data.getCorrectAnswer());
+            requiredList.add(current.data.getRequired());
+            current = current.next;
+        }
+           
         for(int i=0; i<quizTotalQuestions; i++){
             optionList.add(null);
             studentAnswerList.add(null);
@@ -156,8 +162,7 @@ public class ExamPage extends javax.swing.JFrame {
     private void displayAnswer(){
         if(!(optionList.get(questionNumber-1)==null)){
             optionList.get(questionNumber-1).setSelected(true);
-        }
-        
+        }    
     }
     
   
@@ -165,41 +170,38 @@ public class ExamPage extends javax.swing.JFrame {
         if(questionNumber == quizTotalQuestions){
             nextButton.setVisible(false);
             submitButton.setVisible(true);
+            backButton.setVisible(true);
         }
         else if(questionNumber ==1){
-            backButton.setVisible(false);
-            
+            backButton.setVisible(false); 
+            nextButton.setVisible(true);
+            submitButton.setVisible(false);
         }
         else{
             nextButton.setVisible(true);
             backButton.setVisible(true);
+            submitButton.setVisible(false);
         }
         
-        try{
-            Connection con = ConnectionProvider.getCon();
-            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                        
-            ResultSet rs2 = st.executeQuery("select * from question where quizID='" + quizId + "' and number=" + questionNumber);
-            while(rs2.next()){
-                questionNumberLabel.setText("Question " + questionNumber + " of " + quizTotalQuestions);
-                
-                String question = rs2.getString(2);
-                questionLabel.setText(question);
-                
-                int questionHeight = (111 - questionLabel.getPreferredSize().height)/2;
-                getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180+questionHeight, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height));
-                getContentPane().setComponentZOrder(questionLabel, 0);
-                revalidate();
-                repaint();
-                
-                option1Label.setText(rs2.getString(4));
-                option2Label.setText(rs2.getString(5));
-                option3Label.setText(rs2.getString(6));
-                option4Label.setText(rs2.getString(7));
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(getContentPane(), e);
-        }
+        
+        String id = quizlist2.quiz.getIDFromNumber(questionNumber);
+        Linkedlist.Node currentQuestion = quizlist2.quiz.getNode(id);
+        
+        questionNumberLabel.setText("Question " + questionNumber + " of " + quizTotalQuestions);
+        questionLabel.setText(currentQuestion.data.getQuestion());
+
+        int questionHeight = (111 - questionLabel.getPreferredSize().height)/2;
+        getContentPane().add(questionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180+questionHeight, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height));
+        getContentPane().setComponentZOrder(questionLabel, 0);
+        revalidate();
+        repaint();
+
+        option1Label.setText(currentQuestion.data.getOption1());
+        option2Label.setText(currentQuestion.data.getOption2());
+        option3Label.setText(currentQuestion.data.getOption3());
+        option4Label.setText(currentQuestion.data.getOption4());
+        
+        asterisks.setVisible(currentQuestion.data.getRequired());
     }
     
     

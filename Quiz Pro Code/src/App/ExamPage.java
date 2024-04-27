@@ -25,10 +25,10 @@ public class ExamPage extends javax.swing.JFrame {
     Timer time;
     private int questionNumber = 1;
     private int quizTotalQuestions;
-    private String answer;
-    private LinkedList<JRadioButton> answerList = new LinkedList<>();
+    private LinkedList<JRadioButton> optionList = new LinkedList<>();
     private LinkedList<String> correctAnswersList = new LinkedList<>();
     private LinkedList<String> studentAnswerList = new LinkedList<>();
+    private LinkedList<Boolean> requiredList = new LinkedList<>();
     
     
     /**
@@ -118,17 +118,32 @@ public class ExamPage extends javax.swing.JFrame {
                 }
             }
             
+            for(int i=1; i<=quizTotalQuestions; i++){
+                String str = "select required from question where quizID='" + quizId + "' and number=";
+                str = str + i;
+                ResultSet rs3 = st.executeQuery(str);
+                if(rs3.first()){
+                    String ans = rs3.getString(1);
+                    boolean req;
+                    if(ans.equals("1")){
+                        req = true;
+                    }
+                    else{
+                        req = false;
+                    }
+                    requiredList.add(req);
+                }
+            }
+            
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
         for(int i=0; i<quizTotalQuestions; i++){
-            answerList.add(null);
+            optionList.add(null);
             studentAnswerList.add(null);
         }
-        
-        
         
         questionLabel = new WrappedLabel(980);
         questionLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 30));  
@@ -139,15 +154,14 @@ public class ExamPage extends javax.swing.JFrame {
     
     
     private void displayAnswer(){
-        if(!(answerList.get(questionNumber-1)==null)){
-            answerList.get(questionNumber-1).setSelected(true);
+        if(!(optionList.get(questionNumber-1)==null)){
+            optionList.get(questionNumber-1).setSelected(true);
         }
         
     }
     
   
-    private void displayQuestion(){
-        
+    private void displayQuestion(){ 
         if(questionNumber == quizTotalQuestions){
             nextButton.setVisible(false);
             submitButton.setVisible(true);
@@ -182,12 +196,12 @@ public class ExamPage extends javax.swing.JFrame {
                 option2Label.setText(rs2.getString(5));
                 option3Label.setText(rs2.getString(6));
                 option4Label.setText(rs2.getString(7));
-                answer = rs2.getString(3);
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
     }
+    
     
     private int checkAnswer(){
         int marks=0;
@@ -198,7 +212,7 @@ public class ExamPage extends javax.swing.JFrame {
                 continue;
             }
             else if(studentAnswer.equals(correctAnswer)){
-                marks+=1;
+                marks +=1;
             }
         }
         
@@ -226,9 +240,6 @@ public class ExamPage extends javax.swing.JFrame {
         setVisible(false);
         new QuizSummary(score, studentId, quizTotalQuestions).setVisible(true);
     }
-
-    
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -457,24 +468,27 @@ public class ExamPage extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to submit?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
-            int empty=0;
-            int[]arr = new int[answerList.size()];
-            for(int i=0; i<answerList.size(); i++){
-                if(answerList.get(i) == null){
-                    arr[empty] = i+1;
-                    empty++;
+           LinkedList<Integer> numRequiredButEmpty = new LinkedList<>();
+        
+            for(int i=0; i<quizTotalQuestions; i++){
+                String studentAnswer = studentAnswerList.get(i);
+                boolean required = requiredList.get(i);
+
+                if(required){
+                    if(studentAnswer == null){
+                        numRequiredButEmpty.add(i+1);
+                    }
                 }
             }
             
-            if(empty==0){
+            
+            if(numRequiredButEmpty.isEmpty()){
                 submit();
             }
             else{
-                String str="Number " + arr[0];
-                for(int j=1; j<arr.length; j++){
-                    if(arr[j] != 0){
-                        str = str + ", " + arr[j];
-                    }
+                String str="Number " + numRequiredButEmpty.get(0);
+                for(int j=1; j<numRequiredButEmpty.size(); j++){
+                    str = str + ", " + numRequiredButEmpty.get(j);
                 }
                 str = str + " is still empty. \nPlease fill it before submitting.";
                 
@@ -484,28 +498,28 @@ public class ExamPage extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void option1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1LabelActionPerformed
-        answerList.set(questionNumber-1, option1Label);
+        optionList.set(questionNumber-1, option1Label);
         
         String ans = option1Label.getText();
         studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option1LabelActionPerformed
 
     private void option2LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option2LabelActionPerformed
-        answerList.set(questionNumber-1, option2Label);
+        optionList.set(questionNumber-1, option2Label);
         
         String ans = option2Label.getText();
         studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option2LabelActionPerformed
 
     private void option3LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option3LabelActionPerformed
-        answerList.set(questionNumber-1, option3Label);
+        optionList.set(questionNumber-1, option3Label);
         
         String ans = option3Label.getText();
         studentAnswerList.set(questionNumber-1, ans);
     }//GEN-LAST:event_option3LabelActionPerformed
 
     private void option4LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option4LabelActionPerformed
-        answerList.set(questionNumber-1, option4Label);
+        optionList.set(questionNumber-1, option4Label);
         
         String ans = option4Label.getText();
         studentAnswerList.set(questionNumber-1, ans);

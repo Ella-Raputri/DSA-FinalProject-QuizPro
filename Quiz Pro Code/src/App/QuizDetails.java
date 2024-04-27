@@ -16,6 +16,7 @@ public class QuizDetails extends javax.swing.JFrame {
     private String quizTitle;
     private String quizDuration;
     private int quizTotalQuestions;
+    private int requiredQuestions;
     private String studentId;
     private String quizId;
     /**
@@ -54,6 +55,15 @@ public class QuizDetails extends javax.swing.JFrame {
             else{
                 quizTotalQuestions = 0;
             }
+            
+            ResultSet rs2 = st.executeQuery("select count(id) from question where quizID='" + quizId + "' and required=true");
+            if(rs2.first()){
+                String temp = rs2.getString(1);
+                requiredQuestions = Integer.parseInt(temp);
+            }
+            else{
+                requiredQuestions = 0;
+            }
 
             
         }catch(Exception e){
@@ -70,6 +80,16 @@ public class QuizDetails extends javax.swing.JFrame {
         }
         else{
             totalQuestions.setText(quizTotalQuestions + " questions");
+        }
+        
+        if(requiredQuestions == quizTotalQuestions){
+            jLabel3.setText("Make sure to fill all the questions before submitting.");
+        }
+        else if(requiredQuestions == 0){
+            jLabel3.setText("All the questions are not required to be filled");
+        }
+        else{
+            jLabel3.setText("Make sure to file the questions with the red * symbol");
         }
         
     }

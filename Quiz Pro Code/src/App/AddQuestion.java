@@ -94,6 +94,7 @@ public class AddQuestion extends javax.swing.JFrame {
         backButton = new App.ButtonCustom();
         OKbutton = new App.ButtonCustom();
         txtcounter = new javax.swing.JLabel();
+        requiredButton = new JCheckBox();
 
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel4.setText("Question");
@@ -219,6 +220,12 @@ public class AddQuestion extends javax.swing.JFrame {
         txtID.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         txtID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 81, 199, -1));
+       
+        requiredButton.setText("required");
+        requiredButton.setFont(new java.awt.Font("Montserrat",0,18));
+        requiredButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        requiredButton.setFocusable(false);
+        getContentPane().add(requiredButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 111, 199, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
@@ -227,48 +234,6 @@ public class AddQuestion extends javax.swing.JFrame {
         txtcounter.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         txtcounter.setText("(0 / 100)");
         getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 113, -1, -1));
-        
-        opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
-        getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 464, 451, 40));
-        opt4Field.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                opt4FieldFocusLost(evt);
-            }
-        });
-        opt4Field.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateOptionCharacterCount(opt4Field);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateOptionCharacterCount(opt4Field);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                updateOptionCharacterCount(opt4Field);
-            }
-        });
-        // Create a DocumentFilter to limit the text length
-        ((AbstractDocument) opt4Field.getDocument()).setDocumentFilter(new DocumentFilter() {
-            int maxLength = 30; // Set the maximum length
-
-            @Override
-            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                // Get the current length of the text
-                int currentLength = fb.getDocument().getLength();
-
-                // Calculate the length of the text after replacement
-                int newLength = currentLength - length + (text == null ? 0 : text.length());
-
-                // If the new length exceeds the maximum length, do not perform the replacement
-                if (newLength <= maxLength) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
         
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
@@ -302,9 +267,7 @@ public class AddQuestion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 473, -1, -1));
- 
-        
-        
+
         questionField = new JTextArea();
         questionField.setLineWrap(true); // Enable text wrapping
         questionField.setWrapStyleWord(true); // Wrap at word boundaries
@@ -469,6 +432,48 @@ public class AddQuestion extends javax.swing.JFrame {
         });
         // Create a DocumentFilter to limit the text length
         ((AbstractDocument) opt3Field.getDocument()).setDocumentFilter(new DocumentFilter() {
+            int maxLength = 30; // Set the maximum length
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                // Get the current length of the text
+                int currentLength = fb.getDocument().getLength();
+
+                // Calculate the length of the text after replacement
+                int newLength = currentLength - length + (text == null ? 0 : text.length());
+
+                // If the new length exceeds the maximum length, do not perform the replacement
+                if (newLength <= maxLength) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
+        opt4Field.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        getContentPane().add(opt4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 464, 451, 40));
+        opt4Field.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                opt4FieldFocusLost(evt);
+            }
+        });
+        opt4Field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt4Field);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt4Field);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateOptionCharacterCount(opt4Field);
+            }
+        });
+        // Create a DocumentFilter to limit the text length
+        ((AbstractDocument) opt4Field.getDocument()).setDocumentFilter(new DocumentFilter() {
             int maxLength = 30; // Set the maximum length
 
             @Override
@@ -683,6 +688,7 @@ public class AddQuestion extends javax.swing.JFrame {
         String opt3Str = opt3Field.getText();
         String opt4Str = opt4Field.getText();      
         String answerStr = "";
+        boolean required = requiredButton.isSelected();
         
         if (rad1.isSelected()){
             answerStr = opt1Str;
@@ -718,14 +724,14 @@ public class AddQuestion extends javax.swing.JFrame {
         }
         else{
             try{
-                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid, opt1Str, opt2Str, opt3Str, opt4Str);
+                EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid, opt1Str, opt2Str, opt3Str, opt4Str, required);
                                 
                 Connection con = ConnectionProvider.getCon();
     
                 Linkedlist.Node tail_node = EditQuiz.quizlist.quiz.tail;
                 Question new_question = tail_node.data;
                 
-                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?,?)");
+                PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?,?,?)");
                 ps.setString(1, new_question.getQuestionID());
                 ps.setString(2, new_question.getQuestion());
                 ps.setString(3, new_question.getCorrectAnswer());
@@ -735,6 +741,7 @@ public class AddQuestion extends javax.swing.JFrame {
                 ps.setString(7, new_question.getOption4());
                 ps.setString(8, this.quizid);
                 ps.setInt(9, new_question.getQuestionNumber());
+                ps.setBoolean(10, required);
                 
                 ps.executeUpdate();
                 String message = "Question added successfully.";              
@@ -791,6 +798,7 @@ public class AddQuestion extends javax.swing.JFrame {
         });
     }
     
+    private JCheckBox requiredButton;
     private JTextArea questionField;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;

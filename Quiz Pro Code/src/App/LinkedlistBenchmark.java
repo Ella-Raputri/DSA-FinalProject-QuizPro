@@ -5,9 +5,9 @@ public class LinkedlistBenchmark {
     //linked list for the Questions
     Linkedlist quiz = new Linkedlist();
 
-    public void addQuestion(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){   
+    public void addQuestion(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4, boolean required){   
         //create a new Question object based on the given question and answer   
-        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
+        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4, required);
         //add the Question object to the linked list
         quiz.addNode(q1);
 
@@ -19,10 +19,10 @@ public class LinkedlistBenchmark {
         tracker++;
     }
     
-    public void addQuestionUpdate(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4){ 
+    public void addQuestionUpdate(String question, String correctAnswer, String quizid, String opt1, String opt2, String opt3, String opt4, boolean required){ 
         
         //create a new Question object based on the given question and answer   
-        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4);
+        Question q1 = new Question(correctAnswer, question, quizid, opt1, opt2, opt3, opt4, required);
         //add the Question object to the linked list
         quiz.addNode(q1);
 
@@ -56,7 +56,7 @@ public class LinkedlistBenchmark {
     }
 
 
-    public void editQuestion(String id, String newQuestion, String newAnswer, String newopt1, String newopt2, String newopt3, String newopt4){
+    public void editQuestion(String id, String newQuestion, String newAnswer, String newopt1, String newopt2, String newopt3, String newopt4, boolean required){
         //if linked list is empty, return
         if(quiz.isEmpty()){
             return;
@@ -77,6 +77,9 @@ public class LinkedlistBenchmark {
                 current.data.setOption2(newopt2);
                 current.data.setOption3(newopt3);
                 current.data.setOption4(newopt4);
+                
+                //set required or not
+                current.data.setRequired(required);
                 
                 return;
             }
@@ -177,12 +180,13 @@ public class LinkedlistBenchmark {
                 String opt4 = current.data.getOption4();
                 String questionID = current.data.getQuestionID();
                 int question_number = current.data.getQuestionNumber();
+                boolean required = current.data.getRequired();
 
                 //if the question or answer contains the searched string
                 if(containsIgnoreCase(question, str) || containsIgnoreCase(answer,str) || containsIgnoreCase(opt1,str) 
                     || containsIgnoreCase(opt2,str) || containsIgnoreCase(opt3,str) || containsIgnoreCase(opt4,str)){
                     
-                    Question data = new Question(answer, question, quizid, opt1, opt2, opt3, opt4);
+                    Question data = new Question(answer, question, quizid, opt1, opt2, opt3, opt4, required);
                     //add the node to the linked list result
                     res.addNode(data);
                     

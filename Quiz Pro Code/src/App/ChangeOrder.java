@@ -7,6 +7,7 @@ package App;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -110,6 +111,7 @@ public class ChangeOrder extends javax.swing.JFrame {
         txtopt4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnGrp = new javax.swing.ButtonGroup();
+        requiredLabel = new JLabel();
         
         //set checkmark image
         checkmark = new javax.swing.JLabel();
@@ -286,6 +288,12 @@ public class ChangeOrder extends javax.swing.JFrame {
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
         getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 136, 100, -1));
+        
+        requiredLabel.setFont(new Font("Montserrat SemiBold", 0, 22));
+        requiredLabel.setText("*");
+        requiredLabel.setForeground(Color.red);
+        getContentPane().add(requiredLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(118+txtnum.getPreferredSize().width, 132, 100, -1));
+        requiredLabel.setVisible(false);
 
         txtopt1.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt1.setText("[option 1]");
@@ -393,10 +401,15 @@ public class ChangeOrder extends javax.swing.JFrame {
            txtopt2.setText(current_question.getOption2());
            txtopt3.setText(current_question.getOption3());
            txtopt4.setText(current_question.getOption4());
+           requiredLabel.setVisible(current_question.getRequired());
            
            getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 480, txtquestion.getPreferredSize().height));
            txtquestion.revalidate();
            txtquestion.repaint();
+           
+           getContentPane().add(requiredLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(118+txtnum.getPreferredSize().width+5, 132, 100, -1));
+           requiredLabel.revalidate();
+           requiredLabel.repaint();
 
            if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
                 radio1.setSelected(true);
@@ -562,7 +575,8 @@ public class ChangeOrder extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private JLabel requiredLabel;
     private App.WrappedLabel txtquestion;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;

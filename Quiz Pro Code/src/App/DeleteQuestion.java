@@ -7,6 +7,7 @@ package App;
 import DatabaseConnection.ConnectionProvider;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -18,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -99,6 +101,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
         txtopt3 = new javax.swing.JLabel();
         txtopt4 = new javax.swing.JLabel();
         btnGrp = new javax.swing.ButtonGroup();
+        requiredLabel = new JLabel();
         
         btnGrp.add(radio1);
         btnGrp.add(radio2);
@@ -142,9 +145,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
         jLabel3.setText("Input Question ID");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
 
-        
-
-        
         
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -210,7 +210,13 @@ public class DeleteQuestion extends javax.swing.JFrame {
 
         txtnum.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         txtnum.setText("[num]");
-        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 136, 100, -1));
+        getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 136, txtnum.getPreferredSize().width, -1));
+        
+        requiredLabel.setFont(new Font("Montserrat SemiBold", 0, 22));
+        requiredLabel.setText("*");
+        requiredLabel.setForeground(Color.red);
+        getContentPane().add(requiredLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(118+txtnum.getPreferredSize().width, 132, 100, -1));
+        requiredLabel.setVisible(false);
         
         txtquestion = new App.WrappedLabel(480);
         txtquestion.setFont(new java.awt.Font("Montserrat Medium", 0, 18)); // NOI18N
@@ -287,10 +293,15 @@ public class DeleteQuestion extends javax.swing.JFrame {
            txtopt2.setText(current_question.getOption2());
            txtopt3.setText(current_question.getOption3());
            txtopt4.setText(current_question.getOption4());
+           requiredLabel.setVisible(current_question.getRequired());
            
            getContentPane().add(txtquestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 168, 480, txtquestion.getPreferredSize().height));
            txtquestion.revalidate();
            txtquestion.repaint();
+           
+           getContentPane().add(requiredLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(118+txtnum.getPreferredSize().width+5, 132, 100, -1));
+           requiredLabel.revalidate();
+           requiredLabel.repaint();
 
            if (current_question.getOption1().equals(current_question.getCorrectAnswer())){
                 radio1.setSelected(true);
@@ -432,7 +443,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
         });
     }
 
-    
+    private JLabel requiredLabel;
     private App.WrappedLabel txtquestion;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;

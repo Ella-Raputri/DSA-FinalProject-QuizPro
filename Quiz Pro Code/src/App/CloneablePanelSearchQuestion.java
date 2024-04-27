@@ -24,8 +24,9 @@ public class CloneablePanelSearchQuestion extends JPanel{
     private String opt4;
     private String answer;
     private JRadioButton opt4Label;
+    private boolean required;
 
-    public CloneablePanelSearchQuestion(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer) {
+    public CloneablePanelSearchQuestion(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer, boolean required) {
         setLayout(null);
         this.borderRadius = borderRadius;
         this.bgColor = bgColor;
@@ -38,6 +39,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         this.opt3 = opt3;
         this.opt4 = opt4;
         this.answer = answer;
+        this.required = required;
         setOpaque(false);
 
                 
@@ -59,6 +61,14 @@ public class CloneablePanelSearchQuestion extends JPanel{
         questionLabel.setFont(new Font("Montserrat SemiBold", 0, 20));
         setComponentBounds(questionLabel, 15, 55, questionLabel.getPreferredSize().width, questionLabel.getPreferredSize().height);
         add(questionLabel);
+        
+        JLabel requiredLabel = new JLabel();
+        requiredLabel.setFont(new Font("Montserrat SemiBold", 0, 24));
+        requiredLabel.setText("*");
+        requiredLabel.setForeground(Color.red);
+        setComponentBounds(requiredLabel, qNumLabel.getX()+qNumLabel.getPreferredSize().width+8, 15, requiredLabel.getPreferredSize().width+30, requiredLabel.getPreferredSize().height);
+        requiredLabel.setVisible(required);
+        add(requiredLabel);
         
         
         int opt1Height = questionLabel.getHeight()+70;

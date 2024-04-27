@@ -62,8 +62,9 @@ public class EditQuiz extends javax.swing.JFrame {
                 String opt2 = rs.getString("option2");
                 String opt3 = rs.getString("option3");
                 String opt4 = rs.getString("option4");
+                boolean required = rs.getBoolean("required");
                 
-                list.addQuestionUpdate(quest, ans, EditQuiz.quizID, opt1, opt2, opt3, opt4);
+                list.addQuestionUpdate(quest, ans, EditQuiz.quizID, opt1, opt2, opt3, opt4, required);
                 Linkedlist.Node tail_node = list.quiz.tail;
                 tail_node.data.setQuestionID(qID);
             }
@@ -163,10 +164,11 @@ public class EditQuiz extends javax.swing.JFrame {
             String option3 = currentQuestion.data.getOption3();
             String option4 = currentQuestion.data.getOption4();
             String answer = currentQuestion.data.getCorrectAnswer();
+            boolean required = currentQuestion.data.getRequired();
 
             
             // Create a new cloned panel
-            CloneablePanelEditQuiz clonedPanel = new CloneablePanelEditQuiz(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer);
+            CloneablePanelEditQuiz clonedPanel = new CloneablePanelEditQuiz(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer, required);
             // Set your custom width and height for the cloned panel
             int panelWidth = 1100;
             int panelHeight = 370;

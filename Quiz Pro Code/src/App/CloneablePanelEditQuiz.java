@@ -25,8 +25,9 @@ public class CloneablePanelEditQuiz extends JPanel{
     private String opt3;
     private String opt4;
     private String answer;
+    private boolean required;
 
-    public CloneablePanelEditQuiz(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer) {
+    public CloneablePanelEditQuiz(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer, boolean required) {
         setLayout(null);
         this.borderRadius = borderRadius;
         this.bgColor = bgColor;
@@ -39,6 +40,7 @@ public class CloneablePanelEditQuiz extends JPanel{
         this.opt3 = opt3;
         this.opt4 = opt4;
         this.answer = answer;
+        this.required = required;
         setOpaque(false);
 
                 
@@ -48,6 +50,15 @@ public class CloneablePanelEditQuiz extends JPanel{
         qNumLabel.setText("QUESTION " +  qNumber);
         setComponentBounds(qNumLabel, 40, 20, qNumLabel.getPreferredSize().width+30, qNumLabel.getPreferredSize().height);
         add(qNumLabel);
+        
+        JLabel requiredLabel = new JLabel();
+        requiredLabel.setFont(new Font("Montserrat SemiBold", 0, 32));
+        requiredLabel.setText("*");
+        requiredLabel.setForeground(Color.red);
+        setComponentBounds(requiredLabel, qNumLabel.getX()+qNumLabel.getPreferredSize().width+8, 15, requiredLabel.getPreferredSize().width+30, requiredLabel.getPreferredSize().height);
+        requiredLabel.setVisible(required);
+        add(requiredLabel);
+        
         
         JLabel qidLabel = new JLabel();
         qidLabel.setFont(new Font("Montserrat", 0, 24));

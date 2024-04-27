@@ -14,10 +14,11 @@ public class Question {
     private String option2;
     private String option3;
     private String option4;
+    private boolean required;
     static private int AdderID; //for setting ID number
 
     //constructor
-    public Question(String correctAnswer, String question, String quizID, String option1, String option2, String option3, String option4){
+    public Question(String correctAnswer, String question, String quizID, String option1, String option2, String option3, String option4, boolean required){
         this.correctAnswer = correctAnswer;
         this.question = question;
         this.quizID = quizID;
@@ -25,6 +26,7 @@ public class Question {
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
+        this.required = required;
     }
     
     private void setAdderID(){
@@ -119,6 +121,9 @@ public class Question {
     public void setOption4(String option4) {
         this.option4 = option4;
     }
+    public void setRequired(boolean required){
+        this.required = required;
+    }
 
     
     //getters
@@ -145,6 +150,9 @@ public class Question {
     }
     public String getOption4() {
         return this.option4;
+    }
+    public boolean getRequired() {
+        return this.required;
     }
     public String getQuizID(){
         return this.quizID;

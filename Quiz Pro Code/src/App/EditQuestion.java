@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -110,7 +111,8 @@ public class EditQuestion extends javax.swing.JFrame {
         txtnum = new javax.swing.JLabel();
         btnGrp = new javax.swing.ButtonGroup();
         txtcounter = new javax.swing.JLabel();
-        
+        requiredButton = new JCheckBox();
+                
         btnGrp.add(rad1);
         btnGrp.add(rad2);
         btnGrp.add(rad3);
@@ -492,6 +494,12 @@ public class EditQuestion extends javax.swing.JFrame {
         txtcounter.setText("(0 / 100)");
         getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(127+txtnum.getPreferredSize().width+10, 151, -1, 30));
         
+        requiredButton.setText("required");
+        requiredButton.setFont(new java.awt.Font("Montserrat",0,18));
+        requiredButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        requiredButton.setFocusable(false);
+        getContentPane().add(requiredButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 155, 199, -1));
+                
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
             @Override
@@ -528,6 +536,7 @@ public class EditQuestion extends javax.swing.JFrame {
            opt2Field.setText(current_question.getOption2());
            opt3Field.setText(current_question.getOption3());
            opt4Field.setText(current_question.getOption4());
+           requiredButton.setSelected(current_question.getRequired());
            
            getContentPane().add(txtnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 151, txtnum.getPreferredSize().width, -1));
            getContentPane().add(txtcounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(127+txtnum.getPreferredSize().width+10, 151, -1, 30));
@@ -712,6 +721,7 @@ public class EditQuestion extends javax.swing.JFrame {
         String opt3Str = opt3Field.getText();
         String opt4Str = opt4Field.getText();      
         String answerStr = "";
+        boolean required = requiredButton.isSelected();
         
         if (rad1.isSelected()){
             answerStr = opt1Str;
@@ -749,11 +759,11 @@ public class EditQuestion extends javax.swing.JFrame {
             try{
                 //edit in linkedlist
                 String idStr = current_question.getQuestionID();
-                EditQuiz.quizlist.editQuestion(idStr, questionStr, answerStr, opt1Str, opt2Str, opt3Str, opt4Str);
+                EditQuiz.quizlist.editQuestion(idStr, questionStr, answerStr, opt1Str, opt2Str, opt3Str, opt4Str, required);
                 
                 //edit in database
                 Connection con = ConnectionProvider.getCon();
-                String query = "UPDATE question SET question = ?, answer = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ? WHERE id = ?";
+                String query = "UPDATE question SET question = ?, answer = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ?, required=? WHERE id = ?";
                 PreparedStatement ps = con.prepareStatement(query);
                 
                 ps.setString(1, questionStr);
@@ -762,7 +772,8 @@ public class EditQuestion extends javax.swing.JFrame {
                 ps.setString(4, opt2Str);
                 ps.setString(5, opt3Str);
                 ps.setString(6, opt4Str);
-                ps.setString(7, idStr);
+                ps.setBoolean(7, required);
+                ps.setString(8, idStr);
                 
                 ps.executeUpdate();
                 
@@ -821,6 +832,7 @@ public class EditQuestion extends javax.swing.JFrame {
         });
     }
     
+    private JCheckBox requiredButton;
     private JTextArea questionField;
     private App.ButtonCustom OKbutton;
     private App.ButtonCustom backButton;

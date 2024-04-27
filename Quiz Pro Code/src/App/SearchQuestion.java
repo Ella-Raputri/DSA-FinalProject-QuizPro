@@ -225,9 +225,10 @@ public class SearchQuestion extends javax.swing.JFrame {
             String option3 = currentQuestion.data.getOption3();
             String option4 = currentQuestion.data.getOption4();
             String answer = currentQuestion.data.getCorrectAnswer();
+            boolean required = currentQuestion.data.getRequired();
             
             // Create a new cloned panel
-            CloneablePanelSearchQuestion clonedPanel = new CloneablePanelSearchQuestion(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer);
+            CloneablePanelSearchQuestion clonedPanel = new CloneablePanelSearchQuestion(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer, required);
             // Set your custom width and height for the cloned panel
             int panelWidth = 400;
             int panelHeight = clonedPanel.returnHeight();

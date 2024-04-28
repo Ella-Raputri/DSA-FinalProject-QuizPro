@@ -107,10 +107,9 @@ public class AddQuiz extends javax.swing.JFrame {
         durationField = new RoundJTextField(4);
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+
         
-        try{
+       try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select count(id) from quiz");
@@ -143,10 +142,6 @@ public class AddQuiz extends javax.swing.JFrame {
                 id.setText(str); 
                 
             }
-            
-            
-           
-         
             
         } catch(Exception e){
             JFrame jf = new JFrame();
@@ -225,10 +220,6 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel6.setText("(0 / 30)");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 193, -1, -1));
         
-        jLabel7.setIcon(new javax.swing.ImageIcon("src/App/img/warning_icon.png")); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
-        jLabel7.setVisible(false);
-        
         titleField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         getContentPane().add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 225, -1, -1));
         titleField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -277,9 +268,6 @@ public class AddQuiz extends javax.swing.JFrame {
             }
         });
         
-        jLabel8.setIcon(new javax.swing.ImageIcon("src/App/img/warning_icon.png")); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 343, -1, -1));
-        jLabel8.setVisible(false);
         
         durationField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         getContentPane().add(durationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 335, -1, -1));
@@ -343,12 +331,10 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel6.setText("(" + length + " / 30)");
         
         if(length > 30 || length==0){
-            jLabel7.setVisible(true);
             titleField.setForeground(Color.red);
             jLabel6.setForeground(Color.red);
         }
         else{
-            jLabel7.setVisible(false);
             titleField.setForeground(Color.black);
             jLabel6.setForeground(Color.black);
         }
@@ -359,12 +345,10 @@ public class AddQuiz extends javax.swing.JFrame {
         String title = titleField.getText();
         
         if(title.trim().isEmpty()){
-            jLabel7.setVisible(true);
             titleField.setForeground(Color.red);
             jLabel6.setForeground(Color.red);
         }
         else{
-            jLabel7.setVisible(false);
             titleField.setForeground(Color.black);
             jLabel6.setForeground(Color.black);
         }
@@ -382,14 +366,13 @@ public class AddQuiz extends javax.swing.JFrame {
     
     private void updateDurationCharacterCount(){
         String text = durationField.getText();
+        int textInt = Integer.parseInt(text);
         int length = text.length();
-        if(length>0 && length<10){
-            jLabel8.setVisible(false);
+        if(length>0 && length<10 && textInt!=0){
             durationField.setForeground(Color.black);
             jLabel5.setForeground(Color.black);
         }
         else{
-            jLabel8.setVisible(true);
             durationField.setForeground(Color.red);
             jLabel5.setForeground(Color.red);
         }
@@ -399,12 +382,10 @@ public class AddQuiz extends javax.swing.JFrame {
         String duration = durationField.getText();
         
         if(duration.trim().isEmpty()){
-            jLabel8.setVisible(true);
             durationField.setForeground(Color.red);
             jLabel5.setForeground(Color.red);
         }
-        else{
-            jLabel8.setVisible(false);
+        else{;
             durationField.setForeground(Color.black);
             jLabel5.setForeground(Color.black);
         }
@@ -413,7 +394,10 @@ public class AddQuiz extends javax.swing.JFrame {
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {
         String idInput = id.getText();
         String titleInput = titleField.getText();
-        String durationInput = durationField.getText();
+        
+        String durationStr = durationField.getText();
+        int durationInt = Integer.parseInt(durationStr);
+        String durationInput = String.valueOf(durationInt);
         
         if(titleInput.trim().isEmpty()){
             JOptionPane.showMessageDialog(getContentPane(), "Your title is still empty");
@@ -497,8 +481,6 @@ public class AddQuiz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private RoundJTextField titleField;
     private RoundJTextField durationField;
 

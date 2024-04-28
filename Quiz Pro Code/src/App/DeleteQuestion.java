@@ -113,6 +113,8 @@ public class DeleteQuestion extends javax.swing.JFrame {
         radio3.setEnabled(false);
         radio4.setEnabled(false);
         
+        
+        
         checkmark = new javax.swing.JLabel();
         checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
         checkmark.setIcon(checkmarkIcon);
@@ -255,7 +257,11 @@ public class DeleteQuestion extends javax.swing.JFrame {
         getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 416, -1, -1));
         getContentPane().add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 300, -1, -1));
         getContentPane().add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 358, -1, -1));
-       
+        
+        setCircleRadio(radio1, 18, 300);
+        setCircleRadio(radio2, 18, 358);
+        setCircleRadio(radio3, 18, 416);
+        setCircleRadio(radio4, 18, 474);
        
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {
@@ -279,6 +285,16 @@ public class DeleteQuestion extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+    
+    private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
+        JLabel radIcon = new JLabel();
+        radIcon.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        
+        getContentPane().add(radIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(xPos, yPos, radIcon.getPreferredSize().width, radIcon.getPreferredSize().height));
+        getContentPane().setComponentZOrder(radIcon,0);
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
     
     private void handleSearchID(){

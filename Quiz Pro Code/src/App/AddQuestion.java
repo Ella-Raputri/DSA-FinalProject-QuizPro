@@ -227,7 +227,22 @@ public class AddQuestion extends javax.swing.JFrame {
         requiredButton.setFont(new java.awt.Font("Montserrat",0,18));
         requiredButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         requiredButton.setFocusable(false);
-        getContentPane().add(requiredButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 111, 199, -1));
+        requiredButton.setIcon(new ImageIcon("src/App/img/square_default.png"));
+        requiredButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requiredButtonActionPerformed(evt);
+            }
+        });
+        requiredButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                requiredButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                requiredButtonMouseExited(evt);
+            }
+        });
+        requiredButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        getContentPane().add(requiredButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 111, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel6.setText("Question");
@@ -246,14 +261,31 @@ public class AddQuestion extends javax.swing.JFrame {
                 rad1ActionPerformed(evt);
             }
         });
+        rad1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rad1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rad1MouseExited(evt);
+            }
+        });
+        rad1.setIcon(new ImageIcon("src/App/img/circle_default.png"));
         getContentPane().add(rad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 277, -1, -1));
-
 
         rad2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rad2ActionPerformed(evt);
             }
         });        
+        rad2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rad2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rad2MouseExited(evt);
+            }
+        });
+        rad2.setIcon(new ImageIcon("src/App/img/circle_default.png"));
         getContentPane().add(rad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 344, -1, -1));
 
         rad3.addActionListener(new java.awt.event.ActionListener() {
@@ -261,6 +293,15 @@ public class AddQuestion extends javax.swing.JFrame {
                 rad3ActionPerformed(evt);
             }
         });
+        rad3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rad3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rad3MouseExited(evt);
+            }
+        });
+        rad3.setIcon(new ImageIcon("src/App/img/circle_default.png"));
         getContentPane().add(rad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 412, -1, -1));
         
         rad4.addActionListener(new java.awt.event.ActionListener() {
@@ -268,6 +309,15 @@ public class AddQuestion extends javax.swing.JFrame {
                 rad4ActionPerformed(evt);
             }
         });
+        rad4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rad4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rad4MouseExited(evt);
+            }
+        });
+        rad4.setIcon(new ImageIcon("src/App/img/circle_default.png"));
         getContentPane().add(rad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 473, -1, -1));
 
         questionField = new JTextArea();
@@ -779,8 +829,67 @@ public class AddQuestion extends javax.swing.JFrame {
             }                 
             
         }
-        
        
+    }
+    
+    
+    private void rad1MouseEntered(java.awt.event.MouseEvent evt) {                                         
+        rad1.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+    }                                        
+
+    private void rad1MouseExited(java.awt.event.MouseEvent evt) {                                        
+        rad1.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+    }
+    
+    private void rad2MouseEntered(java.awt.event.MouseEvent evt) {                                         
+        rad2.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+    }                                        
+
+    private void rad2MouseExited(java.awt.event.MouseEvent evt) {                                        
+        rad2.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+    }
+    
+    private void rad3MouseEntered(java.awt.event.MouseEvent evt) {                                         
+        rad3.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+    }                                        
+
+    private void rad3MouseExited(java.awt.event.MouseEvent evt) {                                        
+        rad3.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+    }
+    
+    private void rad4MouseEntered(java.awt.event.MouseEvent evt) {                                         
+        rad4.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+    }                                        
+
+    private void rad4MouseExited(java.awt.event.MouseEvent evt) {                                        
+        rad4.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+    }
+    
+    private void requiredButtonActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        if(requiredButton.isSelected()){
+            requiredButton.setIcon(new ImageIcon("src/App/img/square_clicked.png"));
+        }
+        else{
+            requiredButton.setIcon(new ImageIcon("src/App/img/square_default.png"));
+        }
+    }
+    
+    private void requiredButtonMouseEntered(java.awt.event.MouseEvent evt) {                                         
+        if(requiredButton.isSelected()){
+            requiredButton.setIcon(new ImageIcon("src/App/img/square_hover_clicked.png"));
+        }
+        else{
+            requiredButton.setIcon(new ImageIcon("src/App/img/square_hover_default.png"));
+        }
+    }                                        
+
+    private void requiredButtonMouseExited(java.awt.event.MouseEvent evt) {                                        
+        if(requiredButton.isSelected()){
+            requiredButton.setIcon(new ImageIcon("src/App/img/square_clicked.png"));
+        }
+        else{
+            requiredButton.setIcon(new ImageIcon("src/App/img/square_default.png"));
+        }
     }
     
     

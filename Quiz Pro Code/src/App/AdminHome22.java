@@ -40,53 +40,35 @@ public class AdminHome22 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Montserrat Black", 1, 36)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(57, 129, 247));
-        jButton1.setText("-");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/background_addquiz.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 200, 390, 340));
+
+        jRadioButton1.setText("jRadioButton1");
+        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/hide_password.png"))); // NOI18N
+        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     
     private void myinit(){
-        JTextArea textArea = new JTextArea();
-        textArea.setLineWrap(true); // Enable text wrapping
-        textArea.setWrapStyleWord(true); // Wrap at word boundaries
-
-        // Create a rounded border
-        Border roundedBorder = new LineBorder(Color.BLACK, 2, true) {
-            @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.drawRoundRect(x, y, width - 1, height - 1, 10, 10); // Adjust the rounding radius as needed
-                g2d.dispose();
-            }
-        };
-
-        textArea.setBorder(roundedBorder);
-
-        JScrollPane scrollPane = new JScrollPane(textArea); // Add scrollbar
-        getContentPane().add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 149, -1, -1));
-
-        getContentPane().setSize(300, 200);
-        getContentPane().setVisible(true);
+        
+        
+        JRadioButton radioButton2 = new JRadioButton();
+        radioButton2.setFont(new Font("Montserrat",0,50));
+        radioButton2.setText("option 2");
+        radioButton2.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        
+        
+        getContentPane().add(radioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 300, -1, -1));
+        
         
 
         
@@ -95,13 +77,9 @@ public class AdminHome22 extends javax.swing.JFrame {
         
     }
     
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        int a = JOptionPane.showConfirmDialog(null, "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
-        if(a==0){
-            setVisible(false);
-            new WelcomePage().setVisible(true);
-        }
-    }
+                                                 
+        
+    
     
     
     /**
@@ -141,6 +119,7 @@ public class AdminHome22 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
 }

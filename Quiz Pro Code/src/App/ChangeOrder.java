@@ -239,12 +239,18 @@ public class ChangeOrder extends javax.swing.JFrame {
             }
         });
         getContentPane().add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
-
+        
+        
         getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 474, -1, -1));
         getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 416, -1, -1));
         getContentPane().add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 300, -1, -1));
         getContentPane().add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 358, -1, -1));
 
+        setCircleRadio(radio1, 18, 300);
+        setCircleRadio(radio2, 18, 358);
+        setCircleRadio(radio3, 18, 416);
+        setCircleRadio(radio4, 18, 474);
+        
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel4.setText("Question");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 136, -1, -1));
@@ -350,6 +356,17 @@ public class ChangeOrder extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+    
+    
+    private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
+        JLabel radIcon = new JLabel();
+        radIcon.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        
+        getContentPane().add(radIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(xPos, yPos, radIcon.getPreferredSize().width, radIcon.getPreferredSize().height));
+        getContentPane().setComponentZOrder(radIcon,0);
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
     
     

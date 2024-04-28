@@ -141,7 +141,7 @@ public class ExamPage extends javax.swing.JFrame {
             
         Linkedlist.Node current = quizlist2.quiz.head;
         while(current!=null){
-            correctAnswersList.add(current.data.getCorrectAnswer());
+            correctAnswersList.add(" " + current.data.getCorrectAnswer());
             requiredList.add(current.data.getRequired());
             current = current.next;
         }
@@ -162,6 +162,7 @@ public class ExamPage extends javax.swing.JFrame {
     private void displayAnswer(){
         if(!(optionList.get(questionNumber-1)==null)){
             optionList.get(questionNumber-1).setSelected(true);
+            optionList.get(questionNumber-1).setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
         }    
     }
     
@@ -196,10 +197,10 @@ public class ExamPage extends javax.swing.JFrame {
         revalidate();
         repaint();
 
-        option1Label.setText(currentQuestion.data.getOption1());
-        option2Label.setText(currentQuestion.data.getOption2());
-        option3Label.setText(currentQuestion.data.getOption3());
-        option4Label.setText(currentQuestion.data.getOption4());
+        option1Label.setText(" " + currentQuestion.data.getOption1());
+        option2Label.setText(" " + currentQuestion.data.getOption2());
+        option3Label.setText(" " + currentQuestion.data.getOption3());
+        option4Label.setText(" " + currentQuestion.data.getOption4());
         
         asterisks.setVisible(currentQuestion.data.getRequired());
     }
@@ -306,10 +307,19 @@ public class ExamPage extends javax.swing.JFrame {
         questionNumberLabel.setText("Question 1 of 50");
         getContentPane().add(questionNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
-        buttonGroup1.add(option2Label);
         option2Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         option2Label.setText("jRadioButton1");
+        option2Label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        option2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/circle_default.png"))); // NOI18N
         option2Label.setIconTextGap(8);
+        option2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                option2LabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                option2LabelMouseExited(evt);
+            }
+        });
         option2Label.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 option2LabelActionPerformed(evt);
@@ -317,10 +327,19 @@ public class ExamPage extends javax.swing.JFrame {
         });
         getContentPane().add(option2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, -1, -1));
 
-        buttonGroup1.add(option3Label);
         option3Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         option3Label.setText("jRadioButton1");
+        option3Label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        option3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/circle_default.png"))); // NOI18N
         option3Label.setIconTextGap(8);
+        option3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                option3LabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                option3LabelMouseExited(evt);
+            }
+        });
         option3Label.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 option3LabelActionPerformed(evt);
@@ -328,10 +347,19 @@ public class ExamPage extends javax.swing.JFrame {
         });
         getContentPane().add(option3Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, -1, -1));
 
-        buttonGroup1.add(option4Label);
         option4Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         option4Label.setText("jRadioButton1");
+        option4Label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        option4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/circle_default.png"))); // NOI18N
         option4Label.setIconTextGap(8);
+        option4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                option4LabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                option4LabelMouseExited(evt);
+            }
+        });
         option4Label.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 option4LabelActionPerformed(evt);
@@ -339,10 +367,19 @@ public class ExamPage extends javax.swing.JFrame {
         });
         getContentPane().add(option4Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, -1, -1));
 
-        buttonGroup1.add(option1Label);
         option1Label.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         option1Label.setText("jRadioButton1");
+        option1Label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        option1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/circle_default.png"))); // NOI18N
         option1Label.setIconTextGap(8);
+        option1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                option1LabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                option1LabelMouseExited(evt);
+            }
+        });
         option1Label.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 option1LabelActionPerformed(evt);
@@ -445,7 +482,7 @@ public class ExamPage extends javax.swing.JFrame {
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         questionNumber+=1;
-        buttonGroup1.clearSelection();
+        clearSelection();
         
         displayQuestion();
         displayAnswer();
@@ -461,7 +498,7 @@ public class ExamPage extends javax.swing.JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         questionNumber-=1;
-        buttonGroup1.clearSelection();
+        clearSelection();
         
         displayQuestion();
         displayAnswer();
@@ -499,33 +536,164 @@ public class ExamPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
-    private void option1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1LabelActionPerformed
-        optionList.set(questionNumber-1, option1Label);
+    private void clearSelection(){
+        option1Label.setSelected(false);
+        option1Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        option2Label.setSelected(false);
+        option2Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        option3Label.setSelected(false);
+        option3Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        option4Label.setSelected(false);
+        option4Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+    }
+    
+    private void radioButtonSelection(JRadioButton radNow, JRadioButton radInactive1, JRadioButton radInactive2, JRadioButton radInactive3, boolean active){
+        if(active){
+            radNow.setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
+            radInactive1.setSelected(false);
+            radInactive1.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+            radInactive2.setSelected(false);
+            radInactive2.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+            radInactive3.setSelected(false);
+            radInactive3.setIcon(new ImageIcon("src/App/img/circle_default.png")); 
+        }
+        else{
+            radNow.setSelected(false);
+            radNow.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        }
         
-        String ans = option1Label.getText();
-        studentAnswerList.set(questionNumber-1, ans);
+    }
+    
+    private void option1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1LabelActionPerformed
+        
+        if(option1Label.isSelected()){
+            radioButtonSelection(option1Label, option2Label, option3Label, option4Label, true);
+            optionList.set(questionNumber-1, option1Label);
+        
+            String ans = option1Label.getText();
+            studentAnswerList.set(questionNumber-1, ans);
+
+        }
+        else{
+            radioButtonSelection(option1Label, option2Label, option3Label, option4Label, false); 
+        }
     }//GEN-LAST:event_option1LabelActionPerformed
 
     private void option2LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option2LabelActionPerformed
-        optionList.set(questionNumber-1, option2Label);
+       
+        if(option2Label.isSelected()){
+            radioButtonSelection(option2Label, option1Label, option3Label, option4Label, true);
+            optionList.set(questionNumber-1, option2Label);
         
-        String ans = option2Label.getText();
-        studentAnswerList.set(questionNumber-1, ans);
+            String ans = option2Label.getText();
+            studentAnswerList.set(questionNumber-1, ans);
+        }
+        else{
+            radioButtonSelection(option2Label, option1Label, option3Label, option4Label, false); 
+        }
     }//GEN-LAST:event_option2LabelActionPerformed
 
     private void option3LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option3LabelActionPerformed
-        optionList.set(questionNumber-1, option3Label);
         
-        String ans = option3Label.getText();
-        studentAnswerList.set(questionNumber-1, ans);
+        
+        if(option3Label.isSelected()){
+            radioButtonSelection(option3Label, option2Label, option1Label, option4Label, true);
+            optionList.set(questionNumber-1, option3Label);
+        
+            String ans = option3Label.getText();
+            studentAnswerList.set(questionNumber-1, ans);
+        }
+        else{
+            radioButtonSelection(option3Label, option2Label, option1Label, option4Label, false); 
+        }
     }//GEN-LAST:event_option3LabelActionPerformed
 
     private void option4LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option4LabelActionPerformed
-        optionList.set(questionNumber-1, option4Label);
         
-        String ans = option4Label.getText();
-        studentAnswerList.set(questionNumber-1, ans);
+        
+        if(option4Label.isSelected()){
+            radioButtonSelection(option4Label, option2Label, option3Label, option1Label, true);
+            optionList.set(questionNumber-1, option4Label);
+        
+            String ans = option4Label.getText();
+            studentAnswerList.set(questionNumber-1, ans);
+        }
+        else{
+            radioButtonSelection(option4Label, option2Label, option3Label, option1Label, false); 
+        }
     }//GEN-LAST:event_option4LabelActionPerformed
+
+    private void option1LabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option1LabelMouseEntered
+        if(option1Label.isSelected()){
+            option1Label.setIcon(new ImageIcon("src/App/img/circle_hover_clicked.png"));
+        }
+        else{
+            option1Label.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+        }
+    }//GEN-LAST:event_option1LabelMouseEntered
+
+    private void option1LabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option1LabelMouseExited
+        if(option1Label.isSelected()){
+            option1Label.setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
+        }
+        else{
+            option1Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        }
+    }//GEN-LAST:event_option1LabelMouseExited
+
+    private void option2LabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option2LabelMouseEntered
+        if(option2Label.isSelected()){
+            option2Label.setIcon(new ImageIcon("src/App/img/circle_hover_clicked.png"));
+        }
+        else{
+            option2Label.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+        }
+    }//GEN-LAST:event_option2LabelMouseEntered
+
+    private void option2LabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option2LabelMouseExited
+        if(option2Label.isSelected()){
+            option2Label.setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
+        }
+        else{
+            option2Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        }
+    }//GEN-LAST:event_option2LabelMouseExited
+
+    private void option3LabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option3LabelMouseEntered
+        if(option3Label.isSelected()){
+            option3Label.setIcon(new ImageIcon("src/App/img/circle_hover_clicked.png"));
+        }
+        else{
+            option3Label.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+        }
+    }//GEN-LAST:event_option3LabelMouseEntered
+
+    private void option3LabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option3LabelMouseExited
+        if(option3Label.isSelected()){
+            option3Label.setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
+        }
+        else{
+            option3Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        }
+    }//GEN-LAST:event_option3LabelMouseExited
+
+    private void option4LabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option4LabelMouseEntered
+        if(option4Label.isSelected()){
+            option4Label.setIcon(new ImageIcon("src/App/img/circle_hover_clicked.png"));
+        }
+        else{
+            option4Label.setIcon(new ImageIcon("src/App/img/circle_hover_default.png"));
+        }
+    }//GEN-LAST:event_option4LabelMouseEntered
+
+    private void option4LabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_option4LabelMouseExited
+        if(option4Label.isSelected()){
+            option4Label.setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
+        }
+        else{
+            option4Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
+        }
+    }//GEN-LAST:event_option4LabelMouseExited
 
     /**
      * @param args the command line arguments

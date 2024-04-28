@@ -107,6 +107,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         opt1Label.setForeground(Color.black);
         opt1Label.setFont(new Font("Montserrat", 0, 18));
         opt1Label.setText(opt1);
+        setCircleRadio(opt1Label, 15, opt1Height);
         setComponentBounds(opt1Label, 15, opt1Height, opt1Label.getPreferredSize().width+30, opt1Label.getPreferredSize().height);
         add(opt1Label);
         
@@ -115,6 +116,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         opt2Label.setForeground(Color.black);
         opt2Label.setFont(new Font("Montserrat", 0, 18));
         opt2Label.setText(opt2);
+        setCircleRadio(opt2Label, 15, opt2Height);
         setComponentBounds(opt2Label, 15, opt2Height, opt2Label.getPreferredSize().width+30, opt2Label.getPreferredSize().height);
         add(opt2Label);
         
@@ -123,6 +125,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         opt3Label.setForeground(Color.black);
         opt3Label.setFont(new Font("Montserrat", 0, 18));
         opt3Label.setText(opt3);
+        setCircleRadio(opt3Label, 15, opt3Height);
         setComponentBounds(opt3Label, 15, opt3Height, opt3Label.getPreferredSize().width+30, opt3Label.getPreferredSize().height);
         add(opt3Label);
         
@@ -131,6 +134,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         opt4Label.setForeground(Color.black);
         opt4Label.setFont(new Font("Montserrat", 0, 18));
         opt4Label.setText(opt4);
+        setCircleRadio(opt4Label, 15, opt4Height);
         setComponentBounds(opt4Label, 15, opt4Height, opt4Label.getPreferredSize().width+30, opt4Label.getPreferredSize().height);
         add(opt4Label);
         this.opt4Label = opt4Label;
@@ -149,6 +153,14 @@ public class CloneablePanelSearchQuestion extends JPanel{
             checkmark4.setVisible(true);
         }
         
+    }
+    
+    private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
+        JLabel radIcon = new JLabel();
+        radIcon.setIcon(new ImageIcon("src/App/img/circle_default2.png"));
+        
+        setComponentBounds(radIcon, xPos, yPos+4, radIcon.getPreferredSize().width, radIcon.getPreferredSize().height);
+        add(radIcon);
     }
     
     public int returnHeight(){

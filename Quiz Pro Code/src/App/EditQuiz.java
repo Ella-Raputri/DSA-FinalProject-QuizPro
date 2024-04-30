@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.event.DocumentEvent;
@@ -543,7 +545,7 @@ public class EditQuiz extends javax.swing.JFrame {
         editTitle.setColor2(new java.awt.Color(224, 237, 255));
         editTitle.setColorClick(new java.awt.Color(224, 237, 255));
         editTitle.setColorClick2(new java.awt.Color(224, 237, 255));
-        editTitle.setColorOver(new java.awt.Color(252, 252, 252));
+        editTitle.setColorOver(new java.awt.Color(224, 237, 255));
         editTitle.setColorOver2(new java.awt.Color(224, 237, 255));
         editTitle.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         editTitle.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -552,6 +554,17 @@ public class EditQuiz extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editTitleActionPerformed(evt);
                 enableTitleField.run();
+            }
+        });
+        editTitle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editTitle.setIcon(new javax.swing.ImageIcon("src/App/img/edit_quiz_title_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editTitle.setIcon(new javax.swing.ImageIcon("src/App/img/edit_quiz_title.png"));
             }
         });
         contentPane.add(editTitle);
@@ -581,6 +594,17 @@ public class EditQuiz extends javax.swing.JFrame {
                 }
             }
         });
+        editTitleDone.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editTitleDone.setIcon(new javax.swing.ImageIcon("src/App/img/edit_title_done_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editTitleDone.setIcon(new javax.swing.ImageIcon("src/App/img/edit_title_done.png"));
+            }
+        }); 
         contentPane.add(editTitleDone);
         
         editTitleCancel.setVisible(false);
@@ -606,6 +630,17 @@ public class EditQuiz extends javax.swing.JFrame {
                 disableTitleField.run();
             }
         });
+        editTitleCancel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editTitleCancel.setIcon(new javax.swing.ImageIcon("src/App/img/edit_title_cancel_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editTitleCancel.setIcon(new javax.swing.ImageIcon("src/App/img/edit_title_cancel.png"));
+            }
+        }); 
         contentPane.add(editTitleCancel);
         
         
@@ -618,8 +653,7 @@ public class EditQuiz extends javax.swing.JFrame {
         minuteLabel.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N
         minuteLabel.setText("minutes");
         contentPane.add(minuteLabel);
-        
-        
+
         
         durationField.setFont(new java.awt.Font("Montserrat", 0, 20)); // NOI18N   
         durationField.setEditable(false);
@@ -689,7 +723,7 @@ public class EditQuiz extends javax.swing.JFrame {
         editDuration.setColor2(new java.awt.Color(224, 237, 255));
         editDuration.setColorClick(new java.awt.Color(224, 237, 255));
         editDuration.setColorClick2(new java.awt.Color(224, 237, 255));
-        editDuration.setColorOver(new java.awt.Color(252, 252, 252));
+        editDuration.setColorOver(new java.awt.Color(224,237,255));
         editDuration.setColorOver2(new java.awt.Color(224, 237, 255));
         editDuration.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
         editDuration.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -698,6 +732,17 @@ public class EditQuiz extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editDurationActionPerformed(evt);
                 enableDurationField.run();
+            }
+        });
+        editDuration.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editDuration.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editDuration.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration.png"));
             }
         });
         contentPane.add(editDuration);
@@ -727,6 +772,17 @@ public class EditQuiz extends javax.swing.JFrame {
                 }
             }
         });
+        editDurationDone.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editDurationDone.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_done_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editDurationDone.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_done.png"));
+            }
+        });
         contentPane.add(editDurationDone);
         
         editDurationCancel.setVisible(false);
@@ -750,6 +806,17 @@ public class EditQuiz extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editDurationCancelActionPerformed(evt);
                 disableDurationField.run();
+            }
+        });
+        editDurationCancel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editDurationCancel.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_cancel_hover.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editDurationCancel.setIcon(new javax.swing.ImageIcon("src/App/img/edit_duration_cancel.png"));
             }
         });
         contentPane.add(editDurationCancel);

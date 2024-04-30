@@ -79,6 +79,32 @@ public class QuizResult extends javax.swing.JFrame {
         };
         contentPane.setLayout(null); // Use absolute layout
         setContentPane(contentPane);
+        
+        //filter button
+        filterButton = new App.ButtonCustom();
+        filterButton.setBackground(new java.awt.Color(224, 237, 255));
+        filterButton.setForeground(new java.awt.Color(0,0,0));
+        filterButton.setIcon(new javax.swing.ImageIcon("src/App/img/filter.png")); // NOI18N
+        filterButton.setBorderColor(new java.awt.Color(255, 255, 255));
+        filterButton.setBorderColorNotOver(new java.awt.Color(255, 255, 255));
+        filterButton.setBorderColorOver(new java.awt.Color(245, 245, 245));
+        filterButton.setColor(new java.awt.Color(255, 255, 255));
+        filterButton.setColor2(new java.awt.Color(255, 255, 255));
+        filterButton.setColorClick(new java.awt.Color(245, 245, 245));
+        filterButton.setColorClick2(new java.awt.Color(255, 255, 255));
+        filterButton.setColorOver(new java.awt.Color(245, 245, 245));
+        filterButton.setColorOver2(new java.awt.Color(255, 255, 255));
+        filterButton.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        filterButton.setRadius(100);
+        filterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterButtonActionPerformed(evt);
+            }
+        });
+        filterButton.setBounds(1060,130, 75,75);
+        contentPane.add(filterButton);
+        contentPane.setComponentZOrder(filterButton, 0);
+        
 
         // Create the scroll pane
         scrollPane = new JScrollPane();
@@ -222,6 +248,20 @@ public class QuizResult extends javax.swing.JFrame {
         new EditQuiz(quizid).setVisible(true);
     } 
     
+    public static int open = 0;
+    QuizResult resultPage = (QuizResult) SwingUtilities.getRoot(this);
+    
+    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        if(open==0){
+            new FilterMarks().setVisible(true);
+            open=1;
+        }
+        else{
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"One form is already opened");
+        }
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -279,7 +319,7 @@ public class QuizResult extends javax.swing.JFrame {
         });
     }
     
-    
+    private App.ButtonCustom filterButton;
     private App.ButtonCustom LogoutButton;
     private App.ButtonCustom backButton;
     private javax.swing.JLabel jLabel1;

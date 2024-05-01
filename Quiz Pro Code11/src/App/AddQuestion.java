@@ -25,9 +25,8 @@ import javax.swing.text.DocumentFilter;
  * @author Asus
  */
 public class AddQuestion extends javax.swing.JFrame {
-    private LinkedlistBenchmark quizList;
+    private LinkedlistBenchmark newQuizList;
     private String quizid; 
-    public EditQuiz editquiz;
     
     /**
      * Creates new form AddQuest
@@ -37,10 +36,9 @@ public class AddQuestion extends javax.swing.JFrame {
         myinit();
     }
     
-    public AddQuestion(LinkedlistBenchmark quizList, String quizid, EditQuiz editquiz) {
-        this.quizList = quizList;
+    public AddQuestion(LinkedlistBenchmark quizList, String quizid) {
+        this.newQuizList = quizList;
         this.quizid = quizid;
-        this.editquiz = editquiz;
         initComponents();
         myinit();
     }
@@ -821,7 +819,7 @@ public class AddQuestion extends javax.swing.JFrame {
                 setVisible(false);
                 EditQuiz.open = 0;
                 
-                editquiz.reloadSelf();
+                EditQuiz.showCloneablePanel(EditQuiz.quizlist.quiz.countNodes());
                 
 
             }catch(Exception e){

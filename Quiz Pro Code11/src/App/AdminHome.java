@@ -19,6 +19,7 @@ public class AdminHome extends javax.swing.JFrame {
     private JPanel contentPane;
     private JPanel cloneablePanel;
     private JScrollPane scrollPane;
+    
 
 
     public AdminHome() {
@@ -99,7 +100,6 @@ public class AdminHome extends javax.swing.JFrame {
 
         
         int row=0, column=0;
-
         for(int i=0; i<totalElement;i++){
             String title = "";
             String duration = "";
@@ -114,14 +114,10 @@ public class AdminHome extends javax.swing.JFrame {
                     title = rs1.getString(2);
                     duration = rs1.getString(3);
                 }
-                else{
-                    JOptionPane.showMessageDialog(getContentPane(), "null");
-                }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(getContentPane(), e);
+                JFrame jf = new JFrame();
+                JOptionPane.showMessageDialog(jf, e);
             }
-            
-            
             
             // Create a new cloned panel
             // Cloneable Panel
@@ -212,6 +208,7 @@ public class AdminHome extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+    
     
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);

@@ -29,8 +29,8 @@ public class EditQuiz extends javax.swing.JFrame {
     public static LinkedlistBenchmark quizlist = new LinkedlistBenchmark();
     public static String quizID;
     private JPanel contentPane;
-    private JPanel cloneablePanel;
-    private JScrollPane scrollPane;
+    public static JPanel cloneablePanel;
+    public static JScrollPane scrollPane;
     
     /**
      * Creates new form WelcomePage
@@ -155,51 +155,7 @@ public class EditQuiz extends javax.swing.JFrame {
         scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
 
         
-        int x=10;
-        Linkedlist.Node currentQuestion = EditQuiz.quizlist.quiz.head;
-        for(int i=1; i<totalElement+1;i++){
-            String id = currentQuestion.data.getQuestionID();
-            int questionNumber = currentQuestion.data.getQuestionNumber();
-            String question = currentQuestion.data.getQuestion();
-            String option1 = currentQuestion.data.getOption1();
-            String option2 = currentQuestion.data.getOption2();
-            String option3 = currentQuestion.data.getOption3();
-            String option4 = currentQuestion.data.getOption4();
-            String answer = currentQuestion.data.getCorrectAnswer();
-            boolean required = currentQuestion.data.getRequired();
-
-            
-            // Create a new cloned panel
-            CloneablePanelEditQuiz clonedPanel = new CloneablePanelEditQuiz(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer, required);
-            // Set your custom width and height for the cloned panel
-            int panelWidth = 1100;
-            int panelHeight = 370;
-            
-            
-            int y;
-            if (i == 1) {
-                y = 10; // If it's the first cloned panel, start at y = 10
-            } else {
-                y = 10 + (i - 1) * (panelHeight + 50); // Adjusted position for subsequent panels
-            }
-
-            // Set the bounds for the cloned panel with your custom size
-            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
-            clonedPanel.setBackground(Color.white);
-            
-            // Add the cloned panel to the initial panel
-            cloneablePanel.add(clonedPanel);
-            // Adjust preferred size of initial panel to include new panel
-            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 10); // Adjusted size
-            cloneablePanel.setPreferredSize(newSize);
-            // Ensure the scroll pane updates its viewport
-            scrollPane.revalidate();
-            scrollPane.repaint();
-            // Scroll to show the new panel
-            scrollPane.getVerticalScrollBar().setValue(0);
-            
-            currentQuestion = currentQuestion.next;
-        }
+        showCloneablePanel(totalElement);
         
 
         ImageIcon bgImage = new ImageIcon("src/App/img/background_edit_quiz.png");
@@ -832,6 +788,58 @@ public class EditQuiz extends javax.swing.JFrame {
         setTitleAndDuration();
     }
     
+    public static void showCloneablePanel(int totalElement){
+        cloneablePanel.removeAll();
+        
+        int x=10;
+        Linkedlist.Node currentQuestion = EditQuiz.quizlist.quiz.head;
+        for(int i=1; i<totalElement+1;i++){
+            String id = currentQuestion.data.getQuestionID();
+            int questionNumber = currentQuestion.data.getQuestionNumber();
+            String question = currentQuestion.data.getQuestion();
+            String option1 = currentQuestion.data.getOption1();
+            String option2 = currentQuestion.data.getOption2();
+            String option3 = currentQuestion.data.getOption3();
+            String option4 = currentQuestion.data.getOption4();
+            String answer = currentQuestion.data.getCorrectAnswer();
+            boolean required = currentQuestion.data.getRequired();
+
+            
+            // Create a new cloned panel
+            CloneablePanelEditQuiz clonedPanel = new CloneablePanelEditQuiz(40, Color.white, 2,id, questionNumber, question, option1, option2, option3, option4, answer, required);
+            // Set your custom width and height for the cloned panel
+            int panelWidth = 1100;
+            int panelHeight = 370;
+            
+            
+            int y;
+            if (i == 1) {
+                y = 10; // If it's the first cloned panel, start at y = 10
+            } else {
+                y = 10 + (i - 1) * (panelHeight + 50); // Adjusted position for subsequent panels
+            }
+
+            // Set the bounds for the cloned panel with your custom size
+            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
+            clonedPanel.setBackground(Color.white);
+            
+            // Add the cloned panel to the initial panel
+            cloneablePanel.add(clonedPanel);
+            // Adjust preferred size of initial panel to include new panel
+            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 10); // Adjusted size
+            cloneablePanel.setPreferredSize(newSize);
+            // Ensure the scroll pane updates its viewport
+            scrollPane.revalidate();
+            scrollPane.repaint();
+            // Scroll to show the new panel
+            scrollPane.getVerticalScrollBar().setValue(0);
+            
+            currentQuestion = currentQuestion.next;
+        }
+        cloneablePanel.revalidate();
+        cloneablePanel.repaint();
+    }
+    
    
     private void setTitleAndDuration(){
         try{
@@ -1046,7 +1054,7 @@ public class EditQuiz extends javax.swing.JFrame {
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if(open==0){
-            new AddQuestion(quizlist, quizID, editquiz).setVisible(true);
+            new AddQuestion(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{
@@ -1064,7 +1072,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void changeOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         if(open==0){
-            new ChangeOrder(quizlist, quizID, editquiz).setVisible(true);
+            new ChangeOrder(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{
@@ -1076,7 +1084,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         if(open==0){
-            new DeleteQuestion(quizlist, quizID, editquiz).setVisible(true);
+            new DeleteQuestion(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{
@@ -1106,7 +1114,7 @@ public class EditQuiz extends javax.swing.JFrame {
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if(open==0){
-            new EditQuestion(quizlist, quizID, editquiz).setVisible(true);
+            new EditQuestion(quizlist, quizID).setVisible(true);
             open=1;
         }
         else{
@@ -1124,12 +1132,7 @@ public class EditQuiz extends javax.swing.JFrame {
             new WelcomePage().setVisible(true);
         }
     }
-    
-    
-    public void reloadSelf(){
-        setVisible(false);
-        new EditQuiz(quizID).setVisible(true);
-    }
+   
     
     
     

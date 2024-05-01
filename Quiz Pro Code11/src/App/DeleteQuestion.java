@@ -35,7 +35,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
     private LinkedlistBenchmark quizlist;
     private String quizid;
     private static Question current_question;
-    public EditQuiz editquiz;
     /**
      * Creates new form DeleteQuestion
      */
@@ -44,10 +43,9 @@ public class DeleteQuestion extends javax.swing.JFrame {
         myinit();
     }
     
-    public DeleteQuestion(LinkedlistBenchmark quizList, String quizid, EditQuiz editquiz) {
+    public DeleteQuestion(LinkedlistBenchmark quizList, String quizid) {
         this.quizlist = quizList;
         this.quizid = quizid;
-        this.editquiz = editquiz;
         initComponents();
         myinit();
     }
@@ -415,7 +413,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 System.out.println("Records updated successfully.");
                 setVisible(false);
                 EditQuiz.open = 0;
-                editquiz.reloadSelf();
+                EditQuiz.showCloneablePanel(EditQuiz.quizlist.quiz.countNodes());
 
             } catch (SQLException e) {
                 e.printStackTrace();

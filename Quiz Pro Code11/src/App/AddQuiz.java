@@ -284,7 +284,8 @@ public class AddQuiz extends javax.swing.JFrame {
                 }
    
             }
-        });
+        }); 
+        
         
         durationField.getDocument().addDocumentListener(new DocumentListener() {
             @Override

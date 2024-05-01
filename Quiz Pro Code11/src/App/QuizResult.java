@@ -17,11 +17,10 @@ import java.awt.*;
  */
 public class QuizResult extends javax.swing.JFrame {
     private String quizid;
-    int totalElement = 0;
-    LinkedList<Student> studentList = new LinkedList<>();
+    public static LinkedList<Student> studentList = new LinkedList<>();
     private JPanel contentPane;
-    private JPanel cloneablePanel;
-    private JScrollPane scrollPane;
+    public static JPanel cloneablePanel;
+    public static JScrollPane scrollPane;
     
     
     public QuizResult() {
@@ -41,6 +40,7 @@ public class QuizResult extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
+        int totalElement =0;
         //get the total element
         try {
             Connection con = ConnectionProvider.getCon();
@@ -122,48 +122,7 @@ public class QuizResult extends javax.swing.JFrame {
         scrollPane.setViewportView(cloneablePanel); // Set this panel as viewport's view
         
         
-        int x=10;
-        int prevPanelHeight=0;
-        int prevY=0;
-        for(int i=1; i<totalElement+1;i++){
-            String username = studentList.get(i-1).getUsername();
-            double score = studentList.get(i-1).getGrade();
-            
-            // Create a new cloned panel
-            CloneablePanelQuizResult clonedPanel = new CloneablePanelQuizResult(40, Color.white, 2, username, score);
-            // Set your custom width and height for the cloned panel
-            int panelWidth = 1040;
-            int panelHeight = clonedPanel.returnLabelHeight();
-            
-            int y;
-            if(i==1){
-                y=10;
-                prevY=10;
-            }
-            else{
-                int newY = prevY + prevPanelHeight +30;
-                y = newY;
-                prevY = newY;
-            }
-            
-            prevPanelHeight = panelHeight;
-
-            // Set the bounds for the cloned panel with your custom size
-            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
-            clonedPanel.setBackground(Color.white);
-            
-            // Add the cloned panel to the initial panel
-            cloneablePanel.add(clonedPanel);
-            // Adjust preferred size of initial panel to include new panel
-            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 20); // Adjusted size
-            cloneablePanel.setPreferredSize(newSize);
-            // Ensure the scroll pane updates its viewport
-            scrollPane.revalidate();
-            scrollPane.repaint();
-            // Scroll to show the new panel
-            scrollPane.getVerticalScrollBar().setValue(0);
-            
-        }
+        showCloneablePanel(totalElement, this.studentList);
         
 
         ImageIcon bgImage = new ImageIcon("src/App/img/background_result.png");
@@ -232,6 +191,55 @@ public class QuizResult extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
+    public static void showCloneablePanel(int totalElement, LinkedList<Student> studentList){
+        int x=10;
+        int prevPanelHeight=0;
+        int prevY=0;
+        
+        cloneablePanel.removeAll();
+        for(int i=1; i<totalElement+1;i++){
+            String username = studentList.get(i-1).getUsername();
+            double score = studentList.get(i-1).getGrade();
+            
+            // Create a new cloned panel
+            CloneablePanelQuizResult clonedPanel = new CloneablePanelQuizResult(40, Color.white, 2, username, score);
+            // Set your custom width and height for the cloned panel
+            int panelWidth = 1040;
+            int panelHeight = clonedPanel.returnLabelHeight();
+            
+            int y;
+            if(i==1){
+                y=10;
+                prevY=10;
+            }
+            else{
+                int newY = prevY + prevPanelHeight +30;
+                y = newY;
+                prevY = newY;
+            }
+            
+            prevPanelHeight = panelHeight;
+
+            // Set the bounds for the cloned panel with your custom size
+            clonedPanel.setBounds(x, y, panelWidth, panelHeight);
+            clonedPanel.setBackground(Color.white);
+            
+            // Add the cloned panel to the initial panel
+            cloneablePanel.add(clonedPanel);
+            // Adjust preferred size of initial panel to include new panel
+            Dimension newSize = new Dimension(cloneablePanel.getWidth(), y + panelHeight + 20); // Adjusted size
+            cloneablePanel.setPreferredSize(newSize);
+            // Ensure the scroll pane updates its viewport
+            scrollPane.revalidate();
+            scrollPane.repaint();
+            // Scroll to show the new panel
+            scrollPane.getVerticalScrollBar().setValue(0);
+            
+        }
+        cloneablePanel.revalidate();
+        cloneablePanel.repaint();
+    }
+    
     
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to log out?", "SELECT", JOptionPane.YES_OPTION);
@@ -249,11 +257,10 @@ public class QuizResult extends javax.swing.JFrame {
     } 
     
     public static int open = 0;
-    QuizResult resultPage = (QuizResult) SwingUtilities.getRoot(this);
     
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if(open==0){
-            new FilterMarks().setVisible(true);
+            new FilterMarks(studentList).setVisible(true);
             open=1;
         }
         else{

@@ -99,7 +99,29 @@ public class StudentHome extends javax.swing.JFrame {
         };
         contentPane.setLayout(null); // Use absolute layout
         setContentPane(contentPane);
-
+        
+        JLabel nothing_here = new JLabel();
+        JLabel check_later = new JLabel();
+        JLabel empty_box = new JLabel();
+        
+        if(listOfQuizzes.isEmpty()){
+            empty_box.setIcon(new javax.swing.ImageIcon("src/App/img/empty_box.png"));
+            empty_box.setBounds(76,203,empty_box.getPreferredSize().width+30,empty_box.getPreferredSize().height);
+            contentPane.add(empty_box);
+            
+            nothing_here.setText("Nothing Here Yet!");
+            nothing_here.setFont(new java.awt.Font("Montserrat", 0, 58)); 
+            nothing_here.setForeground(Color.black);
+            nothing_here.setBounds(504,333, nothing_here.getPreferredSize().width+30,nothing_here.getPreferredSize().height);
+            contentPane.add(nothing_here);
+            
+            check_later.setText("Check it out later");
+            check_later.setFont(new java.awt.Font("Montserrat", 0, 40)); 
+            check_later.setForeground(Color.gray);
+            check_later.setBounds(575,433, check_later.getPreferredSize().width+30,check_later.getPreferredSize().height);
+            contentPane.add(check_later);
+        }        
+        
         // Create the scroll pane
         scrollPane = new JScrollPane();
         scrollPane.setBounds(80, 200, 1180, 480); // Set bounds for the scroll pane

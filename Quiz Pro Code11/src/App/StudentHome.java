@@ -54,28 +54,30 @@ public class StudentHome extends javax.swing.JFrame {
     private void myinit(){
         setTitle("Student Home Page");
         setResizable(false);
-        LinkedList<String> idListTemp = new LinkedList<>();
         LinkedList<String> idList = new LinkedList<>();
+        LinkedList<Quiz> listOfQuizzes = new LinkedList<>();
         
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
-            ResultSet rs1 = st.executeQuery("select id from quiz");
+            ResultSet rs1 = st.executeQuery("select quizID from question");
             while(rs1.next()){
-                String id = rs1.getString("id");
-                idListTemp.add(id);
+                String id = rs1.getString("quizID");
+                if(!(idList.contains(id))){
+                    idList.add(id);
+                }
             }
             
-            for(int i=0; i<idListTemp.size(); i++){
-                ResultSet rs2 = st.executeQuery("select count(id) from question where quizID='" + idListTemp.get(i) + "'");
+            for(int i=0; i<idList.size(); i++){
+                ResultSet rs2 = st.executeQuery("select * from quiz where id='" + idList.get(i) + "'");
                 if(rs2.first()){
-                    String temp = rs2.getString(1);
-                    if(!(temp.equals("0"))){
-                        idList.add(idListTemp.get(i));
-                    }
-                }
-                
+                    String id = rs2.getString("id");
+                    String title = rs2.getString("title");
+                    String duration = rs2.getString("duration");
+                    Quiz quiz = new Quiz(title, duration, id);
+                    listOfQuizzes.add(quiz);
+                }   
             }
             
             
@@ -116,28 +118,10 @@ public class StudentHome extends javax.swing.JFrame {
         
         int row=0, column=0;
 
-        for(int i=0; i<idList.size();i++){
-            String title = "";
-            String duration = "";
-            String id="";
-            
-            try{
-                Connection con = ConnectionProvider.getCon();
-                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs1 = st.executeQuery("select * from quiz where id='"+idList.get(i)+"'");
-                if(rs1.first()){
-                    id = rs1.getString(1);
-                    title = rs1.getString(2);
-                    duration = rs1.getString(3);
-                }
-                else{
-                    JOptionPane.showMessageDialog(getContentPane(), "null");
-                }
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(getContentPane(), e);
-            }
-            
-            
+        for(int i=0; i<listOfQuizzes.size();i++){
+            String id = listOfQuizzes.get(i).getId();
+            String title = listOfQuizzes.get(i).getTitle();
+            String duration = listOfQuizzes.get(i).getDuration();
             
             // Create a new cloned panel
             CloneablePanelStudent clonedPanel = new CloneablePanelStudent(40, Color.white, 2,id, title, duration);

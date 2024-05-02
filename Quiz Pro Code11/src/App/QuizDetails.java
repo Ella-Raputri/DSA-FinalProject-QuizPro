@@ -6,6 +6,7 @@ package App;
 
 import DatabaseConnection.ConnectionProvider;
 import java.sql.*;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,8 +16,8 @@ import javax.swing.JOptionPane;
 public class QuizDetails extends javax.swing.JFrame {
     private String quizTitle;
     private String quizDuration;
-    private int quizTotalQuestions;
-    private int requiredQuestions;
+    private int quizTotalQuestions=0;
+    private int requiredQuestions=0;
     private String studentId;
     private String quizId;
     /**
@@ -46,31 +47,22 @@ public class QuizDetails extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(getContentPane(), "null");
             }
             
-            
-            ResultSet rs = st.executeQuery("select count(id) from question where quizID='" + quizId + "'");
-            if(rs.first()){
-                String temp = rs.getString(1);
-                quizTotalQuestions = Integer.parseInt(temp);
-            }
-            else{
-                quizTotalQuestions = 0;
-            }
-            
-            ResultSet rs2 = st.executeQuery("select count(id) from question where quizID='" + quizId + "' and required=true");
-            if(rs2.first()){
-                String temp = rs2.getString(1);
-                requiredQuestions = Integer.parseInt(temp);
-            }
-            else{
-                requiredQuestions = 0;
+            ResultSet rs2 = st.executeQuery("select required from question where quizID='" + quizId + "'");
+            while(rs2.next()){
+                quizTotalQuestions+=1;
+                
+                boolean required = rs2.getBoolean("required");
+                if(required==true){
+                    requiredQuestions+=1;
+                }
             }
 
-            
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
         initComponents();
+        
 
         title.setText(quizTitle);
         duration.setText(quizDuration + " minutes");
@@ -83,13 +75,18 @@ public class QuizDetails extends javax.swing.JFrame {
         }
         
         if(requiredQuestions == quizTotalQuestions){
-            jLabel3.setText("Make sure to fill all the questions before submitting.");
+            jLabel3.setText("Make sure to answer all the questions before submitting");
         }
         else if(requiredQuestions == 0){
             jLabel3.setText("All the questions are not required to be filled");
         }
         else{
-            jLabel3.setText("Make sure to file the questions with the red * symbol");
+            if(requiredQuestions==1){
+                jLabel3.setText("Make sure to answer the 1 question marked with a red asterisk");
+            }
+            else{
+                jLabel3.setText("Make sure to answer the " + requiredQuestions + " questions marked with a red asterisk");
+            }
         }
         
     }
@@ -214,7 +211,7 @@ public class QuizDetails extends javax.swing.JFrame {
         totalQuestions1.setText("Total Questions:");
         getContentPane().add(totalQuestions1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Montserrat Medium", 0, 32)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Montserrat Medium", 0, 28)); // NOI18N
         jLabel3.setText("Make sure to fill all the questions before submitting.");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, -1, -1));
 

@@ -112,25 +112,16 @@ public class AddQuiz extends javax.swing.JFrame {
        try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select count(id) from quiz");
-            if(rs.first()){
-                String temp = rs.getString(1);
-                totalElement = Integer.parseInt(temp);
-            }
-            else{
-                totalElement = 0;
+            ResultSet rs = st.executeQuery("select id from quizID");
+            while(rs.next()){
+                String text = rs.getString("id");
+                allIdList.add(text);
             }
             
-            if(totalElement==0){
+            if(allIdList.isEmpty()){
                 id.setText("z1");
             }
             else{
-                ResultSet rs1 = st.executeQuery("select id from quizID");
-                while(rs1.next()){
-                    String text = rs1.getString("id");
-                    allIdList.add(text);
-                }
-                
                 String lastId = allIdList.getLast();
                 String temp = "";
                 for(int i=1; i<lastId.length(); i++){
@@ -139,9 +130,9 @@ public class AddQuiz extends javax.swing.JFrame {
                 int idnow = Integer.parseInt(temp);
                 idnow++;
                 String str = "z" + String.valueOf(idnow);
-                id.setText(str); 
-                
+                id.setText(str);
             }
+
             
         } catch(Exception e){
             JFrame jf = new JFrame();

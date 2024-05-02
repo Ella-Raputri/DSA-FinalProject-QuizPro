@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

@@ -43,30 +43,24 @@ public class AdminHome extends javax.swing.JFrame {
         setResizable(false);
         setTitle("Admin Home Page");
         int totalElement = 0;
-        LinkedList<String> idList = new LinkedList<>();
+        LinkedList<Quiz> listOfQuizzes = new LinkedList<>();
         
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select count(id) from quiz");
-            if(rs.first()){
-                String temp = rs.getString(1);
-                totalElement = Integer.parseInt(temp);
-            }
-            else{
-                totalElement = 0;
-            }
-            
-            
-            ResultSet rs1 = st.executeQuery("select id from quiz");
-            while(rs1.next()){
-                String id = rs1.getString("id");
-                idList.add(id);
+            ResultSet rs = st.executeQuery("select * from quiz");
+            while(rs.next()){
+                String id = rs.getString("id");
+                String title = rs.getString("title");
+                String duration = rs.getString("duration");
+                Quiz quiz = new Quiz(title, duration, id);
+                listOfQuizzes.add(quiz);
             }
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
+        totalElement = listOfQuizzes.size();
         
 
         // Create the content pane
@@ -101,23 +95,9 @@ public class AdminHome extends javax.swing.JFrame {
         
         int row=0, column=0;
         for(int i=0; i<totalElement;i++){
-            String title = "";
-            String duration = "";
-            String id="";
-            
-            try{
-                Connection con = ConnectionProvider.getCon();
-                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs1 = st.executeQuery("select * from quiz where id='"+idList.get(i)+"'");
-                if(rs1.first()){
-                    id = rs1.getString(1);
-                    title = rs1.getString(2);
-                    duration = rs1.getString(3);
-                }
-            }catch(Exception e){
-                JFrame jf = new JFrame();
-                JOptionPane.showMessageDialog(jf, e);
-            }
+            String id = listOfQuizzes.get(i).getId();
+            String title = listOfQuizzes.get(i).getTitle();
+            String duration = listOfQuizzes.get(i).getDuration();
             
             // Create a new cloned panel
             // Cloneable Panel

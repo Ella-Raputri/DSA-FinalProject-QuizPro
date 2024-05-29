@@ -111,6 +111,7 @@ public class QuizResult extends javax.swing.JFrame {
         scrollPane.setBounds(85, 220, 1100, 440); // Set bounds for the scroll pane
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
 
         // Create the cloneable panel

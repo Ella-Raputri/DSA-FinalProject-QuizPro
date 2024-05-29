@@ -127,6 +127,7 @@ public class StudentHome extends javax.swing.JFrame {
         scrollPane.setBounds(80, 200, 1180, 480); // Set bounds for the scroll pane
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
 
         // Create the cloneable panel

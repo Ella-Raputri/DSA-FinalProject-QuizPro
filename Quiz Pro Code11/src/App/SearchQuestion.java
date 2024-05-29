@@ -107,6 +107,7 @@ public class SearchQuestion extends javax.swing.JFrame {
         scrollPane.setBounds(40, 130, 450, 370); // Set bounds for the scroll pane
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
 
         // Create the cloneable panel

@@ -144,6 +144,7 @@ public class EditQuiz extends javax.swing.JFrame {
         scrollPane.setBounds(60, 300, 1180, 390); // Set bounds for the scroll pane
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
 
         // Create the cloneable panel

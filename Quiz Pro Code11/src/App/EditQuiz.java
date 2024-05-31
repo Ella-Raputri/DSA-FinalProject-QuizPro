@@ -118,27 +118,27 @@ public class EditQuiz extends javax.swing.JFrame {
         contentPane.setLayout(null); // Use absolute layout
         setContentPane(contentPane);
         
-        JLabel noQuestion = new JLabel();
-        JLabel clickToAdd = new JLabel();
-        JLabel plane_icon = new JLabel();
-        if(totalElement ==0){
-            plane_icon.setIcon(new javax.swing.ImageIcon("src/App/img/paperplane1.png"));
-            plane_icon.setBounds(130,300,plane_icon.getPreferredSize().width+30,plane_icon.getPreferredSize().height);
-            contentPane.add(plane_icon);
-            
-            noQuestion.setText("No question is available.");
-            noQuestion.setFont(new java.awt.Font("Montserrat", 0, 20)); 
-            noQuestion.setForeground(Color.black);
-            noQuestion.setBounds(530,430, noQuestion.getPreferredSize().width+30,noQuestion.getPreferredSize().height);
-            contentPane.add(noQuestion);
-            
-            clickToAdd.setText("Click to add questions");
-            clickToAdd.setFont(new java.awt.Font("Montserrat", 0, 20)); 
-            clickToAdd.setForeground(Color.gray);
-            clickToAdd.setBounds(530,460, clickToAdd.getPreferredSize().width+30,clickToAdd.getPreferredSize().height);
-            contentPane.add(clickToAdd);
-        }
+        noQuestion = new JLabel();
+        clickToAdd = new JLabel();
+        plane_icon = new JLabel();
+        
+        plane_icon.setIcon(new javax.swing.ImageIcon("src/App/img/paperplane1.png"));
+        plane_icon.setBounds(130,300,plane_icon.getPreferredSize().width+30,plane_icon.getPreferredSize().height);
+        contentPane.add(plane_icon);
 
+        noQuestion.setText("No question is available.");
+        noQuestion.setFont(new java.awt.Font("Montserrat", 0, 20)); 
+        noQuestion.setForeground(Color.black);
+        noQuestion.setBounds(530,430, noQuestion.getPreferredSize().width+30,noQuestion.getPreferredSize().height);
+        contentPane.add(noQuestion);
+
+        clickToAdd.setText("Click to add questions");
+        clickToAdd.setFont(new java.awt.Font("Montserrat", 0, 20)); 
+        clickToAdd.setForeground(Color.gray);
+        clickToAdd.setBounds(530,460, clickToAdd.getPreferredSize().width+30,clickToAdd.getPreferredSize().height);
+        contentPane.add(clickToAdd);
+        showEmptyIcon(totalElement);
+        
         // Create the scroll pane
         scrollPane = new JScrollPane();
         scrollPane.setBounds(60, 300, 1180, 390); // Set bounds for the scroll pane
@@ -789,6 +789,19 @@ public class EditQuiz extends javax.swing.JFrame {
         setTitleAndDuration();
     }
     
+    public static void showEmptyIcon(int totalElement){
+        if(totalElement ==0){
+            plane_icon.setVisible(true);
+            noQuestion.setVisible(true);
+            clickToAdd.setVisible(true);
+        }
+        else{
+            plane_icon.setVisible(false);
+            noQuestion.setVisible(false);
+            clickToAdd.setVisible(false);
+        }
+    }
+    
     public static void showCloneablePanel(int totalElement){
         cloneablePanel.removeAll();
         
@@ -1179,6 +1192,9 @@ public class EditQuiz extends javax.swing.JFrame {
         });
     }
     
+    private static JLabel noQuestion;
+    private static JLabel clickToAdd;
+    private static JLabel plane_icon;
     private App.ButtonCustom LogoutButton;
     private App.ButtonCustom addButton;
     private javax.swing.JLabel add_icon;

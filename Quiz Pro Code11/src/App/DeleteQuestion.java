@@ -413,6 +413,8 @@ public class DeleteQuestion extends javax.swing.JFrame {
                 setVisible(false);
                 EditQuiz.open = 0;
                 EditQuiz.showCloneablePanel(EditQuiz.quizlist.quiz.countNodes());
+                EditQuiz.showEmptyIcon(EditQuiz.quizlist.quiz.countNodes());
+                
 
             } catch (SQLException e) {
                 e.printStackTrace();

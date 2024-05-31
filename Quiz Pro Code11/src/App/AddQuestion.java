@@ -820,6 +820,7 @@ public class AddQuestion extends javax.swing.JFrame {
                 EditQuiz.open = 0;
                 
                 EditQuiz.showCloneablePanel(EditQuiz.quizlist.quiz.countNodes());
+                EditQuiz.showEmptyIcon(EditQuiz.quizlist.quiz.countNodes());
                 
 
             }catch(Exception e){

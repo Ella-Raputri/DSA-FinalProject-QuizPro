@@ -57,7 +57,7 @@ public class QuizResult extends javax.swing.JFrame {
                     studentList.add(student1);
                 }
             } catch (SQLException selectEx) {
-                JOptionPane.showMessageDialog(getContentPane(), "Error while retrieving non-null values: " + selectEx.getMessage());
+                JOptionPane.showMessageDialog(getContentPane(), "There is no student result yet." );
             }
 
         } catch (Exception e) {

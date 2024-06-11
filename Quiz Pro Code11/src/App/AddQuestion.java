@@ -71,10 +71,12 @@ public class AddQuestion extends javax.swing.JFrame {
 
     
     private void myinit(){
+        //setting the frame
         setTitle("Add Question");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         
+        //initializing the components
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtnum = new javax.swing.JLabel();
@@ -95,7 +97,8 @@ public class AddQuestion extends javax.swing.JFrame {
         OKbutton = new App.ButtonCustom();
         txtcounter = new javax.swing.JLabel();
         requiredButton = new JCheckBox();
-
+        
+        //setting components
         jLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel4.setText("Question");
 
@@ -107,7 +110,8 @@ public class AddQuestion extends javax.swing.JFrame {
         checkmark = new javax.swing.JLabel();
         checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
         checkmark.setIcon(checkmarkIcon);
-                   
+        
+        //set total questions
         try{
             Connection con = ConnectionProvider.getCon();
             String query = "SELECT COUNT(*) AS total FROM question WHERE quizID = ?";
@@ -135,6 +139,7 @@ public class AddQuestion extends javax.swing.JFrame {
         //get the z is in what index position
         int quiz_id_num = quizid.length() + 2;
         
+        //set question id
         try{
             Connection con = ConnectionProvider.getCon();
             String query = "SELECT * FROM questionID WHERE quizID = ? ORDER BY CAST(SUBSTRING(id, ?) AS SIGNED) DESC LIMIT 1";
@@ -147,7 +152,6 @@ public class AddQuestion extends javax.swing.JFrame {
                 if (rs.next()) {
                     // Get the count from the result set
                     String maximum = rs.getString(1);
-                    System.out.println(maximum);
                     if(maximum != null){
                         char[] arr = maximum.toCharArray();
                         String temp = "";                    
@@ -173,8 +177,9 @@ public class AddQuestion extends javax.swing.JFrame {
                         txtID.setText(str);
                     }
                 } else {
-                    // No data found, display a message
-                    txtID.setText("No ID found");
+                    // No data found, display as question ID number 1
+                    String str = quizid + "q1";
+                    txtID.setText(str);
                 }
             }
         } catch (SQLException e) {
@@ -183,7 +188,7 @@ public class AddQuestion extends javax.swing.JFrame {
             txtID.setText("Error");
         }
        
-
+        //set the frame
        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -204,7 +209,8 @@ public class AddQuestion extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(540, 650));
         setMinimumSize(new java.awt.Dimension(540, 650));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        
+        //set components
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>ADD QUESTION</u></html>");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 13, -1, -1));
@@ -616,6 +622,7 @@ public class AddQuestion extends javax.swing.JFrame {
         
     }
     
+    //if empty and focus lost, field become red
     private void questionFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         if(questionField.getText().trim().isEmpty()){
             questionField.setForeground(Color.red);
@@ -627,6 +634,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt4FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt4 = opt4Field.getText();
         
@@ -638,6 +646,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt3FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt3 = opt3Field.getText();
         
@@ -649,6 +658,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt2FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt2 = opt2Field.getText();
         
@@ -660,6 +670,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt1FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt1 = opt1Field.getText();
         
@@ -671,6 +682,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if question char count exceeded or become zero, field become red
     private void updateQuestionCharacterCount() {
         String text = questionField.getText();
         int length = text.length();
@@ -686,7 +698,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
-    
+    //if option char count exceeded or become zero, field become red
     private void updateOptionCharacterCount(JTextField field){
         String text = field.getText();
         int length = text.length();
@@ -699,7 +711,7 @@ public class AddQuestion extends javax.swing.JFrame {
         }
     }
     
-    
+    //draw checkmark in the option that user clicks
     private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
         //set the previous checkmark (if any) to false first
         checkmark.setVisible(false);
@@ -796,10 +808,12 @@ public class AddQuestion extends javax.swing.JFrame {
                 EditQuiz.quizlist.addQuestion(questionStr, answerStr, this.quizid, opt1Str, opt2Str, opt3Str, opt4Str, required);
                                 
                 Connection con = ConnectionProvider.getCon();
-    
+                
+                //add new questions as the tail node of the linked list
                 Linkedlist.Node tail_node = EditQuiz.quizlist.quiz.tail;
                 Question new_question = tail_node.data;
                 
+                //insert into database
                 PreparedStatement ps = con.prepareStatement("insert into question values(?,?,?,?,?,?,?,?,?,?)");
                 ps.setString(1, new_question.getQuestionID());
                 ps.setString(2, new_question.getQuestion());

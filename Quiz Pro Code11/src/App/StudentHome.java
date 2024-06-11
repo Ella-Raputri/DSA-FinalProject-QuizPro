@@ -52,6 +52,7 @@ public class StudentHome extends javax.swing.JFrame {
     private JScrollPane scrollPane;
     
     private void myinit(){
+        //set frame
         setTitle("Student Home Page");
         setResizable(false);
         LinkedList<String> idList = new LinkedList<>();
@@ -61,6 +62,7 @@ public class StudentHome extends javax.swing.JFrame {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
+            //select only quiz ID that has question
             ResultSet rs1 = st.executeQuery("select quizID from question");
             while(rs1.next()){
                 String id = rs1.getString("quizID");
@@ -69,6 +71,7 @@ public class StudentHome extends javax.swing.JFrame {
                 }
             }
             
+            //retrieve all information about the quizzes
             for(int i=0; i<idList.size(); i++){
                 ResultSet rs2 = st.executeQuery("select * from quiz where id='" + idList.get(i) + "'");
                 if(rs2.first()){
@@ -79,8 +82,6 @@ public class StudentHome extends javax.swing.JFrame {
                     listOfQuizzes.add(quiz);
                 }   
             }
-            
-            
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
@@ -100,6 +101,7 @@ public class StudentHome extends javax.swing.JFrame {
         contentPane.setLayout(null); // Use absolute layout
         setContentPane(contentPane);
         
+        //if no quiz, then display these components
         JLabel nothing_here = new JLabel();
         JLabel check_later = new JLabel();
         JLabel empty_box = new JLabel();
@@ -181,7 +183,7 @@ public class StudentHome extends javax.swing.JFrame {
         ImageIcon bgImage = new ImageIcon("src/App/img/background_studenthome.png");
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
-        
+        //set components
         ButtonCustom logoutButton = new App.ButtonCustom();
         logoutButton.setForeground(new java.awt.Color(255, 255, 255));
         logoutButton.setText("Log out");

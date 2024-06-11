@@ -73,6 +73,7 @@ public class AddQuiz extends javax.swing.JFrame {
     int totalElement =0;
     LinkedList<String> allIdList = new LinkedList<>();
     private void myinit(){
+        //set frame
         setTitle("Add Quiz");
         setResizable(false);
         getContentPane().setBackground(Color.white);
@@ -96,6 +97,7 @@ public class AddQuiz extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(540, 570));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
+        //set components
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         backButton = new App.ButtonCustom();
@@ -108,7 +110,7 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        
+      //set quiz id
        try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -132,8 +134,6 @@ public class AddQuiz extends javax.swing.JFrame {
                 String str = "z" + String.valueOf(idnow);
                 id.setText(str);
             }
-
-            
         } catch(Exception e){
             JFrame jf = new JFrame();
             jf.setAlwaysOnTop(true);
@@ -141,6 +141,7 @@ public class AddQuiz extends javax.swing.JFrame {
         }
         
         
+        //set components
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 48)); // NOI18N
         jLabel1.setText("<html><u>ADD QUIZ</u></html>");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
@@ -148,7 +149,6 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 28)); // NOI18N
         jLabel3.setText("ID:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
-
         
         backButton.setText("Back");
         backButton.setBorderColor(new java.awt.Color(57, 129, 247));
@@ -237,7 +237,6 @@ public class AddQuiz extends javax.swing.JFrame {
         // Create a DocumentFilter to limit the text length
         ((AbstractDocument) titleField.getDocument()).setDocumentFilter(new DocumentFilter() {
             int maxLength = 30; // Set the maximum length
-
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 // Get the current length of the text
@@ -258,14 +257,12 @@ public class AddQuiz extends javax.swing.JFrame {
                 durationField.requestFocusInWindow();
             }
         });
-        
-        
+
         durationField.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         getContentPane().add(durationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 335, -1, -1));
         // Create a DocumentFilter to limit the text length
         ((AbstractDocument) durationField.getDocument()).setDocumentFilter(new DocumentFilter() {
             Pattern regex = Pattern.compile("\\d*"); // Regular expression to match numbers
-
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
@@ -275,26 +272,21 @@ public class AddQuiz extends javax.swing.JFrame {
                 }
    
             }
-        }); 
-        
-        
+        });         
         durationField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateDurationCharacterCount();
             }
-
             @Override
             public void removeUpdate(DocumentEvent e) {
                 updateDurationCharacterCount();
             }
-
             @Override
             public void changedUpdate(DocumentEvent e) {
                 updateDurationCharacterCount();
             }
         });
-        
         durationField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 durationFieldFocusLost(evt);
@@ -310,13 +302,12 @@ public class AddQuiz extends javax.swing.JFrame {
         jLabel5.setText("minutes");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 340, -1, -1));
         
-        
 
         pack();
         setLocationRelativeTo(null);
     }
     
-    
+    //if char count exceeded or become zero, field become red
     private void updateTitleCharacterCount() {
         String text = titleField.getText();
         int length = text.length();
@@ -332,7 +323,7 @@ public class AddQuiz extends javax.swing.JFrame {
         }
     }
        
-
+    //if focus lost and is empty, field become red
     private void titleFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String title = titleField.getText();
         
@@ -344,8 +335,7 @@ public class AddQuiz extends javax.swing.JFrame {
             titleField.setForeground(Color.black);
             jLabel6.setForeground(Color.black);
         }
-    }
-                                                                                  
+    }                                              
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to go back?", "SELECT", JOptionPane.YES_OPTION);
@@ -355,7 +345,7 @@ public class AddQuiz extends javax.swing.JFrame {
         }
     }
     
-    
+    //field become red when exceeding length or length become zero
     private void updateDurationCharacterCount(){
         String text = durationField.getText();
         int textInt = Integer.parseInt(text);
@@ -370,6 +360,7 @@ public class AddQuiz extends javax.swing.JFrame {
         }
     }
     
+    //if focus lost and is empty, field become red
     private void durationFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String duration = durationField.getText();
         
@@ -398,6 +389,7 @@ public class AddQuiz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), "Your duration field is still empty");
         }
         else{
+            //if all conditions have satisfied, insert into database
             try{
                 Connection con = ConnectionProvider.getCon();
                 Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -412,6 +404,7 @@ public class AddQuiz extends javax.swing.JFrame {
                 ps2.setString(1, idInput);
                 ps2.executeUpdate();
                 
+                //link to new page
                 JOptionPane.showMessageDialog(getContentPane(), "Successfully added");
                 AdminHome.open=0;
                 setVisible(false);

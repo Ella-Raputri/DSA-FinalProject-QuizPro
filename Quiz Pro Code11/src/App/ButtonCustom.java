@@ -10,88 +10,107 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 public class ButtonCustom extends JButton {
-
+    
+    //determine whether a button is being hovered or not
     public boolean isOver() {
         return over;
     }
-
     public void setOver(boolean over) {
         this.over = over;
     }
-
+    
+    //get background color
     public Color getColor() {
         return color;
     }
-
+    
+    //set background color
     public void setColor(Color color) {
         this.color = color;
         setBackground(color);
     }
-
+    
+    //get background color when being hovered
     public Color getColorOver() {
         return colorOver;
     }
-
+    
+    //set background color when being hovered
     public void setColorOver(Color colorOver) {
         this.colorOver = colorOver;
     }
-
+    
+    //get background color when being clicked
     public Color getColorClick() {
         return colorClick;
     }
-
+    
+    //set background color when being clicked
     public void setColorClick(Color colorClick) {
         this.colorClick = colorClick;
     }
-
+    
+    //get border color when is not being hovered
     public Color getBorderColorNotOver() {
         return borderColorNotOver;
     }
-
+    
+    //get text color
     public Color getColor2() {
         return color2;
     }
-
+    
+    //set text color
     public void setColor2(Color color2) {
         this.color2 = color2;
     }
-
+    
+    //get text color when being hovered
     public Color getColorOver2() {
         return colorOver2;
     }
 
+    //set text color when being hovered
     public void setColorOver2(Color colorOver2) {
         this.colorOver2 = colorOver2;
     }
-
+    
+    //get text color when being clicked
     public Color getColorClick2() {
         return colorClick2;
     }
-
+    
+    //set text color when being clicked
     public void setColorClick2(Color colorClick2) {
         this.colorClick2 = colorClick2;
     }
-
+    
+    //get border color when being hovered
     public Color getBorderColorOver() {
         return borderColorOver;
     }
-
+    
+    //set border color when being hovered
     public void setBorderColorOver(Color borderColorOver) {
         this.borderColorOver = borderColorOver;
     }
-
+    
+    //set border color when not being hovered
     public void setBorderColorNotOver(Color borderColor) {
         this.borderColorNotOver = borderColor;
     }
     
+    //set border color default
     public void setBorderColor(Color borderColor) {
         this.borderColor = borderColor;
     }
-
+    
+    //get radius for button
     public int getRadius() {
         return radius;
     }
-
+    
+    //set button radius
     public void setRadius(int radius) {
         this.radius = radius;
     }

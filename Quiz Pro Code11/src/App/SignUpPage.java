@@ -349,6 +349,7 @@ public class SignUpPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        //set frame
         setResizable(false);
         setTitle("Sign Up Page");
         hidePassword.setVisible(false);
@@ -358,6 +359,7 @@ public class SignUpPage extends javax.swing.JFrame {
         passwordConfirm.setFont(new java.awt.Font("Montserrat", 1, 22));
         passwordConfirm.setEchoChar((char)8226);
         
+        //set components
         username.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -448,6 +450,7 @@ public class SignUpPage extends javax.swing.JFrame {
         teacherRole.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
     
+    //if empty, field become red
     private void updateSelfStatusUsername(){
         String text = username.getText();
         if(text.trim().isEmpty()){
@@ -462,6 +465,7 @@ public class SignUpPage extends javax.swing.JFrame {
         }
     }
     
+     //if empty, field become red
     private void updateSelfStatusEmail(){
         String text = email.getText();
         if(text.trim().isEmpty() || !(validate(text))){
@@ -476,6 +480,7 @@ public class SignUpPage extends javax.swing.JFrame {
         }
     }
     
+     //if empty and password not equals to confirm password, field become red
     private void updateSelfStatusPassword(){
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
@@ -507,6 +512,7 @@ public class SignUpPage extends javax.swing.JFrame {
         }
     }
     
+    //if empty and password not equals to confirm password, field become red
     private void updateSelfStatusPasswordConfirm(){
         String text = password.getText();
         String textConfirm = passwordConfirm.getText();
@@ -657,7 +663,7 @@ public class SignUpPage extends javax.swing.JFrame {
                }
            }
            
-           
+           //if student, then insert into student database
            if(role.equals("Student") && passwordStr.equals(passwordConfirmStr) && validate(emailStr) && validatePassword(passwordStr)){
                try{
                     Connection con = ConnectionProvider.getCon();
@@ -706,6 +712,7 @@ public class SignUpPage extends javax.swing.JFrame {
                 }
            }
            
+           //if teacher, insert into admin database
            if(role.equals("Teacher") && passwordStr.equals(passwordConfirmStr) && validate(emailStr) && validatePassword(passwordStr)){
                try{
                     Connection con = ConnectionProvider.getCon();
@@ -889,7 +896,6 @@ public class SignUpPage extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        //System.out.println(new java.io.File("src/App/img/background_welcome.png").exists());
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

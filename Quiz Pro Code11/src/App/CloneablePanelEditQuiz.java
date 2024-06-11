@@ -28,6 +28,7 @@ public class CloneablePanelEditQuiz extends JPanel{
     private boolean required;
 
     public CloneablePanelEditQuiz(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer, boolean required) {
+        //set up the panel
         setLayout(null);
         this.borderRadius = borderRadius;
         this.bgColor = bgColor;
@@ -44,7 +45,7 @@ public class CloneablePanelEditQuiz extends JPanel{
         setOpaque(false);
 
                 
-        // Example content - you can add whatever components you need
+        // set components
         JLabel qNumLabel = new JLabel();
         qNumLabel.setFont(new Font("Montserrat SemiBold", 0, 30));
         qNumLabel.setText("QUESTION " +  qNumber);
@@ -59,7 +60,6 @@ public class CloneablePanelEditQuiz extends JPanel{
         requiredLabel.setVisible(required);
         add(requiredLabel);
         
-        
         JLabel qidLabel = new JLabel();
         qidLabel.setFont(new Font("Montserrat", 0, 24));
         qidLabel.setText("ID: " +  id);
@@ -72,13 +72,11 @@ public class CloneablePanelEditQuiz extends JPanel{
         setComponentBounds(questionLabel, 40, 70, questionLabel.getPreferredSize().width+5, questionLabel.getPreferredSize().height);
         add(questionLabel);
         
-        
         int opt1Height = questionLabel.getHeight()+questionLabel.getY()+30;
         int opt2Height = opt1Height+50;
         int opt3Height = opt2Height + 50;
         int opt4Height = opt3Height +50;
 
-        
         JLabel checkmark1 = new JLabel();
         checkmark1.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark.png"));
         setComponentBounds(checkmark1, 40, opt1Height+6, checkmark1.getPreferredSize().width+30, checkmark1.getPreferredSize().height);
@@ -102,7 +100,6 @@ public class CloneablePanelEditQuiz extends JPanel{
         setComponentBounds(checkmark4, 40, opt4Height+6, checkmark4.getPreferredSize().width+30, checkmark4.getPreferredSize().height);
         add(checkmark4);
         checkmark4.setVisible(false);
-        
         
         JRadioButton opt1Label = new JRadioButton();
         opt1Label.setEnabled(false);
@@ -141,6 +138,7 @@ public class CloneablePanelEditQuiz extends JPanel{
         add(opt4Label);
         
         
+       //draw checkmark based on what option that is the answer
         if(answer.equals(opt1)){
             checkmark1.setVisible(true);
         }
@@ -156,6 +154,7 @@ public class CloneablePanelEditQuiz extends JPanel{
         
     }
     
+    //draw the radio button 
     private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
         JLabel radIcon = new JLabel();
         radIcon.setIcon(new ImageIcon("src/App/img/circle_default.png"));

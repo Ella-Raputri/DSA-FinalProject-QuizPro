@@ -9,14 +9,17 @@ package App;
  * @author Asus
  */
 public class Student {
+    //attributes
     private String username;
     private double grade;
 
+    //constructor
     public Student(String username, double grade) {
         this.username = username;
         this.grade = grade;
     }
-
+    
+    //setters and getters
     public String getUsername() {
         return username;
     }

@@ -85,10 +85,12 @@ public class ChangeOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        //set frame
         setTitle("Change Order of Questions");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         
+        //set components
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -116,16 +118,19 @@ public class ChangeOrder extends javax.swing.JFrame {
         checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
         checkmark.setIcon(checkmarkIcon);
         
+        //add radio buttons to a button group
         btnGrp.add(radio1);
         btnGrp.add(radio2);
         btnGrp.add(radio3);
         btnGrp.add(radio4);
         
+        //set radio buttons to enabled false, so that we can replace the radio buttons with a better image
         radio1.setEnabled(false);
         radio2.setEnabled(false);
         radio3.setEnabled(false);
         radio4.setEnabled(false);
         
+        //set frame
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -145,7 +150,8 @@ public class ChangeOrder extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setMinimumSize(new java.awt.Dimension(540, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        
+        //set components
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>CHANGE ORDER</u></html>");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
@@ -153,7 +159,6 @@ public class ChangeOrder extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel3.setText("Input Question ID");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
-
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setText("Options");
@@ -237,7 +242,6 @@ public class ChangeOrder extends javax.swing.JFrame {
             }
         });
         getContentPane().add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 83, 140, 40));
-        
         
         getContentPane().add(radio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 474, -1, -1));
         getContentPane().add(radio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 416, -1, -1));
@@ -330,7 +334,6 @@ public class ChangeOrder extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
         jLabel5.setText("Change Order to");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
-
         
         search_id.setIcon(new javax.swing.ImageIcon("src/App/img/search_id.png"));
         search_id.addMouseListener(new MouseAdapter() {           
@@ -357,6 +360,7 @@ public class ChangeOrder extends javax.swing.JFrame {
     }
     
     
+    //set the radio buttons with a new icon
     private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
         JLabel radIcon = new JLabel();
         radIcon.setIcon(new ImageIcon("src/App/img/circle_default.png"));
@@ -367,7 +371,7 @@ public class ChangeOrder extends javax.swing.JFrame {
         getContentPane().repaint();
     }
     
-    
+    //if empty and focus lost, field become red
     private void idFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String id = idField.getText();
         
@@ -379,6 +383,7 @@ public class ChangeOrder extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become empty
     private void orderFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String txt = orderField.getText();
         
@@ -390,6 +395,7 @@ public class ChangeOrder extends javax.swing.JFrame {
         }
     }
     
+    //if length=0, field become red
     private void updateCharacterCount(JTextField field){
         String text = field.getText();
         int length = text.length();
@@ -402,12 +408,12 @@ public class ChangeOrder extends javax.swing.JFrame {
         }
     }
     
-    
-    
+    //search id function
     private void handleSearchID(){
         String idStr = idField.getText();
-        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
-
+        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);    //get the corresponding node
+        
+        //set the contents to the components
         if(current_node != null){
            current_question = current_node.data; 
            txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
@@ -452,6 +458,7 @@ public class ChangeOrder extends javax.swing.JFrame {
     }
     
     
+    //draw checkmark for the correct answer
     private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
         //set the previous checkmark (if any) to false first
         checkmark.setVisible(false);
@@ -515,15 +522,18 @@ public class ChangeOrder extends javax.swing.JFrame {
             int oldNum = current_question.getQuestionNumber();
             EditQuiz.quizlist.changeOrder(idStr, newNum); 
             
+            //if new number equals to old number, the function will not run and throw an error message
             if (newNum == oldNum){
                 JOptionPane.showMessageDialog(getContentPane(), "The new number is the same as the old number. Changes are not applied.");
                 return;
             }
+            //throw an error message when the new number is out of range
             else if (newNum < 0 || newNum > EditQuiz.quizlist.quiz.countNodes()){
                 JOptionPane.showMessageDialog(getContentPane(), "The number "+newNum+" is not in the range of question numbers in this quiz. Please try again.");
                 return;
             }
-
+            
+            //if no error message, update database
             String updateQuery = "UPDATE question SET number = ? WHERE id = ?";
 
             try (Connection conn = ConnectionProvider.getCon();

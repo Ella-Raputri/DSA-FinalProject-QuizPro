@@ -27,6 +27,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
     private boolean required;
 
     public CloneablePanelSearchQuestion(int borderRadius, Color bgColor, int borderWidth, String id, int qNumber, String question, String opt1, String opt2, String opt3, String opt4, String answer, boolean required) {
+        //set panel
         setLayout(null);
         this.borderRadius = borderRadius;
         this.bgColor = bgColor;
@@ -43,7 +44,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         setOpaque(false);
 
                 
-        // Example content - you can add whatever components you need
+        // set components
         JLabel qNumLabel = new JLabel();
         qNumLabel.setFont(new Font("Montserrat SemiBold", 0, 22));
         qNumLabel.setText("QUESTION " +  qNumber);
@@ -70,12 +71,10 @@ public class CloneablePanelSearchQuestion extends JPanel{
         requiredLabel.setVisible(required);
         add(requiredLabel);
         
-        
         int opt1Height = questionLabel.getHeight()+70;
         int opt2Height = opt1Height+40;
         int opt3Height = opt2Height + 40;
         int opt4Height = opt3Height +40;
-
         
         JLabel checkmark1 = new JLabel();
         checkmark1.setIcon(new javax.swing.ImageIcon("src/App/img/checkmark2.png"));
@@ -100,7 +99,6 @@ public class CloneablePanelSearchQuestion extends JPanel{
         setComponentBounds(checkmark4, 15, opt4Height+4, checkmark4.getPreferredSize().width+30, checkmark4.getPreferredSize().height);
         add(checkmark4);
         checkmark4.setVisible(false);
-        
         
         JRadioButton opt1Label = new JRadioButton();
         opt1Label.setEnabled(false);
@@ -140,6 +138,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         this.opt4Label = opt4Label;
         
         
+        //draw checkmark based on the answer
         if(answer.equals(opt1)){
             checkmark1.setVisible(true);
         }
@@ -155,6 +154,7 @@ public class CloneablePanelSearchQuestion extends JPanel{
         
     }
     
+    //set up radio buttons
     private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
         JLabel radIcon = new JLabel();
         radIcon.setIcon(new ImageIcon("src/App/img/circle_default2.png"));

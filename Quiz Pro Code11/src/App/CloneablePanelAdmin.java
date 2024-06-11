@@ -22,6 +22,7 @@ public class CloneablePanelAdmin extends JPanel{
     private String durationInput;
 
     public CloneablePanelAdmin(int borderRadius, Color bgColor, int borderWidth, String id, String titleInput, String durationInput) {
+        //set up the panel
         setLayout(null);
         this.borderRadius = borderRadius;
         this.bgColor = bgColor;
@@ -30,15 +31,13 @@ public class CloneablePanelAdmin extends JPanel{
         this.titleInput = titleInput;
         this.durationInput = durationInput;
         setOpaque(false);
-             
                 
-        // Example content - you can add whatever components you need
+        // set components in the panel
         WrappedLabel title = new WrappedLabel(250);
         title.setText(titleInput);
         title.setFont(new Font("Montserrat SemiBold", 0, 30));
         setComponentBounds(title, 40, 60, title.getPreferredSize().width, title.getPreferredSize().height);
-        add(title);
-        
+        add(title); 
         
         JLabel duration = new JLabel();
         duration.setFont(new Font("Montserrat", 0, 24));
@@ -67,8 +66,7 @@ public class CloneablePanelAdmin extends JPanel{
         });
         setComponentBounds(deleteButton, 280, 10, deleteButton.getPreferredSize().width, deleteButton.getPreferredSize().height);
         add(deleteButton);
-        
-        
+
         ButtonCustom editButton = new App.ButtonCustom();
         editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit");
@@ -97,12 +95,15 @@ public class CloneablePanelAdmin extends JPanel{
         component.setBounds(x, y, width, height); // Set the position and size of the component
     }
     
+    //when delete button is clicked
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        //show confirmation message
         String str = "Do you really want to delete " + titleInput + "?";
         AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
         
         int a = JOptionPane.showConfirmDialog(home.getContentPane(), str, "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
+            //update database
             try{
                 Connection con = ConnectionProvider.getCon();
                 PreparedStatement ps = con.prepareStatement("delete from quiz where id=?");
@@ -118,6 +119,7 @@ public class CloneablePanelAdmin extends JPanel{
         }
     }
     
+    //when edit button is clicked
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         AdminHome home = (AdminHome) SwingUtilities.getWindowAncestor(this);
         home.goToEdit(id);

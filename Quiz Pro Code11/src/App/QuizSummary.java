@@ -35,6 +35,7 @@ public class QuizSummary extends javax.swing.JFrame {
     }
     
     public QuizSummary(int score, String studentId, int totalQuestions) {
+        //set frame
         setTitle("Quiz Summary Page");
         initComponents();
         setResizable(false);
@@ -42,7 +43,7 @@ public class QuizSummary extends javax.swing.JFrame {
         this.score = score;
         this.totalQuestions = totalQuestions;
 
-        
+        //retrieve username from user id
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -55,18 +56,17 @@ public class QuizSummary extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
+        //set components
         textLabel = new WrappedLabel(900);
         textLabel.setFont(new java.awt.Font("Montserrat Medium", 0, 36)); // NOI18N
         
         int textHeight = setTextLabel();
-        System.out.println("textheigth:" +textHeight);
         scoreLabel.setText("Your Score: " + score + "/" + totalQuestions);
         
+        //draw green bar based on score
         double score2 = (double)score;
         Double newData = Double.valueOf((score2/totalQuestions) * 910);
-        System.out.print(newData);
         int greenWidth = newData.intValue();
-        System.out.print(greenWidth);
         greenBar.setPreferredSize(new Dimension(greenWidth, greenBar.getHeight()));
         
         int barHeight = 330;
@@ -93,7 +93,7 @@ public class QuizSummary extends javax.swing.JFrame {
     private int setTextLabel(){
         double score2 = (double)score;
         double finalScore = (score2/totalQuestions) * 100;
-        Random rand = new Random();
+        Random rand = new Random();     //to choose what text to display
         int index = rand.nextInt(3);
         
         String text="";

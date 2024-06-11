@@ -50,8 +50,11 @@ public class ExamPage extends javax.swing.JFrame {
     }
     
     
+    //make sure that the linked list is up to date
     private void updateLinkedList(LinkedlistBenchmark list){
-        quizlist2.quiz.clearNodes();
+        quizlist2.quiz.clearNodes();        //clear current linked list
+        
+        //retrieve new data from the databse
         try{
             Connection con = ConnectionProvider.getCon();
             String query = "SELECT * FROM question WHERE quizID = ? ORDER BY number ASC";
@@ -84,11 +87,13 @@ public class ExamPage extends javax.swing.JFrame {
     
     
     private void myinit(){
+        //set frame
         setTitle("Quiz Exam Page");
         backButton.setVisible(false);
         submitButton.setVisible(false);
         setResizable(false);
         
+        //setting the timer for the exam
         time = new Timer(1000, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae){
@@ -121,6 +126,7 @@ public class ExamPage extends javax.swing.JFrame {
         time.start();
         
         
+        //set quiz details
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -159,6 +165,7 @@ public class ExamPage extends javax.swing.JFrame {
     }
     
     
+    //show the circle_clicked icon when an option is clicked
     private void displayAnswer(){
         if(!(optionList.get(questionNumber-1)==null)){
             optionList.get(questionNumber-1).setSelected(true);
@@ -166,18 +173,22 @@ public class ExamPage extends javax.swing.JFrame {
         }    
     }
     
-  
+    
     private void displayQuestion(){ 
+        //set the next, back, and submit button accordingly
+        //if last question, then next button become submit button
         if(questionNumber == quizTotalQuestions){
             nextButton.setVisible(false);
             submitButton.setVisible(true);
             backButton.setVisible(true);
         }
+        //if first question, only show the next button
         else if(questionNumber ==1){
             backButton.setVisible(false); 
             nextButton.setVisible(true);
             submitButton.setVisible(false);
         }
+        //for other questions, show only next and back button
         else{
             nextButton.setVisible(true);
             backButton.setVisible(true);
@@ -185,6 +196,7 @@ public class ExamPage extends javax.swing.JFrame {
         }
         
         
+        //set question number, question, option contents, and asterisks (for required question)
         String id = quizlist2.quiz.getIDFromNumber(questionNumber);
         Linkedlist.Node currentQuestion = quizlist2.quiz.getNode(id);
         
@@ -208,6 +220,8 @@ public class ExamPage extends javax.swing.JFrame {
     
     private int checkAnswer(){
         int marks=0;
+        
+        //check student answer with the correct answer
         for(int i=0; i<quizTotalQuestions; i++){
             String studentAnswer = studentAnswerList.get(i);
             String correctAnswer = correctAnswersList.get(i);
@@ -219,9 +233,11 @@ public class ExamPage extends javax.swing.JFrame {
             }
         }
         
+        //calculate the score
         double marks2 = (double) marks;
         double finalScore = (marks2/quizTotalQuestions) * 100;
         
+        //update student database
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -508,7 +524,8 @@ public class ExamPage extends javax.swing.JFrame {
         int a = JOptionPane.showConfirmDialog(getContentPane(), "Do you really want to submit?", "SELECT", JOptionPane.YES_OPTION);
         if(a==0){
            LinkedList<Integer> numRequiredButEmpty = new LinkedList<>();
-        
+           
+           //check whether there are required questions that have not been filled
             for(int i=0; i<quizTotalQuestions; i++){
                 String studentAnswer = studentAnswerList.get(i);
                 boolean required = requiredList.get(i);
@@ -520,10 +537,12 @@ public class ExamPage extends javax.swing.JFrame {
                 }
             }
             
-            
+            //if every required question is filled, then submit
             if(numRequiredButEmpty.isEmpty()){
                 submit();
             }
+            
+            //else, show error message
             else{
                 String str="Number " + numRequiredButEmpty.get(0);
                 for(int j=1; j<numRequiredButEmpty.size(); j++){
@@ -535,7 +554,8 @@ public class ExamPage extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
-
+    
+    //clear radio button selection
     private void clearSelection(){
         option1Label.setSelected(false);
         option1Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
@@ -547,6 +567,7 @@ public class ExamPage extends javax.swing.JFrame {
         option4Label.setIcon(new ImageIcon("src/App/img/circle_default.png"));
     }
     
+    //draw suitable image based on each radio button selection
     private void radioButtonSelection(JRadioButton radNow, JRadioButton radInactive1, JRadioButton radInactive2, JRadioButton radInactive3, boolean active){
         if(active){
             radNow.setIcon(new ImageIcon("src/App/img/circle_clicked.png"));
@@ -565,7 +586,6 @@ public class ExamPage extends javax.swing.JFrame {
     }
     
     private void option1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option1LabelActionPerformed
-        
         if(option1Label.isSelected()){
             radioButtonSelection(option1Label, option2Label, option3Label, option4Label, true);
             optionList.set(questionNumber-1, option1Label);

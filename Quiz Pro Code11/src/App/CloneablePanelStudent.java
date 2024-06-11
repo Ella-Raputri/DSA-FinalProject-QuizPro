@@ -22,6 +22,7 @@ public class CloneablePanelStudent extends JPanel{
     private String durationInput;
 
     public CloneablePanelStudent(int borderRadius, Color bgColor, int borderWidth, String id, String titleInput, String durationInput) {
+        //set panel
         setLayout(null);
         this.borderRadius = borderRadius;
         this.bgColor = bgColor;
@@ -32,7 +33,7 @@ public class CloneablePanelStudent extends JPanel{
         setOpaque(false);
              
                 
-        // Example content - you can add whatever components you need
+        // set components
         WrappedLabel title = new WrappedLabel(250);
         title.setText(titleInput);
         title.setFont(new Font("Montserrat SemiBold", 0, 30));
@@ -44,7 +45,6 @@ public class CloneablePanelStudent extends JPanel{
         duration.setText(durationInput + " minutes");
         setComponentBounds(duration, 40, title.getY()+title.getHeight()+15, duration.getPreferredSize().width+10, duration.getPreferredSize().height);
         add(duration);
-        
         
         ButtonCustom startButton = new App.ButtonCustom();
         startButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,6 +75,7 @@ public class CloneablePanelStudent extends JPanel{
         component.setBounds(x, y, width, height); // Set the position and size of the component
     }
     
+    //if no student ever fill the quiz, then return false
     private static boolean checkColumn(StudentHome home, String quizID){
         try{
             Connection con = ConnectionProvider.getCon();
@@ -92,14 +93,17 @@ public class CloneablePanelStudent extends JPanel{
         return false;
     }
     
+    
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         StudentHome home = (StudentHome) SwingUtilities.getWindowAncestor(this);
         boolean check = checkColumn(home, id);
         
+        //when no student ever fill the quiz before
         if(!check){
             try{
                 Connection con = ConnectionProvider.getCon();
-
+                
+                //add a column to the quiz database using with the column name of quiz ID
                 PreparedStatement ps = con.prepareStatement("ALTER TABLE student ADD " + id + " double(10,2)"); 
                 ps.executeUpdate();
 
@@ -108,8 +112,8 @@ public class CloneablePanelStudent extends JPanel{
             }
         }
         
+        //redirect to quiz details
         home.goToDetails(id);
-
     }
     
     

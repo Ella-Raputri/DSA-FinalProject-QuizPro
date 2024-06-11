@@ -10,16 +10,19 @@ package App;
  * @author asus
  */
 public class Quiz {
+    //attributes
     private String title;
     private String duration;
     private String id;
 
+    //constructor
     public Quiz(String title, String duration, String id) {
         this.title = title;
         this.duration = duration;
         this.id = id;
     }
-
+    
+    //setters and getters for each attributes
     public String getTitle() {
         return title;
     }

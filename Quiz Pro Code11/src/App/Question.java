@@ -42,7 +42,6 @@ public class Question {
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     String maximum = rs.getString(1);
-                    System.out.println("maccc" + maximum);
                     
                     if(maximum != null){
                         char[] arr = maximum.toCharArray();

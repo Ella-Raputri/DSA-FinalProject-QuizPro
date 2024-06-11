@@ -18,7 +18,7 @@ public class WrappedLabel extends JLabel {
     private int maxWidth;
 
     public WrappedLabel(int maxWidth) {
-        this.maxWidth = maxWidth;
+        this.maxWidth = maxWidth;       //determine the max width
     }
 
     @Override

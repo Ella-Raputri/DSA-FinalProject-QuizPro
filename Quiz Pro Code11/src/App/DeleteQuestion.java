@@ -76,10 +76,12 @@ public class DeleteQuestion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        //set frame
         setTitle("Delete Question");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         
+        //set components
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -110,12 +112,11 @@ public class DeleteQuestion extends javax.swing.JFrame {
         radio3.setEnabled(false);
         radio4.setEnabled(false);
         
-        
-        
         checkmark = new javax.swing.JLabel();
         checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
         checkmark.setIcon(checkmarkIcon);
-
+        
+        //set frame
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -135,7 +136,8 @@ public class DeleteQuestion extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setMinimumSize(new java.awt.Dimension(540, 650));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        
+        //set components
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>DELETE QUESTION</u></html>");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
@@ -143,7 +145,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Montserrat SemiBold", 0, 22)); // NOI18N
         jLabel3.setText("Input Question ID");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 87, -1, -1));
-
         
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -230,7 +231,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
         txtopt1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(txtopt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 297, 465, 35));
         
-        
         txtopt2.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         txtopt2.setText("[option 2]");
         txtopt2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -284,6 +284,7 @@ public class DeleteQuestion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
+    //draw the radio button
     private void setCircleRadio(JRadioButton rad, int xPos, int yPos){
         JLabel radIcon = new JLabel();
         radIcon.setIcon(new ImageIcon("src/App/img/circle_default.png"));
@@ -294,10 +295,12 @@ public class DeleteQuestion extends javax.swing.JFrame {
         getContentPane().repaint();
     }
     
+    //search ID
     private void handleSearchID(){
         String idStr = idField.getText();
-        Linkedlist.Node current_node = quizlist.quiz.getNode(idStr);
-
+        Linkedlist.Node current_node = quizlist.quiz.getNode(idStr); //get node
+        
+        //get all data based on the node
         if(current_node != null){
            current_question = current_node.data; 
            txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
@@ -409,7 +412,6 @@ public class DeleteQuestion extends javax.swing.JFrame {
                     curr_node = curr_node.next;
                 }
 
-                System.out.println("Records updated successfully.");
                 setVisible(false);
                 EditQuiz.open = 0;
                 EditQuiz.showCloneablePanel(EditQuiz.quizlist.quiz.countNodes());

@@ -47,8 +47,11 @@ public class EditQuiz extends javax.swing.JFrame {
         myinit();
     }
     
+    //to ensure the linked list is up to date after many operations
     private void updateLinkedList(LinkedlistBenchmark list){
-        quizlist.quiz.clearNodes();
+        quizlist.quiz.clearNodes();     //clear current linked list
+        
+        //retrieve new data from database
         try{
             Connection con = ConnectionProvider.getCon();
             String query = "SELECT * FROM question WHERE quizID = ? ORDER BY number ASC";
@@ -94,10 +97,12 @@ public class EditQuiz extends javax.swing.JFrame {
 
     
     private void myinit(){
+        //set frame
         setResizable(false);
         setTitle("Edit Quiz Page");
         int totalElement = 0;
         
+        //get total element from the linked list
         Linkedlist.Node current = EditQuiz.quizlist.quiz.head;
         while(current!=null){
             totalElement++;
@@ -158,10 +163,11 @@ public class EditQuiz extends javax.swing.JFrame {
         
         showCloneablePanel(totalElement);
         
-
+        // set background
         ImageIcon bgImage = new ImageIcon("src/App/img/background_edit_quiz.png");
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
+        //initialize components
         backButton = new App.ButtonCustom();
         changeOrder_icon = new javax.swing.JLabel();
         result_icon = new javax.swing.JLabel();
@@ -789,6 +795,8 @@ public class EditQuiz extends javax.swing.JFrame {
         setTitleAndDuration();
     }
     
+    
+    //if no question in that quiz, show some icons
     public static void showEmptyIcon(int totalElement){
         if(totalElement ==0){
             plane_icon.setVisible(true);
@@ -802,6 +810,8 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }
     
+    
+    //show question panels 
     public static void showCloneablePanel(int totalElement){
         cloneablePanel.removeAll();
         
@@ -854,7 +864,8 @@ public class EditQuiz extends javax.swing.JFrame {
         cloneablePanel.repaint();
     }
     
-   
+    
+    //update the quiz title and duration based on database
     private void setTitleAndDuration(){
         try{
             Connection con = ConnectionProvider.getCon();
@@ -884,11 +895,13 @@ public class EditQuiz extends javax.swing.JFrame {
         }
     }
     
+    
+    //if quiz title is 0, field become red 
     private void updateTitleCharacterCount() {
         String text = titleField.getText();
         int length = text.length();
         
-        if(length > 30 || length==0){
+        if(length==0){
             titleField.setForeground(Color.red);
             titleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 14, 2, 3)));
         }
@@ -906,6 +919,7 @@ public class EditQuiz extends javax.swing.JFrame {
     }
     
     
+    //when editing quiz title
     private void editTitleActionPerformed(java.awt.event.ActionEvent evt) {                                          
         titleField.setEditable(true);
         titleField.setFocusable(true);
@@ -919,6 +933,7 @@ public class EditQuiz extends javax.swing.JFrame {
         editTitleCancel.setBounds(titleField.getWidth()+titleField.getX()+editTitleDone.getPreferredSize().width+5, 108, editTitleCancel.getPreferredSize().width, editTitleCancel.getPreferredSize().height);
     }
     
+    
     private boolean editTitleDoneActionPerformed(java.awt.event.ActionEvent evt) {
         boolean run = false;
         
@@ -926,9 +941,12 @@ public class EditQuiz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), "Title is empty");
         }
         else{
+            //set the component to become as before
             editTitle.setVisible(true);
             editTitleDone.setVisible(false);
             editTitleCancel.setVisible(false);
+            
+            //update the database
             try{
                 Connection con = ConnectionProvider.getCon();
                 String str = "update quiz set title='" + titleField.getText() + "' where id='" + EditQuiz.quizID + "'";
@@ -950,6 +968,7 @@ public class EditQuiz extends javax.swing.JFrame {
         setTitleAfterChange();
     }
     
+    //set title based on database
     private void setTitleAfterChange(){
         try{
             Connection con = ConnectionProvider.getCon();
@@ -968,16 +987,13 @@ public class EditQuiz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
     }
-
-        
     
-    
-    
+    //if out of range, field become red
     private void updateDurationCharacterCount() {
         String text = durationField.getText();
         int length = text.length();
         
-        if(length > 10 || length==0){
+        if(length==0){
             durationField.setForeground(Color.red);
             durationField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)), javax.swing.BorderFactory.createEmptyBorder(2, 9, 2, 9)));
         }
@@ -994,7 +1010,7 @@ public class EditQuiz extends javax.swing.JFrame {
     
     }
     
-    
+    //when editing the quiz duration
     private void editDurationActionPerformed(java.awt.event.ActionEvent evt) {                                          
         durationField.setEditable(true);
         durationField.setFocusable(true);
@@ -1009,13 +1025,15 @@ public class EditQuiz extends javax.swing.JFrame {
         editDurationCancel.setBounds(editDurationDone.getX()+editDurationDone.getPreferredSize().width, 158, editDurationCancel.getPreferredSize().width, editDurationCancel.getPreferredSize().height);
     }
     
+    
     private boolean editDurationDoneActionPerformed(java.awt.event.ActionEvent evt) {
         boolean run = false;
         
         if(durationField.getForeground().equals(Color.red)){
             JOptionPane.showMessageDialog(getContentPane(), "Duration is empty");
         }
-        else{           
+        else{
+            //update database
             try{
                 Connection con = ConnectionProvider.getCon();
                 String str = "update quiz set duration='" + durationField.getText() + "' where id='" + EditQuiz.quizID + "'";
@@ -1034,6 +1052,7 @@ public class EditQuiz extends javax.swing.JFrame {
         setDurationAfterChange();
     }
     
+    //set duration based on database
     private void setDurationAfterChange(){
         editDuration.setVisible(true);
         editDurationDone.setVisible(false);
@@ -1060,12 +1079,9 @@ public class EditQuiz extends javax.swing.JFrame {
     }
     
     
-   
-        
     
     EditQuiz editquiz = (EditQuiz) SwingUtilities.getRoot(this);
-    
-    
+
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if(open==0){
             new AddQuestion(quizlist, quizID).setVisible(true);

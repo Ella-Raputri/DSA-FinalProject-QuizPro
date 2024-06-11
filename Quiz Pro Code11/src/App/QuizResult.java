@@ -35,12 +35,14 @@ public class QuizResult extends javax.swing.JFrame {
     }
     
     private void myinit(){
+        //set frame
         setResizable(false);
         setTitle("Students Result");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
         int totalElement =0;
+        
         //get the total element
         try {
             Connection con = ConnectionProvider.getCon();
@@ -125,16 +127,15 @@ public class QuizResult extends javax.swing.JFrame {
         
         showCloneablePanel(totalElement, this.studentList);
         
-
+        //set background image
         ImageIcon bgImage = new ImageIcon("src/App/img/background_result.png");
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
-        
+        //set components
         backButton = new App.ButtonCustom();
         LogoutButton = new App.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
 
-        
         backButton.setText("< Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setForeground(new java.awt.Color(57, 129, 247));
@@ -185,7 +186,7 @@ public class QuizResult extends javax.swing.JFrame {
         LogoutButton.setBounds(1090,20, LogoutButton.getPreferredSize().width, 60);
         contentPane.add(LogoutButton);
         
-        
+        //update content panel
         contentPane.revalidate();
         contentPane.repaint();
         pack();

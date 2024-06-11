@@ -39,6 +39,7 @@ public class FilterMarks extends javax.swing.JFrame {
     }
     
     private void myinit(){
+        //set components
         field1 = new App.RoundJTextField(10);
         field1.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         getContentPane().add(field1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 55, 140, -1));
@@ -233,14 +234,20 @@ public class FilterMarks extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), "Ending range cannot be smaller than starting range");
         }
         else{
+            //if all requirements already satisfied
             LinkedList<Student> newStudentList = new LinkedList<>();
+            
+            //get all students that fulfills the condition
             for(Student i: studentList){
                 if(i.getGrade()>=startNumber && i.getGrade()<=endNumber){
                     newStudentList.add(i);
                 }
             }
+            
+            //update panels in the quiz result page
             QuizResult.showCloneablePanel(newStudentList.size(), newStudentList);
             
+            //close this frame
             QuizResult.open=0;
             setVisible(false);
         }
@@ -257,6 +264,7 @@ public class FilterMarks extends javax.swing.JFrame {
         return num;
     }
     
+    //if out of range, field become red
     private void updateField1CharacterCount() {
         String text1 = field1.getText();
         double txtDouble1 = checkDouble(text1);
@@ -270,6 +278,7 @@ public class FilterMarks extends javax.swing.JFrame {
         }
     }
     
+    //if out of range, field become red
     private void updateField2CharacterCount() {
         String text2 = field2.getText();
         double txtDouble2 = checkDouble(text2);
@@ -283,7 +292,7 @@ public class FilterMarks extends javax.swing.JFrame {
         }
     }
        
-
+    //if empty and focus lost, then field become red
     private void field1FocusLost(java.awt.event.FocusEvent evt) {                                      
         String text = field1.getText();
         
@@ -295,6 +304,7 @@ public class FilterMarks extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, then field become red
     private void field2FocusLost(java.awt.event.FocusEvent evt) {                                      
         String text = field2.getText();
         

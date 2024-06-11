@@ -88,10 +88,12 @@ public class EditQuestion extends javax.swing.JFrame {
 
     
     private void myinit(){
+        //set frame
         setTitle("Edit Question");
         getContentPane().setBackground(Color.white);
         setResizable(false);
         
+        //initialize component
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         opt4Field = new RoundJTextField(15);
@@ -121,7 +123,8 @@ public class EditQuestion extends javax.swing.JFrame {
         checkmark = new javax.swing.JLabel();
         checkmarkIcon = new javax.swing.ImageIcon("src/App/img/checkmark.png");
         checkmark.setIcon(checkmarkIcon);
-
+        
+        //set frame
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -134,7 +137,6 @@ public class EditQuestion extends javax.swing.JFrame {
                 } 
             }
         });
-        
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 540, 700));
@@ -142,7 +144,9 @@ public class EditQuestion extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setMinimumSize(new java.awt.Dimension(540, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        
+        
+        //set components
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 36)); // NOI18N
         jLabel1.setText("<html><u>EDIT QUESTION</u></html>");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 13, -1, -1));
@@ -593,10 +597,12 @@ public class EditQuestion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
+    //for search id
     private void handleSearchID(){
         String idStr = idField.getText();
-        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);
-
+        Linkedlist.Node current_node = quizList.quiz.getNode(idStr);    //get node
+        
+        //set all datas from the node to the components
         if(current_node != null){
            current_question = current_node.data; 
            txtnum.setText(Integer.toString(current_question.getQuestionNumber()));
@@ -637,6 +643,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void idFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String id = idField.getText();
         
@@ -648,6 +655,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void questionFieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String question = questionField.getText();
         
@@ -661,6 +669,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt4FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt4 = opt4Field.getText();
         
@@ -672,6 +681,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt3FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt3 = opt3Field.getText();
         
@@ -683,6 +693,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt2FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt2 = opt2Field.getText();
         
@@ -694,6 +705,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //if empty and focus lost, field become red
     private void opt1FieldFocusLost(java.awt.event.FocusEvent evt) {                                      
         String opt1 = opt1Field.getText();
         
@@ -706,6 +718,7 @@ public class EditQuestion extends javax.swing.JFrame {
     }
     
     
+    //to count the character in the option field
     private void updateCharacterCount(JTextField field) {
         String text = field.getText();
         int length = text.length();
@@ -718,6 +731,7 @@ public class EditQuestion extends javax.swing.JFrame {
         }
     }
     
+    //to count character in question field
     private void updateQuestionCharacterCount() {
         String text = questionField.getText();
         int length = text.length();
@@ -735,6 +749,7 @@ public class EditQuestion extends javax.swing.JFrame {
     }
     
     
+    //to draw checkmark
     private void drawCheckmark(JRadioButton radio, JLabel checkmark, ImageIcon checkmarkIcon){
         //set the previous checkmark (if any) to false first
         checkmark.setVisible(false);
@@ -849,7 +864,6 @@ public class EditQuestion extends javax.swing.JFrame {
                 ps.executeUpdate();
                 
                 //show message and close menu
-                System.out.println("==========================================");
                 EditQuiz.quizlist.printQuestions();
                 String message = "Question with the ID of "+ idStr +" edited successfully.";
                 JOptionPane.showMessageDialog(getContentPane(), message);

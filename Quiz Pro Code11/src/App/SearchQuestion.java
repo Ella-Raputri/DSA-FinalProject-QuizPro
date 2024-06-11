@@ -56,17 +56,20 @@ public class SearchQuestion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void myinit(){
+        //set frame
         setResizable(false);
         setTitle("Search Question");
         
         //set background color
         getContentPane().setBackground(Color.white);
         
+        //set components
         jLabel1 = new javax.swing.JLabel();
         backButton = new App.ButtonCustom();
         stringField = new RoundJTextField(15);
         search_icon = new javax.swing.JLabel();
-
+        
+        //set frame
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -126,7 +129,6 @@ public class SearchQuestion extends javax.swing.JFrame {
         jLabel1.setText("<html><u>SEARCH QUESTION</u></html>");
         jLabel1.setBounds(80, 10, jLabel1.getPreferredSize().width+20, jLabel1.getPreferredSize().height);
         contentPane.add(jLabel1);
-        
 
         backButton.setText("Back");
         backButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -150,7 +152,6 @@ public class SearchQuestion extends javax.swing.JFrame {
         backButton.setBounds(30, 530, backButton.getPreferredSize().width+10, backButton.getPreferredSize().height+10);
         contentPane.add(backButton);
 
-        
         stringField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         stringField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterPressed");
         stringField.getActionMap().put("enterPressed", new AbstractAction() {
@@ -189,14 +190,17 @@ public class SearchQuestion extends javax.swing.JFrame {
     }
     
     
+    //search id
     private void handleSearchID(){
         if (results != null && !results.isEmpty()){
-            results.clearNodes();
+            results.clearNodes();   //clear current result
         }
-
+        
+        //search for the substring
         String substr = stringField.getText();
         results = EditQuiz.quizlist.questionSearch(substr);
-
+        
+        //repaint the panels
         cloneablePanel.removeAll();
         scrollPane.revalidate();
         scrollPane.repaint();

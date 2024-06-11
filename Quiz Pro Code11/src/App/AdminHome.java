@@ -40,11 +40,13 @@ public class AdminHome extends javax.swing.JFrame {
 
     
     private void myinit(){
+        //set frame
         setResizable(false);
         setTitle("Admin Home Page");
         int totalElement = 0;
         LinkedList<Quiz> listOfQuizzes = new LinkedList<>();
         
+        //retrieving all quizzes data
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -56,7 +58,6 @@ public class AdminHome extends javax.swing.JFrame {
                 Quiz quiz = new Quiz(title, duration, id);
                 listOfQuizzes.add(quiz);
             }
-            
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
@@ -77,6 +78,8 @@ public class AdminHome extends javax.swing.JFrame {
         contentPane.setLayout(null); // Use absolute layout
         setContentPane(contentPane);
         
+        
+        //the things that show when the total element=0
         JLabel nothing_here = new JLabel();
         JLabel click_to_add = new JLabel();
         JLabel empty_box = new JLabel();
@@ -128,13 +131,11 @@ public class AdminHome extends javax.swing.JFrame {
             String duration = listOfQuizzes.get(i).getDuration();
             
             // Create a new cloned panel
-            // Cloneable Panel
             CloneablePanelAdmin clonedPanel = new CloneablePanelAdmin(40, Color.white, 2,id, title, duration);
             // Set your custom width and height for the cloned panel
             int panelWidth = 330;
             int panelHeight = 330;
-            
-            
+
             // Calculate the row and column indices
             row = i / 3;
             column = i % 3;
@@ -159,11 +160,11 @@ public class AdminHome extends javax.swing.JFrame {
             scrollPane.getVerticalScrollBar().setValue(0);
         }
         
-
+        //set background image
         ImageIcon bgImage = new ImageIcon("src/App/img/background_adminhome.png");
         contentPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         
-        
+        //set components
         ButtonCustom logoutButton = new App.ButtonCustom();
         logoutButton.setForeground(new java.awt.Color(255, 255, 255));
         logoutButton.setText("Log out");
@@ -185,7 +186,6 @@ public class AdminHome extends javax.swing.JFrame {
         });
         logoutButton.setBounds(1120, 20, 130, 50);
         contentPane.add(logoutButton);
-        
         
         ButtonCustom addButton = new App.ButtonCustom();
         addButton.setBorder(null);
@@ -209,9 +209,9 @@ public class AdminHome extends javax.swing.JFrame {
         addButton.setBounds(1160, 110, 50, 50);
         contentPane.add(addButton);
         
+        //update content pane
         contentPane.revalidate();
         contentPane.repaint();
-
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

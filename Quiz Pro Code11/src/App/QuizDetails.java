@@ -30,12 +30,14 @@ public class QuizDetails extends javax.swing.JFrame {
     }
     
     public QuizDetails(String quizId, String studentId) {
+        //set frame
         setTitle("Quiz Details Page");
         setResizable(false);
         this.quizId = quizId;
         this.studentId = studentId;
         
         try{
+            //retrieve quiz details from database
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs1 = st.executeQuery("select * from quiz where id='" + quizId + "'");
@@ -47,6 +49,7 @@ public class QuizDetails extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(getContentPane(), "null");
             }
             
+            //retrieve the required questions from database
             ResultSet rs2 = st.executeQuery("select required from question where quizID='" + quizId + "'");
             while(rs2.next()){
                 quizTotalQuestions+=1;
@@ -56,14 +59,14 @@ public class QuizDetails extends javax.swing.JFrame {
                     requiredQuestions+=1;
                 }
             }
-
         }catch(Exception e){
             JOptionPane.showMessageDialog(getContentPane(), e);
         }
         
+        
         initComponents();
         
-
+        //set components
         title.setText(quizTitle);
         duration.setText(quizDuration + " minutes");
         

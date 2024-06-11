@@ -254,12 +254,14 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myinit(){
+        //set frame
         setTitle("Login Page");
         setResizable(false);
         hidePassword.setVisible(false);
         password.setEchoChar((char)8226);
         password.setFont(new java.awt.Font("Montserrat", 1, 22));
         
+        //set components
         username.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -321,6 +323,7 @@ public class LoginPage extends javax.swing.JFrame {
         teacherRole.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
     
+    //if empty, field become red
     private void updateSelfStatusUsername(){
         String text = username.getText();
         if(text.trim().isEmpty()){
@@ -335,6 +338,7 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }
     
+    //if empty, field become red
     private void updateSelfStatusPassword(){
         String text = password.getText();
         if(text.trim().isEmpty()){
@@ -427,6 +431,7 @@ public class LoginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getContentPane(), "Please select a role.");
         }
         else{
+            //if role=student, check from student database
             if(role.equals("Student")){
                 String passwordConfirmation ="";
                 String idStr = "";
@@ -449,14 +454,13 @@ public class LoginPage extends javax.swing.JFrame {
                     else{
                         JOptionPane.showMessageDialog(getContentPane(), "Invalid Username");
                     }
-                    
-                    
-   
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(getContentPane(), e);
                 }
             }
-
+            
+            
+            //if role=teacher, check from admin database
             if(role.equals("Teacher")){
                 String passwordConfirmation ="";
                 try{

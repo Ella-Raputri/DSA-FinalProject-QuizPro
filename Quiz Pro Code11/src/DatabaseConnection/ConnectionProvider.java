@@ -13,7 +13,7 @@ public class ConnectionProvider {
     public static Connection getCon(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quizpro", "root", "ellis");
+            Connection con = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6697205", "sql6697205", "qe9cdhDBC1");
             return con;
             
         }catch(Exception e){
